@@ -15,9 +15,9 @@ class ViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource
     
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var calendarHeight: NSLayoutConstraint!
-    
-    
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var changeButton: UIBarButtonItem!
+    
     
     // 配列を設定
     var sections = [String]()
@@ -31,7 +31,6 @@ class ViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource
         calendar.dataSource = self
         tableView.delegate = self
         tableView.dataSource = self
-        
         
         // 曜日部分を日本語表記に変更
         calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
@@ -128,11 +127,13 @@ class ViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource
         print("\(year)年\(month)月\(day)日")
     }
     
-    @IBAction func changeButton(_ sender: Any) {
+    @IBAction func changeButtonAction(_ sender: Any) {
         if calendar.scope == .month {
-           calendar.scope = .week
+            calendar.setScope(.week, animated: true)
+            changeButton.title = "月表示"
         } else if calendar.scope == .week {
-            calendar.scope = .month
+            calendar.setScope(.month, animated: true)
+            changeButton.title = "週表示"
         }
         
        
@@ -149,6 +150,19 @@ class ViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource
     
 //    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int{
 //        return 1 //ここに入る数字によって点の数が変わる
+//    }
+    
+    
+    // 点マークや画像をつけたい日にはそれぞれtrueやimageをリターンし、それ以外の日にちにはnilをリターンする条件文を付属すれば良いです。
+    
+    //点マークをつける関数
+//    func calendar(calendar: FSCalendar!, hasEventForDate date: NSDate!) -> Bool {
+//        return shouldShowEventDot
+//    }
+    
+    //画像をつける関数
+//    private func calendar(_ calendar: FSCalendar!, imageFor date: NSDate!) -> UIImage! {
+//        return anyImage
 //    }
     
     

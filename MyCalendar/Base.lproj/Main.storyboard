@@ -58,16 +58,17 @@
                     <navigationItem key="navigationItem" title="T0D0リスト" id="QxQ-69-T8C">
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="plus" catalog="system" id="D5H-FX-uBb"/>
-                            <barButtonItem title="Item" id="hyp-ZN-fv6">
+                            <barButtonItem title="週表示" id="hyp-ZN-fv6">
                                 <connections>
-                                    <action selector="changeButton:" destination="BYZ-38-t0r" id="yWs-iu-6S3"/>
+                                    <action selector="changeButtonAction:" destination="BYZ-38-t0r" id="sRg-zx-WKv"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="calendar" destination="VJe-MZ-Fx6" id="qpf-dY-CYg"/>
-                        <outlet property="calendarHeight" destination="VJe-MZ-Fx6" id="A0n-UB-6ib"/>
+                        <outlet property="calendarHeight" destination="OAW-0M-dFT" id="vrs-NC-Ias"/>
+                        <outlet property="changeButton" destination="hyp-ZN-fv6" id="nbX-ga-ZLd"/>
                         <outlet property="tableView" destination="ey5-CX-caO" id="qHP-oB-ONj"/>
                     </connections>
                 </viewController>
