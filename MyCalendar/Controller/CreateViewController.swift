@@ -52,7 +52,7 @@ extension CreateViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
             return cell
-        case 1:
+        case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DateCustomCell", for: indexPath) as? DateCustomCell else {
                 return UITableViewCell()
             }
@@ -89,7 +89,7 @@ extension CreateViewController: UITableViewDelegate {
 
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard indexPath.section == 1, let cell = tableView.cellForRow(at: indexPath) as? DateCustomCell else { return }
+        guard indexPath.section == 2, let cell = tableView.cellForRow(at: indexPath) as? DateCustomCell else { return }
 
         cell.isPickerDisplay.toggle()
         tableView.performBatchUpdates(nil, completion: nil)
