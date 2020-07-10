@@ -14,13 +14,9 @@ class CreateViewController: UIViewController {
     
     // Sectionで使用する配列を定義する.
     let sections: Array = ["タスク","ステータス","日時","場所","メモ"]
-//    let sections: Array = ["タスク","日時"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        tableView.register(UINib(nibName: "TaskCustomCell", bundle: nil), forCellReuseIdentifier: "TaskCustomCell")
-//        tableView.register(UINib(nibName: "DateCustomCell", bundle: nil), forCellReuseIdentifier: "DateCustomCell")
         
         tableView.register(UINib(nibName: "TaskCustomCell", bundle: nil), forCellReuseIdentifier: "TaskCustomCell")
         tableView.register(UINib(nibName: "DateCustomCell", bundle: nil), forCellReuseIdentifier: "DateCustomCell")
@@ -91,8 +87,8 @@ extension CreateViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
-
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         guard indexPath.section == 1, let cell = tableView.cellForRow(at: indexPath) as? DateCustomCell else { return }
 
         cell.isPickerDisplay.toggle()
