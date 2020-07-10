@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--T0D0リスト-->
+        <!--TODOリスト-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
@@ -55,10 +55,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="T0D0リスト" id="QxQ-69-T8C">
+                    <navigationItem key="navigationItem" title="TODOリスト" id="QxQ-69-T8C">
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="plus" catalog="system" id="D5H-FX-uBb"/>
+                            <barButtonItem title="Item" image="plus" catalog="system" id="D5H-FX-uBb">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="eZH-Xd-dZh" kind="show" id="Ag9-6N-zzJ"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="週表示" id="hyp-ZN-fv6">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="changeButtonAction:" destination="BYZ-38-t0r" id="sRg-zx-WKv"/>
                                 </connections>
@@ -74,7 +80,46 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1010.144927536232" y="51.5625"/>
+            <point key="canvasLocation" x="946" y="52"/>
+        </scene>
+        <!--Create View Controller-->
+        <scene sceneID="TYG-MH-1FG">
+            <objects>
+                <viewController id="eZH-Xd-dZh" customClass="CreateViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ing-m5-TMe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="KWV-Tr-ur6">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="eZH-Xd-dZh" id="c5z-wc-7F5"/>
+                                    <outlet property="delegate" destination="eZH-Xd-dZh" id="HtG-Td-oS1"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="soP-3f-AuJ" firstAttribute="trailing" secondItem="KWV-Tr-ur6" secondAttribute="trailing" id="JNl-Ri-Y9E"/>
+                            <constraint firstItem="KWV-Tr-ur6" firstAttribute="top" secondItem="soP-3f-AuJ" secondAttribute="top" id="Tn9-rU-zYD"/>
+                            <constraint firstItem="soP-3f-AuJ" firstAttribute="bottom" secondItem="KWV-Tr-ur6" secondAttribute="bottom" id="UFM-j0-t1F"/>
+                            <constraint firstItem="KWV-Tr-ur6" firstAttribute="leading" secondItem="soP-3f-AuJ" secondAttribute="leading" id="sTJ-Co-8Td"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="soP-3f-AuJ"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="7em-wh-b2U">
+                        <barButtonItem key="rightBarButtonItem" title="保存" id="KW8-vc-0Ky">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="KWV-Tr-ur6" id="gKH-5w-mOg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oww-47-h40" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1780" y="52"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="f5d-oK-5da">
@@ -84,6 +129,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eal-Hm-W2r">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -95,6 +144,7 @@
             <point key="canvasLocation" x="100.00000000000001" y="51.5625"/>
         </scene>
     </scenes>
+    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
     </resources>
