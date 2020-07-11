@@ -9,33 +9,31 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCustomCell" rowHeight="44" id="KGk-i7-Jjw" customClass="TaskCustomCell" customModule="MyCalendar" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="Status1CustomCell" customModule="MyCalendar" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y6x-QH-Kem">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未完了" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QqV-Rd-8OV">
                         <rect key="frame" x="16" y="0.0" width="304" height="44"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="44" id="jEf-yq-yKW"/>
+                            <constraint firstAttribute="height" constant="44" id="aHs-Xu-WGi"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
-                    </textField>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Y6x-QH-Kem" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="5y8-TQ-Mza"/>
-                    <constraint firstAttribute="trailing" secondItem="Y6x-QH-Kem" secondAttribute="trailing" id="XkZ-hg-Vzf"/>
-                    <constraint firstItem="Y6x-QH-Kem" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="cFf-x2-7oX"/>
-                    <constraint firstAttribute="bottom" secondItem="Y6x-QH-Kem" secondAttribute="bottom" id="dGR-34-0xd"/>
+                    <constraint firstItem="QqV-Rd-8OV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="0wb-72-nqR"/>
+                    <constraint firstAttribute="trailing" secondItem="QqV-Rd-8OV" secondAttribute="trailing" id="5K9-fD-mTt"/>
+                    <constraint firstAttribute="bottom" secondItem="QqV-Rd-8OV" secondAttribute="bottom" id="Bg7-Vu-gxI"/>
+                    <constraint firstItem="QqV-Rd-8OV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="XKU-hO-ckg"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <connections>
-                <outlet property="textField" destination="Y6x-QH-Kem" id="CZN-g7-rCi"/>
-            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
         </tableViewCell>
     </objects>

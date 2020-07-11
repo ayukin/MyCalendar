@@ -1,5 +1,5 @@
 //
-//  TaskCustomCell.swift
+//  CustomCell.swift
 //  MyCalendar
 //
 //  Created by 西岡鮎季 on 2020/07/10.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskCustomCell: UITableViewCell, UITextFieldDelegate {
+class CustomCell: UITableViewCell, UITextFieldDelegate {
     
     @IBOutlet weak var textField: UITextField!
 

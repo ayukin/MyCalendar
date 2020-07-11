@@ -13,9 +13,17 @@
 		841FD05024A35C720039E4E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841FD04E24A35C720039E4E0 /* Main.storyboard */; };
 		841FD05224A35C740039E4E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 841FD05124A35C740039E4E0 /* Assets.xcassets */; };
 		841FD05524A35C740039E4E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841FD05324A35C740039E4E0 /* LaunchScreen.storyboard */; };
+		845B90F624B9AD9E000A44C7 /* Status1CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B90F424B9AD9E000A44C7 /* Status1CustomCell.swift */; };
+		845B90F724B9AD9E000A44C7 /* Status1CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845B90F524B9AD9E000A44C7 /* Status1CustomCell.xib */; };
+		845B90FA24B9ADB2000A44C7 /* Status2CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B90F824B9ADB2000A44C7 /* Status2CustomCell.swift */; };
+		845B90FB24B9ADB2000A44C7 /* Status2CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845B90F924B9ADB2000A44C7 /* Status2CustomCell.xib */; };
+		845B90FE24B9AEB8000A44C7 /* NoticeCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B90FC24B9AEB8000A44C7 /* NoticeCustomCell.swift */; };
+		845B90FF24B9AEB8000A44C7 /* NoticeCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845B90FD24B9AEB8000A44C7 /* NoticeCustomCell.xib */; };
+		845B910224B9DBEC000A44C7 /* TimeCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B910024B9DBEC000A44C7 /* TimeCustomCell.swift */; };
+		845B910324B9DBEC000A44C7 /* TimeCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845B910124B9DBEC000A44C7 /* TimeCustomCell.xib */; };
 		8463562024B87A75002C3962 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463561F24B87A75002C3962 /* CreateViewController.swift */; };
-		8463562324B87E26002C3962 /* TaskCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463562124B87E26002C3962 /* TaskCustomCell.swift */; };
-		8463562424B87E26002C3962 /* TaskCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8463562224B87E26002C3962 /* TaskCustomCell.xib */; };
+		8463562324B87E26002C3962 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463562124B87E26002C3962 /* CustomCell.swift */; };
+		8463562424B87E26002C3962 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8463562224B87E26002C3962 /* CustomCell.xib */; };
 		8463562724B88363002C3962 /* DateCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463562524B88363002C3962 /* DateCustomCell.swift */; };
 		8463562824B88363002C3962 /* DateCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8463562624B88363002C3962 /* DateCustomCell.xib */; };
 		FD98881647D3DE75B9C97D9C /* Pods_MyCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63891DC2A03C9E946DDD745B /* Pods_MyCalendar.framework */; };
@@ -32,9 +40,17 @@
 		841FD05124A35C740039E4E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		841FD05424A35C740039E4E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		841FD05624A35C740039E4E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		845B90F424B9AD9E000A44C7 /* Status1CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status1CustomCell.swift; sourceTree = "<group>"; };
+		845B90F524B9AD9E000A44C7 /* Status1CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Status1CustomCell.xib; sourceTree = "<group>"; };
+		845B90F824B9ADB2000A44C7 /* Status2CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status2CustomCell.swift; sourceTree = "<group>"; };
+		845B90F924B9ADB2000A44C7 /* Status2CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Status2CustomCell.xib; sourceTree = "<group>"; };
+		845B90FC24B9AEB8000A44C7 /* NoticeCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeCustomCell.swift; sourceTree = "<group>"; };
+		845B90FD24B9AEB8000A44C7 /* NoticeCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoticeCustomCell.xib; sourceTree = "<group>"; };
+		845B910024B9DBEC000A44C7 /* TimeCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCustomCell.swift; sourceTree = "<group>"; };
+		845B910124B9DBEC000A44C7 /* TimeCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeCustomCell.xib; sourceTree = "<group>"; };
 		8463561F24B87A75002C3962 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
-		8463562124B87E26002C3962 /* TaskCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCustomCell.swift; sourceTree = "<group>"; };
-		8463562224B87E26002C3962 /* TaskCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCustomCell.xib; sourceTree = "<group>"; };
+		8463562124B87E26002C3962 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		8463562224B87E26002C3962 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		8463562524B88363002C3962 /* DateCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCustomCell.swift; sourceTree = "<group>"; };
 		8463562624B88363002C3962 /* DateCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateCustomCell.xib; sourceTree = "<group>"; };
 		D0AE01226C5E5F919FEB600E /* Pods-MyCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.release.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.release.xcconfig"; sourceTree = "<group>"; };
@@ -106,10 +122,18 @@
 			children = (
 				841FD04E24A35C720039E4E0 /* Main.storyboard */,
 				841FD05124A35C740039E4E0 /* Assets.xcassets */,
-				8463562124B87E26002C3962 /* TaskCustomCell.swift */,
-				8463562224B87E26002C3962 /* TaskCustomCell.xib */,
+				8463562124B87E26002C3962 /* CustomCell.swift */,
+				8463562224B87E26002C3962 /* CustomCell.xib */,
+				845B90F424B9AD9E000A44C7 /* Status1CustomCell.swift */,
+				845B90F524B9AD9E000A44C7 /* Status1CustomCell.xib */,
+				845B90F824B9ADB2000A44C7 /* Status2CustomCell.swift */,
+				845B90F924B9ADB2000A44C7 /* Status2CustomCell.xib */,
 				8463562524B88363002C3962 /* DateCustomCell.swift */,
 				8463562624B88363002C3962 /* DateCustomCell.xib */,
+				845B90FC24B9AEB8000A44C7 /* NoticeCustomCell.swift */,
+				845B90FD24B9AEB8000A44C7 /* NoticeCustomCell.xib */,
+				845B910024B9DBEC000A44C7 /* TimeCustomCell.swift */,
+				845B910124B9DBEC000A44C7 /* TimeCustomCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -191,9 +215,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8463562824B88363002C3962 /* DateCustomCell.xib in Resources */,
+				845B910324B9DBEC000A44C7 /* TimeCustomCell.xib in Resources */,
 				841FD05524A35C740039E4E0 /* LaunchScreen.storyboard in Resources */,
-				8463562424B87E26002C3962 /* TaskCustomCell.xib in Resources */,
+				8463562424B87E26002C3962 /* CustomCell.xib in Resources */,
 				841FD05224A35C740039E4E0 /* Assets.xcassets in Resources */,
+				845B90F724B9AD9E000A44C7 /* Status1CustomCell.xib in Resources */,
+				845B90FF24B9AEB8000A44C7 /* NoticeCustomCell.xib in Resources */,
+				845B90FB24B9ADB2000A44C7 /* Status2CustomCell.xib in Resources */,
 				841FD05024A35C720039E4E0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,10 +275,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845B90F624B9AD9E000A44C7 /* Status1CustomCell.swift in Sources */,
 				8463562724B88363002C3962 /* DateCustomCell.swift in Sources */,
-				8463562324B87E26002C3962 /* TaskCustomCell.swift in Sources */,
+				8463562324B87E26002C3962 /* CustomCell.swift in Sources */,
+				845B90FA24B9ADB2000A44C7 /* Status2CustomCell.swift in Sources */,
+				845B90FE24B9AEB8000A44C7 /* NoticeCustomCell.swift in Sources */,
 				8463562024B87A75002C3962 /* CreateViewController.swift in Sources */,
 				841FD04D24A35C720039E4E0 /* ViewController.swift in Sources */,
+				845B910224B9DBEC000A44C7 /* TimeCustomCell.swift in Sources */,
 				841FD04924A35C720039E4E0 /* AppDelegate.swift in Sources */,
 				841FD04B24A35C720039E4E0 /* SceneDelegate.swift in Sources */,
 			);
