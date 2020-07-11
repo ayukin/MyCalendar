@@ -28,8 +28,8 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="o2a-IV-4Ru">
                         <rect key="frame" x="0.0" y="44" width="320" height="160"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXE-wK-KDR">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXE-wK-KDR">
+                                <rect key="frame" x="0.0" y="160" width="320" height="0.0"/>
                                 <locale key="locale" localeIdentifier="ja"/>
                             </datePicker>
                         </subviews>
@@ -46,7 +46,11 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="137.68115942028987" y="206.91964285714286"/>
+            <connections>
+                <outlet property="label" destination="uiJ-1B-Lpw" id="EBr-ve-LaO"/>
+                <outlet property="timePicker" destination="wXE-wK-KDR" id="rNe-Lc-0sE"/>
+            </connections>
+            <point key="canvasLocation" x="36" y="76"/>
         </tableViewCell>
     </objects>
 </document>

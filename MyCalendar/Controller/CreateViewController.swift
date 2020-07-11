@@ -32,9 +32,6 @@ class CreateViewController: UIViewController {
 
 extension CreateViewController: UITableViewDataSource {
     
-//    static var taskCustomCell: TaskCustomCell?
-//    static var dateCustomCell: DateCustomCell?
-    
     // セクションの数を指定
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
@@ -117,11 +114,21 @@ extension CreateViewController: UITableViewDelegate {
 
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard indexPath.section == 2, indexPath.row == 0, let cell = tableView.cellForRow(at: indexPath) as? DateCustomCell else { return }
-
-        cell.isPickerDisplay.toggle()
-        tableView.performBatchUpdates(nil, completion: nil)
-
+//        guard indexPath.section == 2, indexPath.row == 0, let cell = tableView.cellForRow(at: indexPath) as? DateCustomCell else { return }
+//        cell.isPickerDisplay.toggle()
+//        tableView.performBatchUpdates(nil, completion: nil)
+        
+        if indexPath.section == 2 {
+            if indexPath.row == 0 {
+                guard let cell = tableView.cellForRow(at: indexPath) as? DateCustomCell else { return }
+                cell.isPickerDisplay.toggle()
+                tableView.performBatchUpdates(nil, completion: nil)
+            } else if indexPath.row == 2 {
+                guard let cell = tableView.cellForRow(at: indexPath) as? TimeCustomCell else { return }
+                cell.isPickerDisplay.toggle()
+                tableView.performBatchUpdates(nil, completion: nil)
+            }
+        }
     }
     
     

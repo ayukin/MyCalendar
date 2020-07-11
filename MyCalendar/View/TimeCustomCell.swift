@@ -9,16 +9,31 @@
 import UIKit
 
 class TimeCustomCell: UITableViewCell {
-
+    
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var timePicker: UIDatePicker!
+    
+    var isPickerDisplay: Bool = false {
+        didSet {
+            timePicker.isHidden = !isPickerDisplay
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        timePicker.addTarget(self, action: #selector(pickerValueChanged(picker:)), for: .valueChanged)
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    }
+    
+    @objc private func pickerValueChanged(picker: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        label.text = formatter.string(from: picker.date)
     }
     
 }
