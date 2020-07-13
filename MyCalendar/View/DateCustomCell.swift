@@ -13,6 +13,10 @@ class DateCustomCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    
+    
+    
+    
     var isPickerDisplay: Bool = false {
         didSet {
             datePicker.isHidden = !isPickerDisplay
@@ -21,6 +25,10 @@ class DateCustomCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy年MM月dd日 hh:mm"
+        label.text = formatter.string(from: Date())
         
         datePicker.addTarget(self, action: #selector(pickerValueChanged(picker:)), for: .valueChanged)
         
@@ -32,7 +40,8 @@ class DateCustomCell: UITableViewCell {
     
     @objc private func pickerValueChanged(picker: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateStyle = .full
+//        formatter.dateStyle = .full
+        formatter.dateFormat = "yyyy年MM月dd日 hh:mm"
         label.text = formatter.string(from: picker.date)
     }
     

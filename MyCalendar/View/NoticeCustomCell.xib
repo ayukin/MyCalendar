@@ -31,6 +31,9 @@
                             <constraint firstAttribute="height" constant="31" id="PE4-0C-toD"/>
                             <constraint firstAttribute="width" constant="47" id="qyO-Nr-KkJ"/>
                         </constraints>
+                        <connections>
+                            <action selector="switchAction:" destination="KGk-i7-Jjw" eventType="valueChanged" id="rIW-J6-2rV"/>
+                        </connections>
                     </switch>
                 </subviews>
                 <constraints>
@@ -43,6 +46,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="changeSwitch" destination="zP5-YE-sXv" id="bLr-tz-ZBe"/>
+            </connections>
             <point key="canvasLocation" x="176.81159420289856" y="115.17857142857142"/>
         </tableViewCell>
     </objects>

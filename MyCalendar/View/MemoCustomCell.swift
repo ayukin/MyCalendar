@@ -1,5 +1,5 @@
 //
-//  Status2CustomCell.swift
+//  MemoCustomCell.swift
 //  MyCalendar
 //
 //  Created by 西岡鮎季 on 2020/07/11.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Status2CustomCell: UITableViewCell {
+class MemoCustomCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
