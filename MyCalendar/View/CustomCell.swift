@@ -8,9 +8,19 @@
 
 import UIKit
 
+//delegateはweak参照したいため、classを継承する
+protocol  CustomCellDelegate: class {
+    func keyboardShowAction()
+    func keyboardHideAction()
+}
+
 class CustomCell: UITableViewCell, UITextFieldDelegate {
     
     @IBOutlet weak var textField: UITextField!
+    
+    // delegateはメモリリークを回避するためweak参照する
+    weak var delegate: CustomCellDelegate?
+
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,10 +35,21 @@ class CustomCell: UITableViewCell, UITextFieldDelegate {
         // Configure the view for the selected state
     }
     
+    // 入力開始時の処理
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        delegate?.keyboardShowAction()
+    }
+
     // リターンキーを押したときキーボードが閉じる
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        delegate?.keyboardHideAction()
         return true
+    }
+    
+    // 入力終了時の処理（フォーカスがはずれる）
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.keyboardHideAction()
     }
     
 }

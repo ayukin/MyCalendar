@@ -11,7 +11,7 @@ import UIKit
 class StatusCustomCell: UITableViewCell {
     
     @IBOutlet weak var statusLabel: UILabel!
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,4 +23,6 @@ class StatusCustomCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
 }
+

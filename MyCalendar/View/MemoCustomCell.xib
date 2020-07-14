@@ -16,25 +16,29 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="文字を入力してください" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AbV-X8-UVJ">
-                        <rect key="frame" x="16" y="0.0" width="288" height="200"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AbV-X8-UVJ" customClass="CustomTextView" customModule="MyCalendar" customModuleProvider="target">
+                        <rect key="frame" x="16" y="12" width="288" height="176.5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="200" id="bBE-0x-dQJ"/>
+                            <constraint firstAttribute="height" constant="176.5" id="bBE-0x-dQJ"/>
                         </constraints>
                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="AbV-X8-UVJ" secondAttribute="trailing" constant="16" id="OLV-jK-PvG"/>
-                    <constraint firstItem="AbV-X8-UVJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SJW-gV-viG"/>
+                    <constraint firstItem="AbV-X8-UVJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11.75" id="SJW-gV-viG"/>
                     <constraint firstItem="AbV-X8-UVJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="beF-Ox-CIe"/>
-                    <constraint firstAttribute="bottom" secondItem="AbV-X8-UVJ" secondAttribute="bottom" id="yGk-so-RvG"/>
+                    <constraint firstAttribute="bottom" secondItem="AbV-X8-UVJ" secondAttribute="bottom" constant="11.75" id="yGk-so-RvG"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="textView" destination="AbV-X8-UVJ" id="4yB-cc-xDT"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="205.58035714285714"/>
         </tableViewCell>
     </objects>

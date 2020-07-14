@@ -18,11 +18,14 @@ class CreateViewController: UIViewController {
     // TimeCustomCellの表示に関する定義
     var timeCustomCell: Bool = false
     
-    // Statusの「未完了」「完了済」を表すフラグ
+    // ステータスの「未完了」「完了済」を表すフラグ
     var InCompleteStatusDone: Bool = true
     var CompleteStatusDone: Bool = false
-
     
+    // タスクのセルのTextFieldのタップイベントを検出するフラグ
+    var taskCellDone: Bool = false
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +36,33 @@ class CreateViewController: UIViewController {
         tableView.register(UINib(nibName: "TimeCustomCell", bundle: nil), forCellReuseIdentifier: "TimeCustomCell")
         tableView.register(UINib(nibName: "MemoCustomCell", bundle: nil), forCellReuseIdentifier: "MemoCustomCell")
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    
+    // キーボードが表示される際の処理（高さ調整）
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                print("4 \(taskCellDone)")
+                if taskCellDone {
+                    self.view.frame.origin.y -= 0
+                } else {
+                    self.view.frame.origin.y -= keyboardSize.height
+                }
+            } else {
+                let suggestionHeight = self.view.frame.origin.y + keyboardSize.height
+                self.view.frame.origin.y -= suggestionHeight
+            }
+        }
+    }
+    
+    // キーボードと閉じる際の処理
+    @objc func keyboardWillHide() {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
     
 }
@@ -74,6 +104,8 @@ extension CreateViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? CustomCell else {
                 return UITableViewCell()
             }
+            // Cellのdelegateにselfを渡す
+            cell.delegate = self
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "StatusCustomCell", for: indexPath) as? StatusCustomCell else {
@@ -201,6 +233,23 @@ extension CreateViewController: NoticeCustomCellDelegate {
     }
     
 }
+
+extension CreateViewController: CustomCellDelegate{
+    
+    func keyboardShowAction() {
+        taskCellDone = true
+    }
+    
+    func keyboardHideAction() {
+        guard taskCellDone == true else { return }
+        taskCellDone = false
+
+    }
+
+}
+
+
+
 
 
 

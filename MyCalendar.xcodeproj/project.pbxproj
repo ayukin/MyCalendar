@@ -21,6 +21,7 @@
 		845B910324B9DBEC000A44C7 /* TimeCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845B910124B9DBEC000A44C7 /* TimeCustomCell.xib */; };
 		845B910624B9E577000A44C7 /* MemoCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B910424B9E577000A44C7 /* MemoCustomCell.swift */; };
 		845B910724B9E577000A44C7 /* MemoCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845B910524B9E577000A44C7 /* MemoCustomCell.xib */; };
+		845BDEFC24BDF5C300EDB6E4 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */; };
 		8463562024B87A75002C3962 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463561F24B87A75002C3962 /* CreateViewController.swift */; };
 		8463562324B87E26002C3962 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463562124B87E26002C3962 /* CustomCell.swift */; };
 		8463562424B87E26002C3962 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8463562224B87E26002C3962 /* CustomCell.xib */; };
@@ -48,6 +49,7 @@
 		845B910124B9DBEC000A44C7 /* TimeCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeCustomCell.xib; sourceTree = "<group>"; };
 		845B910424B9E577000A44C7 /* MemoCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCustomCell.swift; sourceTree = "<group>"; };
 		845B910524B9E577000A44C7 /* MemoCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemoCustomCell.xib; sourceTree = "<group>"; };
+		845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		8463561F24B87A75002C3962 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		8463562124B87E26002C3962 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		8463562224B87E26002C3962 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		8463561E24B87A0F002C3962 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				845B90F624B9AD9E000A44C7 /* StatusCustomCell.swift in Sources */,
+				845BDEFC24BDF5C300EDB6E4 /* CustomTextView.swift in Sources */,
 				8463562724B88363002C3962 /* DateCustomCell.swift in Sources */,
 				8463562324B87E26002C3962 /* CustomCell.swift in Sources */,
 				845B90FE24B9AEB8000A44C7 /* NoticeCustomCell.swift in Sources */,

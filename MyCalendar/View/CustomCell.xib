@@ -22,7 +22,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="jEf-yq-yKW"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                 </subviews>

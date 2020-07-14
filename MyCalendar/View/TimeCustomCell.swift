@@ -22,6 +22,10 @@ class TimeCustomCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy年MM月dd日 HH:mm"
+        label.text = formatter.string(from: Date())
+        
         timePicker.addTarget(self, action: #selector(pickerValueChanged(picker:)), for: .valueChanged)
         
     }
@@ -32,7 +36,7 @@ class TimeCustomCell: UITableViewCell {
     
     @objc private func pickerValueChanged(picker: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateStyle = .full
+        formatter.dateFormat = "yyyy年MM月dd日 hh:mm"
         label.text = formatter.string(from: picker.date)
     }
     

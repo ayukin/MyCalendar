@@ -28,8 +28,11 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="o2a-IV-4Ru">
                         <rect key="frame" x="0.0" y="44" width="320" height="160"/>
                         <subviews>
-                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXE-wK-KDR">
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXE-wK-KDR">
                                 <rect key="frame" x="0.0" y="160" width="320" height="0.0"/>
+                                <date key="date" timeIntervalSinceReferenceDate="616424003.47011602">
+                                    <!--2020-07-14 12:53:23 +0000-->
+                                </date>
                                 <locale key="locale" localeIdentifier="ja"/>
                             </datePicker>
                         </subviews>

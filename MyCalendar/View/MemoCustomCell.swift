@@ -8,11 +8,22 @@
 
 import UIKit
 
-class MemoCustomCell: UITableViewCell {
-
+class MemoCustomCell: UITableViewCell, UITextViewDelegate {
+    
+    @IBOutlet weak var textView: CustomTextView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        textView.delegate = self
+        
+        textView.textContainerInset = UIEdgeInsets.zero
+        textView.textContainer.lineFragmentPadding = 0
+        
+                
+        
+        
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -21,4 +32,5 @@ class MemoCustomCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+        
 }
