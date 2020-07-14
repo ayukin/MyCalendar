@@ -20,10 +20,6 @@ class MemoCustomCell: UITableViewCell, UITextViewDelegate {
         textView.textContainerInset = UIEdgeInsets.zero
         textView.textContainer.lineFragmentPadding = 0
         
-                
-        
-        
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

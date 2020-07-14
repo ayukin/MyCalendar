@@ -214,7 +214,7 @@ extension CreateViewController: NoticeCustomCellDelegate {
     
     func switchOnAction() {
 
-        guard timeCustomCell == false else { return }
+        guard !timeCustomCell else { return }
         timeCustomCell = true
         tableView.performBatchUpdates({
             tableView.insertRows(at: [IndexPath(item: 2, section: 2)], with: .fade)
@@ -224,7 +224,7 @@ extension CreateViewController: NoticeCustomCellDelegate {
     
     func switchOffAction() {
 
-        guard timeCustomCell == true else { return }
+        guard timeCustomCell else { return }
         timeCustomCell = false
         tableView.performBatchUpdates({
             tableView.deleteRows(at: [IndexPath(item: 2, section: 2)], with: .fade)
@@ -241,7 +241,7 @@ extension CreateViewController: CustomCellDelegate{
     }
     
     func keyboardHideAction() {
-        guard taskCellDone == true else { return }
+        guard taskCellDone else { return }
         taskCellDone = false
 
     }
