@@ -36,7 +36,7 @@ class TimeCustomCell: UITableViewCell {
     
     @objc private func pickerValueChanged(picker: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年MM月dd日 hh:mm"
+        formatter.dateFormat = "yyyy年MM月dd日 HH:mm"
         label.text = formatter.string(from: picker.date)
     }
     
