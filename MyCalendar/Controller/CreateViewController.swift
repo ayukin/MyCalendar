@@ -19,11 +19,10 @@ class CreateViewController: UIViewController {
     var timeCustomCell: Bool = false
     
     // ステータスの「未完了」「完了済」を表すフラグ
-    var InCompleteStatusDone: Bool = true
-    var CompleteStatusDone: Bool = false
+    var IsStatusDone: Bool = false
     
     // タスクのセルのTextFieldのタップイベントを検出するフラグ
-    var taskCellDone: Bool = false
+    var IstaskCellDone: Bool = false
     
 
     override func viewDidLoad() {
@@ -33,7 +32,6 @@ class CreateViewController: UIViewController {
         tableView.register(UINib(nibName: "StatusCustomCell", bundle: nil), forCellReuseIdentifier: "StatusCustomCell")
         tableView.register(UINib(nibName: "DateCustomCell", bundle: nil), forCellReuseIdentifier: "DateCustomCell")
         tableView.register(UINib(nibName: "NoticeCustomCell", bundle: nil), forCellReuseIdentifier: "NoticeCustomCell")
-        tableView.register(UINib(nibName: "TimeCustomCell", bundle: nil), forCellReuseIdentifier: "TimeCustomCell")
         tableView.register(UINib(nibName: "MemoCustomCell", bundle: nil), forCellReuseIdentifier: "MemoCustomCell")
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -45,8 +43,7 @@ class CreateViewController: UIViewController {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
-                print("4 \(taskCellDone)")
-                if taskCellDone {
+                if IstaskCellDone {
                     self.view.frame.origin.y -= 0
                 } else {
                     self.view.frame.origin.y -= keyboardSize.height
@@ -115,7 +112,7 @@ extension CreateViewController: UITableViewDataSource {
             case 0:
                 cell.statusLabel.text = "未完了"
                 // 「未完了」セルのチェックマーク状態をセット
-                if InCompleteStatusDone {
+                if !IsStatusDone {
                     // チェックあり
                     cell.accessoryType = StatusCustomCell.AccessoryType.checkmark
                 } else {
@@ -126,7 +123,7 @@ extension CreateViewController: UITableViewDataSource {
             default:
                 cell.statusLabel.text = "完了済"
                 // 「完了済」セルのチェックマーク状態をセット
-                if CompleteStatusDone {
+                if IsStatusDone {
                     // チェックあり
                     cell.accessoryType = StatusCustomCell.AccessoryType.checkmark
                 } else {
@@ -137,11 +134,6 @@ extension CreateViewController: UITableViewDataSource {
             }
         case 2:
             switch indexPath.row {
-            case 0:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "DateCustomCell", for: indexPath) as? DateCustomCell else {
-                    return UITableViewCell()
-                }
-                return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "NoticeCustomCell", for: indexPath) as? NoticeCustomCell else {
                     return UITableViewCell()
@@ -150,16 +142,16 @@ extension CreateViewController: UITableViewDataSource {
                 cell.delegate = self
                 return cell
             default:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCustomCell", for: indexPath) as? TimeCustomCell else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "DateCustomCell", for: indexPath) as? DateCustomCell else {
                     return UITableViewCell()
                 }
                 return cell
             }
         case 3:
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? CustomCell else {
-            return UITableViewCell()
-        }
-        return cell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? CustomCell else {
+                return UITableViewCell()
+            }
+            return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MemoCustomCell", for: indexPath) as? MemoCustomCell else {
                 return UITableViewCell()
@@ -180,13 +172,11 @@ extension CreateViewController: UITableViewDelegate {
         // Statusのセルのチェックマークに関しての処理
         if indexPath.section == 1 {
             if indexPath.row == 0 {
-                guard InCompleteStatusDone == false, CompleteStatusDone == true else { return }
-                InCompleteStatusDone = true
-                CompleteStatusDone = false
+                guard IsStatusDone else { return }
+                IsStatusDone.toggle()
             } else if indexPath.row == 1 {
-                guard InCompleteStatusDone == true, CompleteStatusDone == false else { return }
-                InCompleteStatusDone = false
-                CompleteStatusDone = true
+                guard !IsStatusDone else { return }
+                IsStatusDone.toggle()
             }
             // セルの状態を変更
             tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .fade)
@@ -195,12 +185,8 @@ extension CreateViewController: UITableViewDelegate {
         
         // datePickerの表示に関しての処理
         if indexPath.section == 2 {
-            if indexPath.row == 0 {
+            if indexPath.row == 0 || indexPath.row == 2 {
                 guard let cell = tableView.cellForRow(at: indexPath) as? DateCustomCell else { return }
-                cell.isPickerDisplay.toggle()
-                tableView.performBatchUpdates(nil, completion: nil)
-            } else if indexPath.row == 2 {
-                guard let cell = tableView.cellForRow(at: indexPath) as? TimeCustomCell else { return }
                 cell.isPickerDisplay.toggle()
                 tableView.performBatchUpdates(nil, completion: nil)
             }
@@ -237,12 +223,11 @@ extension CreateViewController: NoticeCustomCellDelegate {
 extension CreateViewController: CustomCellDelegate{
     
     func keyboardShowAction() {
-        taskCellDone = true
+        IstaskCellDone = true
     }
     
     func keyboardHideAction() {
-        guard taskCellDone else { return }
-        taskCellDone = false
+        IstaskCellDone = false
 
     }
 
