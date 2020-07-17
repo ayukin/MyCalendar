@@ -111,6 +111,9 @@
                     <navigationItem key="navigationItem" id="7em-wh-b2U">
                         <barButtonItem key="rightBarButtonItem" title="保存" id="KW8-vc-0Ky">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="recordButton:" destination="eZH-Xd-dZh" id="N6J-k5-LDM"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>

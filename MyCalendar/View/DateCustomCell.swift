@@ -27,7 +27,6 @@ class DateCustomCell: UITableViewCell {
         label.text = formatter.string(from: Date())
         
         datePicker.addTarget(self, action: #selector(pickerValueChanged(picker:)), for: .valueChanged)
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -28,7 +28,7 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="arj-zb-jsp">
                         <rect key="frame" x="0.0" y="44" width="320" height="160"/>
                         <subviews>
-                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="VdF-xk-ltS">
+                            <datePicker hidden="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="VdF-xk-ltS">
                                 <rect key="frame" x="0.0" y="160" width="320" height="0.0"/>
                                 <locale key="locale" localeIdentifier="ja"/>
                             </datePicker>

@@ -13,6 +13,7 @@
 		841FD05024A35C720039E4E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841FD04E24A35C720039E4E0 /* Main.storyboard */; };
 		841FD05224A35C740039E4E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 841FD05124A35C740039E4E0 /* Assets.xcassets */; };
 		841FD05524A35C740039E4E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841FD05324A35C740039E4E0 /* LaunchScreen.storyboard */; };
+		844C4BCF24C1B17200CFB159 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C4BCE24C1B17200CFB159 /* Todo.swift */; };
 		845B90F624B9AD9E000A44C7 /* StatusCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B90F424B9AD9E000A44C7 /* StatusCustomCell.swift */; };
 		845B90F724B9AD9E000A44C7 /* StatusCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845B90F524B9AD9E000A44C7 /* StatusCustomCell.xib */; };
 		845B90FE24B9AEB8000A44C7 /* NoticeCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B90FC24B9AEB8000A44C7 /* NoticeCustomCell.swift */; };
@@ -39,6 +40,7 @@
 		841FD05124A35C740039E4E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		841FD05424A35C740039E4E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		841FD05624A35C740039E4E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		844C4BCE24C1B17200CFB159 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		845B90F424B9AD9E000A44C7 /* StatusCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCustomCell.swift; sourceTree = "<group>"; };
 		845B90F524B9AD9E000A44C7 /* StatusCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusCustomCell.xib; sourceTree = "<group>"; };
 		845B90FC24B9AEB8000A44C7 /* NoticeCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeCustomCell.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */,
+				844C4BCE24C1B17200CFB159 /* Todo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844C4BCF24C1B17200CFB159 /* Todo.swift in Sources */,
 				845B90F624B9AD9E000A44C7 /* StatusCustomCell.swift in Sources */,
 				845BDEFC24BDF5C300EDB6E4 /* CustomTextView.swift in Sources */,
 				8463562724B88363002C3962 /* DateCustomCell.swift in Sources */,
