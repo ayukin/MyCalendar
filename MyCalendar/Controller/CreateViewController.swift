@@ -30,6 +30,7 @@ class CreateViewController: UIViewController {
     
     
     var dateString: String!
+    var dateStringArray: [Date]!
     
 
     override func viewDidLoad() {
@@ -84,6 +85,20 @@ class CreateViewController: UIViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy年MM月dd日"
         dateString = formatter.string(from: date!)
+        
+//        if dateStringArray != nil {
+//            dateStringArray.append(date!)
+//            print("-----------------------")
+//            print(dateStringArray!)
+//            print("-----------------------")
+//        } else {
+//            dateStringArray = [date!]
+//            print("-----------------------")
+//            print(dateStringArray!)
+//            print("-----------------------")
+//        }
+        
+        dateStringArray.append(date!)
 
         // 通知の取得（任意）
         let timeIndex = tableView.cellForRow(at: IndexPath(row: 2, section: 2))
@@ -103,10 +118,10 @@ class CreateViewController: UIViewController {
             // Realmオブジェクトの生成
             let realm = try Realm()
             
-            // RealmスタジオのURL
-            print("-----------------------")
-            print(Realm.Configuration.defaultConfiguration.fileURL!)
-            print("-----------------------")
+//            // RealmスタジオのURL
+//            print("-----------------------")
+//            print(Realm.Configuration.defaultConfiguration.fileURL!)
+//            print("-----------------------")
 
 
             // 登録内容
@@ -131,6 +146,10 @@ class CreateViewController: UIViewController {
                     realm.add(todo)
                 }
                 
+                // カレンダーに「・」表示時に使用する値を渡す
+                let nav = self.navigationController!
+                let mainVC = nav.viewControllers[nav.viewControllers.count - 2] as! MainViewController
+                mainVC.dateStringArray = self.dateStringArray
                 // 登録完了しViewControllerへ画面遷移
                 self.navigationController?.popViewController(animated: true)
                 
@@ -172,8 +191,8 @@ class CreateViewController: UIViewController {
 //          }
 //        }
         
-        
-//        // Realmオブジェクトの生成
+        print(dateStringArray!)
+        // Realmオブジェクトの生成
 //        let realm = try! Realm()
 //
 //        // 削除
@@ -182,8 +201,12 @@ class CreateViewController: UIViewController {
 //            realm.delete(lastTodo)
 //        }
         
-        
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let next = segue.destination as! MainViewController
+//        print("あゆき")
+//    }
 
     
 }

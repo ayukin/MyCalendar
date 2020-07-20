@@ -76,11 +76,6 @@
                                     <action selector="changeButtonAction:" destination="BYZ-38-t0r" id="sRg-zx-WKv"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" id="G79-bZ-v6c">
-                                <connections>
-                                    <action selector="yobi:" destination="BYZ-38-t0r" id="96r-s8-TjG"/>
-                                </connections>
-                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>

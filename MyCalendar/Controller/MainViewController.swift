@@ -29,6 +29,8 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     
     var selectedIndex: IndexPath?
     
+    var dateStringArray: [Date]!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,6 +158,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         // tableViewを更新
         tableView.reloadData()
         
+        
     }
     
     @IBAction func changeButtonAction(_ sender: Any) {
@@ -178,7 +181,8 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     
     
 //    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int{
-//        return 1 //ここに入る数字によって点の数が変わる
+//        if  {
+//        return 1
 //    }
     
     
@@ -193,11 +197,6 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
 //    private func calendar(_ calendar: FSCalendar!, imageFor date: NSDate!) -> UIImage! {
 //        return anyImage
 //    }
-    
-    
-    @IBAction func yobi(_ sender: Any) {
-        print(selectedIndex!)
-    }
     
     
 }
