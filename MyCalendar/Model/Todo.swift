@@ -12,7 +12,9 @@ class Todo: Object {
     @objc dynamic var task: String!
     @objc dynamic var status: Bool = false
     @objc dynamic var date = Date()
-    @objc dynamic var alert = Date()
+    @objc dynamic var dateString: String!
+    @objc dynamic var alert: Bool = false
+    @objc dynamic var time = Date()
     @objc dynamic var place: String!
     @objc dynamic var memo: String!
     

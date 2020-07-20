@@ -1,5 +1,5 @@
 //
-//  CustomCell.swift
+//  TextCustomCell.swift
 //  MyCalendar
 //
 //  Created by 西岡鮎季 on 2020/07/10.
@@ -9,17 +9,17 @@
 import UIKit
 
 //delegateはweak参照したいため、classを継承する
-protocol  CustomCellDelegate: class {
+protocol  TextCustomCellDelegate: class {
     func keyboardShowAction()
     func keyboardHideAction()
 }
 
-class CustomCell: UITableViewCell, UITextFieldDelegate {
+class TextCustomCell: UITableViewCell, UITextFieldDelegate {
     
     @IBOutlet weak var textField: UITextField!
     
     // delegateはメモリリークを回避するためweak参照する
-    weak var delegate: CustomCellDelegate?
+    weak var delegate: TextCustomCellDelegate?
 
 
     override func awakeFromNib() {

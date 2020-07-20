@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		841FD04924A35C720039E4E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841FD04824A35C720039E4E0 /* AppDelegate.swift */; };
 		841FD04B24A35C720039E4E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841FD04A24A35C720039E4E0 /* SceneDelegate.swift */; };
-		841FD04D24A35C720039E4E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841FD04C24A35C720039E4E0 /* ViewController.swift */; };
+		841FD04D24A35C720039E4E0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841FD04C24A35C720039E4E0 /* MainViewController.swift */; };
 		841FD05024A35C720039E4E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841FD04E24A35C720039E4E0 /* Main.storyboard */; };
 		841FD05224A35C740039E4E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 841FD05124A35C740039E4E0 /* Assets.xcassets */; };
 		841FD05524A35C740039E4E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841FD05324A35C740039E4E0 /* LaunchScreen.storyboard */; };
@@ -22,10 +22,12 @@
 		845B910724B9E577000A44C7 /* MemoCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845B910524B9E577000A44C7 /* MemoCustomCell.xib */; };
 		845BDEFC24BDF5C300EDB6E4 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */; };
 		8463562024B87A75002C3962 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463561F24B87A75002C3962 /* CreateViewController.swift */; };
-		8463562324B87E26002C3962 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463562124B87E26002C3962 /* CustomCell.swift */; };
-		8463562424B87E26002C3962 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8463562224B87E26002C3962 /* CustomCell.xib */; };
+		8463562324B87E26002C3962 /* TextCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463562124B87E26002C3962 /* TextCustomCell.swift */; };
+		8463562424B87E26002C3962 /* TextCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8463562224B87E26002C3962 /* TextCustomCell.xib */; };
 		8463562724B88363002C3962 /* DateCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463562524B88363002C3962 /* DateCustomCell.swift */; };
 		8463562824B88363002C3962 /* DateCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8463562624B88363002C3962 /* DateCustomCell.xib */; };
+		846DC33424C463A500F951BE /* ListCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DC33224C463A500F951BE /* ListCustomCell.swift */; };
+		846DC33524C463A500F951BE /* ListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846DC33324C463A500F951BE /* ListCustomCell.xib */; };
 		FD98881647D3DE75B9C97D9C /* Pods_MyCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63891DC2A03C9E946DDD745B /* Pods_MyCalendar.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +37,7 @@
 		841FD04524A35C720039E4E0 /* MyCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		841FD04824A35C720039E4E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		841FD04A24A35C720039E4E0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		841FD04C24A35C720039E4E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		841FD04C24A35C720039E4E0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		841FD04F24A35C720039E4E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		841FD05124A35C740039E4E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		841FD05424A35C740039E4E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,10 +51,12 @@
 		845B910524B9E577000A44C7 /* MemoCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemoCustomCell.xib; sourceTree = "<group>"; };
 		845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		8463561F24B87A75002C3962 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
-		8463562124B87E26002C3962 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		8463562224B87E26002C3962 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		8463562124B87E26002C3962 /* TextCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCustomCell.swift; sourceTree = "<group>"; };
+		8463562224B87E26002C3962 /* TextCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCustomCell.xib; sourceTree = "<group>"; };
 		8463562524B88363002C3962 /* DateCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCustomCell.swift; sourceTree = "<group>"; };
 		8463562624B88363002C3962 /* DateCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateCustomCell.xib; sourceTree = "<group>"; };
+		846DC33224C463A500F951BE /* ListCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCustomCell.swift; sourceTree = "<group>"; };
+		846DC33324C463A500F951BE /* ListCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCustomCell.xib; sourceTree = "<group>"; };
 		D0AE01226C5E5F919FEB600E /* Pods-MyCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.release.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,7 +115,7 @@
 			children = (
 				841FD04824A35C720039E4E0 /* AppDelegate.swift */,
 				841FD04A24A35C720039E4E0 /* SceneDelegate.swift */,
-				841FD04C24A35C720039E4E0 /* ViewController.swift */,
+				841FD04C24A35C720039E4E0 /* MainViewController.swift */,
 				8463561F24B87A75002C3962 /* CreateViewController.swift */,
 			);
 			path = Controller;
@@ -122,8 +126,8 @@
 			children = (
 				841FD04E24A35C720039E4E0 /* Main.storyboard */,
 				841FD05124A35C740039E4E0 /* Assets.xcassets */,
-				8463562124B87E26002C3962 /* CustomCell.swift */,
-				8463562224B87E26002C3962 /* CustomCell.xib */,
+				8463562124B87E26002C3962 /* TextCustomCell.swift */,
+				8463562224B87E26002C3962 /* TextCustomCell.xib */,
 				845B90F424B9AD9E000A44C7 /* StatusCustomCell.swift */,
 				845B90F524B9AD9E000A44C7 /* StatusCustomCell.xib */,
 				8463562524B88363002C3962 /* DateCustomCell.swift */,
@@ -132,6 +136,8 @@
 				845B90FD24B9AEB8000A44C7 /* NoticeCustomCell.xib */,
 				845B910424B9E577000A44C7 /* MemoCustomCell.swift */,
 				845B910524B9E577000A44C7 /* MemoCustomCell.xib */,
+				846DC33224C463A500F951BE /* ListCustomCell.swift */,
+				846DC33324C463A500F951BE /* ListCustomCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -216,7 +222,8 @@
 			files = (
 				8463562824B88363002C3962 /* DateCustomCell.xib in Resources */,
 				841FD05524A35C740039E4E0 /* LaunchScreen.storyboard in Resources */,
-				8463562424B87E26002C3962 /* CustomCell.xib in Resources */,
+				8463562424B87E26002C3962 /* TextCustomCell.xib in Resources */,
+				846DC33524C463A500F951BE /* ListCustomCell.xib in Resources */,
 				841FD05224A35C740039E4E0 /* Assets.xcassets in Resources */,
 				845B90F724B9AD9E000A44C7 /* StatusCustomCell.xib in Resources */,
 				845B910724B9E577000A44C7 /* MemoCustomCell.xib in Resources */,
@@ -278,12 +285,13 @@
 				845B90F624B9AD9E000A44C7 /* StatusCustomCell.swift in Sources */,
 				845BDEFC24BDF5C300EDB6E4 /* CustomTextView.swift in Sources */,
 				8463562724B88363002C3962 /* DateCustomCell.swift in Sources */,
-				8463562324B87E26002C3962 /* CustomCell.swift in Sources */,
+				8463562324B87E26002C3962 /* TextCustomCell.swift in Sources */,
 				845B90FE24B9AEB8000A44C7 /* NoticeCustomCell.swift in Sources */,
 				8463562024B87A75002C3962 /* CreateViewController.swift in Sources */,
-				841FD04D24A35C720039E4E0 /* ViewController.swift in Sources */,
+				841FD04D24A35C720039E4E0 /* MainViewController.swift in Sources */,
 				841FD04924A35C720039E4E0 /* AppDelegate.swift in Sources */,
 				845B910624B9E577000A44C7 /* MemoCustomCell.swift in Sources */,
+				846DC33424C463A500F951BE /* ListCustomCell.swift in Sources */,
 				841FD04B24A35C720039E4E0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

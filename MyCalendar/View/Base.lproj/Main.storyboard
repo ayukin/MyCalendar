@@ -10,7 +10,7 @@
         <!--TODOリスト-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -28,29 +28,36 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ey5-CX-caO">
-                                <rect key="frame" x="0.0" y="388" width="414" height="474"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khi-rb-c0e">
+                                <rect key="frame" x="0.0" y="396" width="414" height="50"/>
+                                <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="45z-t4-gNi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gdu-NW-jm1">
+                                <rect key="frame" x="0.0" y="446" width="414" height="416"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="BPa-ia-sB1">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BPa-ia-sB1" id="nHn-by-EJO">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="LDu-cJ-gRv"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="PwT-R1-osG"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ey5-CX-caO" firstAttribute="top" secondItem="VJe-MZ-Fx6" secondAttribute="bottom" id="81W-8L-J2p"/>
                             <constraint firstItem="VJe-MZ-Fx6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Dbp-0G-dxQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ey5-CX-caO" secondAttribute="bottom" id="WWm-9O-ULz"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ey5-CX-caO" secondAttribute="trailing" id="YQ1-DD-c0Q"/>
+                            <constraint firstItem="Khi-rb-c0e" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="F7S-bg-1Mr"/>
+                            <constraint firstItem="gdu-NW-jm1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QQY-mH-V9U"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gdu-NW-jm1" secondAttribute="trailing" id="WIZ-oH-Bxk"/>
                             <constraint firstItem="VJe-MZ-Fx6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bOy-3F-Z51"/>
-                            <constraint firstItem="ey5-CX-caO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="iLs-Zv-uAJ"/>
+                            <constraint firstItem="gdu-NW-jm1" firstAttribute="top" secondItem="Khi-rb-c0e" secondAttribute="bottom" id="dtz-C7-bdT"/>
+                            <constraint firstItem="Khi-rb-c0e" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="lso-nB-97I"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gdu-NW-jm1" secondAttribute="bottom" id="pEd-rS-RQV"/>
+                            <constraint firstItem="Khi-rb-c0e" firstAttribute="top" secondItem="VJe-MZ-Fx6" secondAttribute="bottom" constant="8" id="tTD-7Y-Kh6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VJe-MZ-Fx6" secondAttribute="trailing" id="xRp-Lg-qaH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -69,18 +76,24 @@
                                     <action selector="changeButtonAction:" destination="BYZ-38-t0r" id="sRg-zx-WKv"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Item" id="G79-bZ-v6c">
+                                <connections>
+                                    <action selector="yobi:" destination="BYZ-38-t0r" id="96r-s8-TjG"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="calendar" destination="VJe-MZ-Fx6" id="qpf-dY-CYg"/>
                         <outlet property="calendarHeight" destination="OAW-0M-dFT" id="vrs-NC-Ias"/>
                         <outlet property="changeButton" destination="hyp-ZN-fv6" id="nbX-ga-ZLd"/>
-                        <outlet property="tableView" destination="ey5-CX-caO" id="qHP-oB-ONj"/>
+                        <outlet property="dateLabel" destination="Khi-rb-c0e" id="clb-is-3Of"/>
+                        <outlet property="tableView" destination="gdu-NW-jm1" id="AmB-He-wTh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="946" y="52"/>
+            <point key="canvasLocation" x="944.92753623188412" y="51.5625"/>
         </scene>
         <!--Create View Controller-->
         <scene sceneID="TYG-MH-1FG">
@@ -109,12 +122,19 @@
                         <viewLayoutGuide key="safeArea" id="soP-3f-AuJ"/>
                     </view>
                     <navigationItem key="navigationItem" id="7em-wh-b2U">
-                        <barButtonItem key="rightBarButtonItem" title="保存" id="KW8-vc-0Ky">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="recordButton:" destination="eZH-Xd-dZh" id="N6J-k5-LDM"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="保存" id="KW8-vc-0Ky">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="recordButton:" destination="eZH-Xd-dZh" id="N6J-k5-LDM"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="予備" id="Up5-7n-Dxz">
+                                <connections>
+                                    <action selector="hogeButton:" destination="eZH-Xd-dZh" id="hwP-gh-Flt"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="KWV-Tr-ur6" id="gKH-5w-mOg"/>

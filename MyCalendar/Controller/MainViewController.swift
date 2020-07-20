@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  MyCalendar
 //
 //  Created by 西岡鮎季 on 2020/06/24.
@@ -9,19 +9,25 @@
 import UIKit
 import FSCalendar
 import CalculateCalendarLogic
+import RealmSwift
 
-class ViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance, UITableViewDelegate, UITableViewDataSource {
+class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
     
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var calendarHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var changeButton: UIBarButtonItem!
     
+    var taskList: [String]!
+    var detaList: [String]!
+    var statusList: [Bool]!
+    var tapCalendarDateCount: Int!
     
-    // 配列を設定
-    var sections = [String]()
-    var todoLists = [[String]]()
+    var tapCalendarDate: String!
+    
+    var selectedIndex: IndexPath?
     
 
     override func viewDidLoad() {
@@ -29,9 +35,7 @@ class ViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource
         
         calendar.delegate = self
         calendar.dataSource = self
-        tableView.delegate = self
-        tableView.dataSource = self
-        
+                
         // 曜日部分を日本語表記に変更
         calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
         calendar.calendarWeekdayView.weekdayLabels[1].text = "月"
@@ -42,17 +46,7 @@ class ViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource
         calendar.calendarWeekdayView.weekdayLabels[6].text = "土"
         
         
-        sections = ["毎日にすること","毎週○曜日にすること","本日すること"]
-        
-        for _ in 0...2 {
-            todoLists.append([])
-        }
-        
-        todoLists[0] = ["食後に歯を磨く","帰宅後手を洗う"]
-        todoLists[1] = ["相席食堂を観る"]
-        todoLists[2] = ["読書をする","スーパーに行く","早く寝る","洗い物をする"]
-        
-        
+        tableView.register(UINib(nibName: "ListCustomCell", bundle: nil), forCellReuseIdentifier: "ListCustomCell")
         
     }
     
@@ -121,10 +115,47 @@ class ViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let tmpDate = Calendar(identifier: .gregorian)
-        let year = tmpDate.component(.year, from: date)
-        let month = tmpDate.component(.month, from: date)
-        let day = tmpDate.component(.day, from: date)
-        print("\(year)年\(month)月\(day)日")
+        let year = tmpDate.component(.year, from: date) // Int型
+        let month = tmpDate.component(.month, from: date) // Int型
+        let day = tmpDate.component(.day, from: date) // Int型
+        
+        dateLabel.text = "\(year)年\(month)月\(day)日"
+        
+        // カレンダータップ時の日付取得（String型）
+        if month >= 10 && day < 10 {
+            tapCalendarDate = "\(year)年\(month)月0\(day)日"
+        } else if month < 10 && day >= 10 {
+            tapCalendarDate = "\(year)年0\(month)月\(day)日"
+        } else if  month < 10 && day < 10 {
+            tapCalendarDate = "\(year)年0\(month)月0\(day)日"
+        } else {
+            tapCalendarDate = "\(year)年\(month)月\(day)日"
+        }
+        
+        // Realmオブジェクトの生成
+        let realm = try! Realm()
+
+        // 参照（タップした日付のデータを取得）
+        let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
+        
+        tapCalendarDateCount = todos.count
+        
+        for i in 0..<tapCalendarDateCount {
+            if i == 0 {
+                taskList = [todos[i].task]
+                detaList = [todos[i].dateString]
+                statusList = [todos[i].status]
+            } else {
+                taskList.append(contentsOf: [todos[i].task])
+                detaList.append(contentsOf: [todos[i].dateString])
+                statusList.append(contentsOf: [todos[i].status])
+            }
+            
+        }
+        
+        // tableViewを更新
+        tableView.reloadData()
+        
     }
     
     @IBAction func changeButtonAction(_ sender: Any) {
@@ -139,8 +170,6 @@ class ViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource
        
         
     }
-    
-    
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
             calendarHeight.constant = bounds.height
@@ -166,30 +195,95 @@ class ViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource
 //    }
     
     
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+    @IBAction func yobi(_ sender: Any) {
+        print(selectedIndex!)
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section]
-    }
     
+}
+
+extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoLists[section].count
+        if tapCalendarDateCount == nil {
+            return 0
+        } else {
+            return tapCalendarDateCount
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
-        cell.textLabel?.text = todoLists[indexPath.section][indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListCustomCell", for: indexPath) as? ListCustomCell else {
+            return UITableViewCell()
+        }
         
-        return cell
+        if tapCalendarDateCount == nil {
+            return cell
+        } else {
+            cell.mainTaskLabel.text = taskList[indexPath.row]
+            cell.mainDateLabel.text = detaList[indexPath.row]
+            if statusList[indexPath.row] {
+                let picture = UIImage(named: "complete")
+                cell.mainStatusButton.setImage(picture, for: .normal)
+            } else {
+                let picture = UIImage(named: "Incomplete")
+                cell.mainStatusButton.setImage(picture, for: .normal)
+            }
+            cell.statusChange = { [weak self] in
+                self?.selectedIndex = indexPath
+            }
+            
+            // Cellのdelegateにselfを渡す
+            cell.delegate = self
+            return cell
+
+        }
         
     }
     
-    
-    
+        
+}
 
+extension MainViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        tableView.deselectRow(at: indexPath, animated: true)
+                
+    }
+    
+}
+
+// Cellのdelegateメソッドで削除処理を実装
+extension MainViewController: ListCustomCellDelegate {
+    
+    // Realmの「Status」の更新
+    func statusChangeAction() {
+
+        // Realmオブジェクトの生成
+        let realm = try! Realm()
+        
+//        print("-----------------------")
+//        print(Realm.Configuration.defaultConfiguration.fileURL!)
+//        print("-----------------------")
+
+        let editTodo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
+        try! realm.write {
+            if !editTodo[selectedIndex!.row as Int].status {
+                editTodo[selectedIndex!.row as Int].status = true
+                statusList[selectedIndex!.row as Int] = true
+            } else {
+                editTodo[selectedIndex!.row as Int].status = false
+                statusList[selectedIndex!.row as Int] = false
+            }
+            
+            // tableViewを更新
+            tableView.reloadData()
+
+        }
+
+
+    }
+    
 }
 

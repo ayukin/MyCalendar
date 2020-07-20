@@ -17,7 +17,7 @@ class CreateViewController: UIViewController {
     let sections: Array = ["タスク","ステータス","日時","場所","メモ"]
     
     // TimeCustomCellの表示に関する定義
-    var timeCustomCell: Bool = false
+    var IsTimeCustomCell: Bool = false
     
     // ステータスの「未完了」「完了済」を表すフラグ
     var IsStatusDone: Bool = false
@@ -28,11 +28,14 @@ class CreateViewController: UIViewController {
     // 「タスク」未記入時に表示アラートを定義
     var alertController: UIAlertController!
     
+    
+    var dateString: String!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
+        tableView.register(UINib(nibName: "TextCustomCell", bundle: nil), forCellReuseIdentifier: "TextCustomCell")
         tableView.register(UINib(nibName: "StatusCustomCell", bundle: nil), forCellReuseIdentifier: "StatusCustomCell")
         tableView.register(UINib(nibName: "DateCustomCell", bundle: nil), forCellReuseIdentifier: "DateCustomCell")
         tableView.register(UINib(nibName: "NoticeCustomCell", bundle: nil), forCellReuseIdentifier: "NoticeCustomCell")
@@ -74,96 +77,114 @@ class CreateViewController: UIViewController {
         let taskCell = taskIndex?.contentView.viewWithTag(1) as? UITextField
         let task = taskCell?.text
         // 日時の取得
-//        let dateIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 2))
-//        let dateCell = dateIndex?.contentView.viewWithTag(2) as? UIDatePicker
-//        let date = dateCell?.date
+        let dateIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 2))
+        let dateCell = dateIndex?.contentView.viewWithTag(2) as? UIDatePicker
+        let date = dateCell?.date
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy年MM月dd日"
+        dateString = formatter.string(from: date!)
+
         // 通知の取得（任意）
-//        let alertIndex = tableView.cellForRow(at: IndexPath(row: 2, section: 2))
-//        let alertCell = alertIndex?.contentView.viewWithTag(2) as? UIDatePicker
-//        let alert = alertCell?.date
+        let timeIndex = tableView.cellForRow(at: IndexPath(row: 2, section: 2))
+        let timeCell = timeIndex?.contentView.viewWithTag(2) as? UIDatePicker
+        let time = timeCell?.date
         // 場所の取得（任意）
-//        let placeIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 3))
-//        let placeCell = placeIndex?.contentView.viewWithTag(1) as? UITextField
-//        let place = placeCell?.text
+        let placeIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 3))
+        let placeCell = placeIndex?.contentView.viewWithTag(1) as? UITextField
+        let place = placeCell?.text
         // メモの取得（任意）
-//        let memoIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 4))
-//        let memoCell = memoIndex?.contentView.viewWithTag(3) as? UITextView
-//        let memo = memoCell?.text
+        let memoIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 4))
+        let memoCell = memoIndex?.contentView.viewWithTag(3) as? UITextView
+        let memo = memoCell?.text
+        
+        
+        do {
+            // Realmオブジェクトの生成
+            let realm = try Realm()
+            
+            // RealmスタジオのURL
+            print("-----------------------")
+            print(Realm.Configuration.defaultConfiguration.fileURL!)
+            print("-----------------------")
 
-        if task == "" {
-            alertAcrion(title: "登録失敗", message: "タスクを記入してください！")
-        } else {
-            print(task!)
+
+            // 登録内容
+            let todo = Todo()
+            
+            if task == "" {
+                // 警告アラート
+                alertAcrion(title: "登録失敗", message: "タスクを記入してください！")
+            } else {
+                todo.task = task!
+                todo.status = IsStatusDone
+                todo.date = date!
+                todo.dateString = dateString
+                todo.alert = IsTimeCustomCell
+                if time != nil {
+                    todo.time = time!
+                }
+                todo.place = place!
+                todo.memo = memo!
+
+                try! realm.write {
+                    realm.add(todo)
+                }
+                
+                // 登録完了しViewControllerへ画面遷移
+                self.navigationController?.popViewController(animated: true)
+                
+            }
+
+        } catch {
+            print(error)
         }
-        
-        
-        
-        
-//        alertAcrion(title: "登録失敗", message: "タスクを記入してください！")
-        
-        
-        
-        
-        
-        
-        
-        
-//        print("-----------------------")
-//        print(task!)
-//        print("-----------------------")
-//        print(IsStatusDone)
-//        print("-----------------------")
-//        print(date!)
-//        print("-----------------------")
-//        print(alert!)
-//        print("-----------------------")
-//        print(place!)
-//        print("-----------------------")
-//        print(memo!)
-//        print("-----------------------")
-
-
-        
-        
-//        do {
-//             Realmオブジェクトの生成
-//            let realm = try Realm()
-//
-//             登録内容
-//            let todo = Todo()
-//            
-//            if task == "" {
-//                alertAcrion(title: "登録失敗", message: "タスクを記入してください！")
-//            } else {
-//                todo.task = task! // 済
-//            }
-//
-//            todo.status = IsStatusDone // 済
-//            todo.date = date! // 済
-//            todo.alert = alert! // 済
-//            todo.place = place! // 済
-//            todo.memo = memo! // 済
-//
-//            try! realm.write {
-//                realm.add(todo)
-//            }
-//
-//        } catch {
-//            print(error)
-//        }
-
         
     }
     
-    // 「タスク」未記入時に表示アラートに関する処理
+    // 「タスク」未記入時に警告アラートに関する処理
     func alertAcrion(title: String, message: String) {
         alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alertController, animated: true)
     }
     
-    
-    
+    // データ色々（最終は消去）
+    @IBAction func hogeButton(_ sender: Any) {
+        
+//        // Realmファイルを完全にディスクから削除する
+//        autoreleasepool {
+//          // all Realm usage here
+//        }
+//        let realmURL = Realm.Configuration.defaultConfiguration.fileURL!
+//          let realmURLs = [
+//          realmURL,
+//          realmURL.appendingPathExtension("lock"),
+//          realmURL.appendingPathExtension("note"),
+//          realmURL.appendingPathExtension("management")
+//        ]
+//        let manager = FileManager.default
+//        for URL in realmURLs {
+//          do {
+//            try FileManager.default.removeItem(at: URL)
+//          } catch {
+//            // handle error
+//          }
+//        }
+        
+        
+//        // Realmオブジェクトの生成
+//        let realm = try! Realm()
+//
+//        // 削除
+//        let lastTodo = realm.objects(Todo.self).last!
+//        try! realm.write {
+//            realm.delete(lastTodo)
+//        }
+        
+        
+    }
+
     
 }
 
@@ -187,7 +208,7 @@ extension CreateViewController: UITableViewDataSource {
         case 1:
             return 2
         case 2:
-            if !timeCustomCell {
+            if !IsTimeCustomCell {
                 return 2
             } else {
                 return 3
@@ -201,7 +222,7 @@ extension CreateViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? CustomCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "TextCustomCell", for: indexPath) as? TextCustomCell else {
                 return UITableViewCell()
             }
             // Cellのdelegateにselfを渡す
@@ -251,7 +272,7 @@ extension CreateViewController: UITableViewDataSource {
                 return cell
             }
         case 3:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? CustomCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "TextCustomCell", for: indexPath) as? TextCustomCell else {
                 return UITableViewCell()
             }
             return cell
@@ -304,8 +325,8 @@ extension CreateViewController: NoticeCustomCellDelegate {
     
     func switchOnAction() {
 
-        guard !timeCustomCell else { return }
-        timeCustomCell = true
+        guard !IsTimeCustomCell else { return }
+        IsTimeCustomCell = true
         tableView.performBatchUpdates({
             tableView.insertRows(at: [IndexPath(item: 2, section: 2)], with: .fade)
         }, completion: nil)
@@ -314,8 +335,8 @@ extension CreateViewController: NoticeCustomCellDelegate {
     
     func switchOffAction() {
 
-        guard timeCustomCell else { return }
-        timeCustomCell = false
+        guard IsTimeCustomCell else { return }
+        IsTimeCustomCell = false
         tableView.performBatchUpdates({
             tableView.deleteRows(at: [IndexPath(item: 2, section: 2)], with: .fade)
         }, completion: nil)
@@ -324,7 +345,7 @@ extension CreateViewController: NoticeCustomCellDelegate {
     
 }
 
-extension CreateViewController: CustomCellDelegate{
+extension CreateViewController: TextCustomCellDelegate{
     
     func keyboardShowAction() {
         IstaskCellDone = true
