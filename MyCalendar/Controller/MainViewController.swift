@@ -29,8 +29,6 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     
     var selectedIndex: IndexPath?
     
-    var dateStringArray: [Date]!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -181,7 +179,6 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     
     
 //    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int{
-//        if  {
 //        return 1
 //    }
     

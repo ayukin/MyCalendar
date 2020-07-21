@@ -30,7 +30,7 @@ class CreateViewController: UIViewController {
     
     
     var dateString: String!
-    var dateStringArray: [Date]!
+//    var dateStringArray: [Date]!
     
 
     override func viewDidLoad() {
@@ -46,6 +46,11 @@ class CreateViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        // 画面立ち上げ時に今日のデータをRealmから取得し、TableViewに表示
+//        // CreateViewControllerにて登録完了後、TableViewをリロード
+//    }
     
     // キーボードが表示される際の処理（高さ調整）
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -97,8 +102,6 @@ class CreateViewController: UIViewController {
 //            print(dateStringArray!)
 //            print("-----------------------")
 //        }
-        
-        dateStringArray.append(date!)
 
         // 通知の取得（任意）
         let timeIndex = tableView.cellForRow(at: IndexPath(row: 2, section: 2))
@@ -147,9 +150,9 @@ class CreateViewController: UIViewController {
                 }
                 
                 // カレンダーに「・」表示時に使用する値を渡す
-                let nav = self.navigationController!
-                let mainVC = nav.viewControllers[nav.viewControllers.count - 2] as! MainViewController
-                mainVC.dateStringArray = self.dateStringArray
+//                let nav = self.navigationController!
+//                let mainVC = nav.viewControllers[nav.viewControllers.count - 2] as! MainViewController
+                // 値渡す
                 // 登録完了しViewControllerへ画面遷移
                 self.navigationController?.popViewController(animated: true)
                 
@@ -191,7 +194,7 @@ class CreateViewController: UIViewController {
 //          }
 //        }
         
-        print(dateStringArray!)
+        
         // Realmオブジェクトの生成
 //        let realm = try! Realm()
 //
@@ -202,13 +205,7 @@ class CreateViewController: UIViewController {
 //        }
         
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let next = segue.destination as! MainViewController
-//        print("あゆき")
-//    }
-
-    
+        
 }
 
 
