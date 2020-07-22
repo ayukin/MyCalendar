@@ -6,6 +6,7 @@
 //  Copyright © 2020 Ayuki Nishioka. All rights reserved.
 //
 
+import Foundation
 import RealmSwift
 
 class Todo: Object {
@@ -18,5 +19,18 @@ class Todo: Object {
     @objc dynamic var place: String!
     @objc dynamic var memo: String!
     
+}
+
+func realmMigration() {
+    // Realmマイグレーションバージョン
+    // レコードフォーマットを変更する場合、このバージョンも上げていく。
+    let migSchemaVersion: UInt64 = 1
+    
+    // マイグレーション設定
+    let config = Realm.Configuration(schemaVersion: migSchemaVersion,
+        migrationBlock: {migration, oldSchemaVersion in
+            if (oldSchemaVersion < migSchemaVersion) {
+    }})
+    Realm.Configuration.defaultConfiguration = config
 }
 

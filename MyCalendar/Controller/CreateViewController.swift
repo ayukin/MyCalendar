@@ -47,11 +47,6 @@ class CreateViewController: UIViewController {
         
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        // 画面立ち上げ時に今日のデータをRealmから取得し、TableViewに表示
-//        // CreateViewControllerにて登録完了後、TableViewをリロード
-//    }
-    
     // キーボードが表示される際の処理（高さ調整）
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -145,7 +140,7 @@ class CreateViewController: UIViewController {
                 todo.place = place!
                 todo.memo = memo!
 
-                try! realm.write {
+                try realm.write {
                     realm.add(todo)
                 }
                 
