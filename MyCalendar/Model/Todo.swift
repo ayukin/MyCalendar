@@ -15,7 +15,7 @@ class Todo: Object {
     @objc dynamic var date = Date()
     @objc dynamic var dateString: String!
     @objc dynamic var alert: Bool = false
-    @objc dynamic var time = Date()
+    @objc dynamic var alertDate: Date? = Date()
     @objc dynamic var place: String!
     @objc dynamic var memo: String!
     

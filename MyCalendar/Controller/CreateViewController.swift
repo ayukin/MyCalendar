@@ -116,10 +116,10 @@ class CreateViewController: UIViewController {
             // Realmオブジェクトの生成
             let realm = try Realm()
             
-//            // RealmスタジオのURL
-//            print("-----------------------")
-//            print(Realm.Configuration.defaultConfiguration.fileURL!)
-//            print("-----------------------")
+            // RealmスタジオのURL
+            print("-----------------------")
+            print(Realm.Configuration.defaultConfiguration.fileURL!)
+            print("-----------------------")
 
 
             // 登録内容
@@ -134,9 +134,13 @@ class CreateViewController: UIViewController {
                 todo.date = date!
                 todo.dateString = dateString
                 todo.alert = IsTimeCustomCell
-                if time != nil {
-                    todo.time = time!
+                                
+                if IsTimeCustomCell {
+                    todo.alertDate = time!
+                } else {
+                    todo.alertDate = nil
                 }
+                
                 todo.place = place!
                 todo.memo = memo!
 
@@ -191,13 +195,13 @@ class CreateViewController: UIViewController {
         
         
         // Realmオブジェクトの生成
-//        let realm = try! Realm()
-//
-//        // 削除
-//        let lastTodo = realm.objects(Todo.self).last!
-//        try! realm.write {
-//            realm.delete(lastTodo)
-//        }
+        let realm = try! Realm()
+
+        // 削除
+        let lastTodo = realm.objects(Todo.self).last!
+        try! realm.write {
+            realm.delete(lastTodo)
+        }
         
     }
         
