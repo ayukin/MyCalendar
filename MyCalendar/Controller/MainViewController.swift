@@ -21,7 +21,10 @@ class MainViewController: UIViewController {
         
     // ToDoを格納した配列
     var todolist = [Todo]()
+    
     var datesWithEvents: Set<String> = []
+    var datesWithStatus: Set<Bool> = []
+    var checkWithStatus: Set<Bool> = [true]
     
     var tapCalendarDate: String!
     var selectedIndex: IndexPath?
@@ -113,6 +116,26 @@ class MainViewController: UIViewController {
     
 }
 
+
+// UIImageのリサイズ
+extension UIImage {
+    func resize(size _size: CGSize) -> UIImage? {
+        let widthRatio = _size.width / size.width
+        let heightRatio = _size.height / size.height
+        let ratio = widthRatio < heightRatio ? widthRatio : heightRatio
+        
+        let resizedSize = CGSize(width: size.width * ratio, height: size.height * ratio)
+        
+        UIGraphicsBeginImageContextWithOptions(resizedSize, false, 0.0) // 変更
+        draw(in: CGRect(origin: .zero, size: resizedSize))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return resizedImage
+    }
+}
+
+
 // ３つに分けなかった理由（FSCalendarDataSource、FSCalendarDelegateAppearanceに記載するコードがなかったため）
 extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
@@ -152,7 +175,7 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         let tmpCalendar = Calendar(identifier: .gregorian)
         return tmpCalendar.component(.weekday, from: date)
     }
-    
+        
     // 土日や祝日の日の文字色を変える
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         // 祝日判定をする（祝日は赤色で表示する）
@@ -167,6 +190,7 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         } else if weekday == 7 {
             return .blue
         }
+        
         return nil
     }
     
@@ -240,19 +264,48 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         }
         return 0
     }
-        
-        
-    // 点マークや画像をつけたい日にはそれぞれtrueやimageをリターンし、それ以外の日にちにはnilをリターンする条件文を付属すれば良いです。
-        
-    // 点マークをつける関数
-//    func calendar(calendar: FSCalendar!, hasEventForDate date: NSDate!) -> Bool {
-//        return shouldShowEventDot
-//    }
-        
+    
     //画像をつける関数
-//    private func calendar(_ calendar: FSCalendar!, imageFor date: NSDate!) -> UIImage! {
-//        return anyImage
-//    }
+    func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        let calendarDay = formatter.string(from: date)
+        
+        let perfect = UIImage(named: "perfect")
+        let Resize:CGSize = CGSize.init(width: 20, height: 20)
+        let perfectResize = perfect?.resize(size: Resize)
+        
+        do {
+            // Realmオブジェクトの生成
+            let realm = try Realm()
+            // 参照（全データを取得）
+            let todos = realm.objects(Todo.self).filter("dateString == '\(calendarDay)'")
+
+            if todos.count > 0 {
+                for i in 0..<todos.count {
+                    if i == 0 {
+                        datesWithStatus = [todos[i].status]
+                    } else {
+                        datesWithStatus.insert(todos[i].status)
+                    }
+                }
+            } else {
+                datesWithStatus = []
+            }
+            
+        } catch {
+            print(error)
+        }
+        
+        
+        if datesWithStatus == checkWithStatus {
+            return perfectResize
+        }
+        
+        return nil
+        
+    }
     
 }
 
@@ -354,7 +407,12 @@ extension MainViewController: UITableViewDataSource {
             self.present(alertController, animated: true, completion: nil)
             
         }
-    }        
+        
+        // calendarを更新
+        calendar.reloadData()
+        
+    }
+
 }
 
 extension MainViewController: UITableViewDelegate {
@@ -395,6 +453,8 @@ extension MainViewController: ListCustomCellDelegate {
         
         // tableViewを更新
         tableView.reloadData()
+        // calendarを更新
+        calendar.reloadData()
 
     }
     
