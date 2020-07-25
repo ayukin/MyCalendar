@@ -26,7 +26,7 @@ class CreateViewController: UIViewController {
     var IstaskCellDone: Bool = false
     
     // 「タスク」未記入時に表示アラートを定義
-    var alertController: UIAlertController!
+//    var failAlertController: UIAlertController!
     
     
     var dateString: String!
@@ -83,7 +83,7 @@ class CreateViewController: UIViewController {
         let date = dateCell?.date
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年MM月dd日"
+        formatter.dateFormat = "yyyy/MM/dd"
         dateString = formatter.string(from: date!)
         
 //        if dateStringArray != nil {
@@ -117,9 +117,9 @@ class CreateViewController: UIViewController {
             let realm = try Realm()
             
             // RealmスタジオのURL
-            print("-----------------------")
-            print(Realm.Configuration.defaultConfiguration.fileURL!)
-            print("-----------------------")
+//            print("-----------------------")
+//            print(Realm.Configuration.defaultConfiguration.fileURL!)
+//            print("-----------------------")
 
 
             // 登録内容
@@ -127,7 +127,7 @@ class CreateViewController: UIViewController {
             
             if task == "" {
                 // 警告アラート
-                alertAcrion(title: "登録失敗", message: "タスクを記入してください！")
+                failAlert(title: "登録失敗", message: "タスクを記入してください！")
             } else {
                 todo.task = task!
                 todo.status = IsStatusDone
@@ -164,10 +164,10 @@ class CreateViewController: UIViewController {
     }
     
     // 「タスク」未記入時に警告アラートに関する処理
-    func alertAcrion(title: String, message: String) {
-        alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    func failAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alertController, animated: true)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     // データ色々（最終は消去）
@@ -194,15 +194,17 @@ class CreateViewController: UIViewController {
 //        }
         
         
-        // Realmオブジェクトの生成
-        let realm = try! Realm()
-
-        // 削除
-        let lastTodo = realm.objects(Todo.self).last!
-        try! realm.write {
-            realm.delete(lastTodo)
-        }
+//        // Realmオブジェクトの生成
+//        let realm = try! Realm()
+//
+//        // 削除
+//        let lastTodo = realm.objects(Todo.self).last!
+//        try! realm.write {
+//            realm.delete(lastTodo)
+//        }
         
+        let oddDigits: Set = ["2020/07/23", "2020/07/23", "2020/07/24","2020/07/24"]
+        print(oddDigits)
     }
         
 }

@@ -21,6 +21,7 @@ class MainViewController: UIViewController {
         
     // ToDoを格納した配列
     var todolist = [Todo]()
+    var datesWithEvents: Set<String> = []
     
     var tapCalendarDate: String!
     var selectedIndex: IndexPath?
@@ -29,9 +30,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        realmMigration()
-//        let realm = try! Realm()
-                        
         // 曜日部分を日本語表記に変更
         calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
         calendar.calendarWeekdayView.weekdayLabels[1].text = "月"
@@ -45,11 +43,46 @@ class MainViewController: UIViewController {
         
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        // 画面立ち上げ時に今日のデータをRealmから取得し、TableViewに表示
-//        // CreateViewControllerにて登録完了後、TableViewをリロード
-//    }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        realmMigration()
+//        let realm = try! Realm()
+
+        // 画面立ち上げ時に今日のデータをRealmから取得し、TableViewに表示
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        
+        if tapCalendarDate == nil {
+           tapCalendarDate = formatter.string(from: Date())
+        }
+        
+        dateLabel.text = tapCalendarDate
+        
+        // Realmオブジェクトの生成
+        let realm = try! Realm()
+
+        // 参照（タップした日付のデータを取得）
+        let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
+        
+        if todos.count > 0 {
+            for i in 0..<todos.count {
+                if i == 0 {
+                    todolist = [todos[i]]
+                } else {
+                    todolist.append(contentsOf: [todos[i]])
+                }
+            }
+        } else {
+            todolist = []
+        }
+        
+        // tableViewを更新
+        tableView.reloadData()
+        // calendarを更新
+        calendar.reloadData()
+        
+    }
     
     fileprivate let gregorian: Calendar = Calendar(identifier: .gregorian)
     fileprivate lazy var dateFormatter: DateFormatter = {
@@ -58,7 +91,7 @@ class MainViewController: UIViewController {
         return formatter
     }()
     
-    
+    // calendarの表示形式変更
     @IBAction func changeButtonAction(_ sender: Any) {
         if calendar.scope == .month {
             calendar.setScope(.week, animated: true)
@@ -69,6 +102,14 @@ class MainViewController: UIViewController {
         }
         
     }
+    
+//    // ShowViewControllerに値を渡す
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "show" {
+//            let showVC = segue.destination as! ShowViewController
+//
+//        }
+//    }
     
 }
 
@@ -132,7 +173,7 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
 
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年MM月dd日"
+        formatter.dateFormat = "yyyy/MM/dd"
         tapCalendarDate = formatter.string(from: date)
         
         dateLabel.text = tapCalendarDate
@@ -166,9 +207,39 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     }
         
         
-//    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int{
-//        return 1
-//    }
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int{
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        let calendarDay = formatter.string(from: date)
+
+        do {
+            // Realmオブジェクトの生成
+            let realm = try Realm()
+            // 参照（全データを取得）
+            let todos = realm.objects(Todo.self)
+
+            if todos.count > 0 {
+                for i in 0..<todos.count {
+                    if i == 0 {
+                        datesWithEvents = [todos[i].dateString]
+                    } else {
+                        datesWithEvents.insert(todos[i].dateString)
+                    }
+                }
+            }
+
+        } catch {
+            print(error)
+        }
+
+        for datesWithEvent in datesWithEvents {
+            if datesWithEvent == calendarDay {
+                return 1
+            }
+        }
+        return 0
+    }
         
         
     // 点マークや画像をつけたい日にはそれぞれtrueやimageをリターンし、それ以外の日にちにはnilをリターンする条件文を付属すれば良いです。
@@ -214,7 +285,7 @@ extension MainViewController: UITableViewDataSource {
             cell.mainTaskLabel.text = todolist[indexPath.row].task
             
             let formatter = DateFormatter()
-            formatter.dateFormat = "H時m分"
+            formatter.dateFormat = "HH:mm"
             let dateTime = formatter.string(from: todolist[indexPath.row].date)
             cell.mainDateLabel.text = dateTime
             
@@ -255,36 +326,44 @@ extension MainViewController: UITableViewDataSource {
         // 削除処理かどうか
         if editingStyle == UITableViewCell.EditingStyle.delete {
             
-            // todolistから削除
-            todolist.remove(at: indexPath.row)
-            
-            // セルを削除
-            tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade)
-            
-            do {
-                // Realmオブジェクトの生成
-                let realm = try Realm()
+            let alertController = UIAlertController()
+            let deleteAction = UIAlertAction(title: "削除する", style: .default) { (alert) in
+                // todolistから削除
+                self.todolist.remove(at: indexPath.row)
+                // セルを削除
+                tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade)
+                        
+                do {
+                    // Realmオブジェクトの生成
+                    let realm = try Realm()
 
-                // 削除
-                let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
-                try realm.write {
-                    realm.delete(todos[indexPath.row])
+                    // 削除
+                    let todos = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'")
+                    try realm.write {
+                        realm.delete(todos[indexPath.row])
+                    }
+                } catch {
+                    print(error)
                 }
-
-            } catch {
-                print(error)
             }
-        }
             
-    }
-        
+            let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+             
+            alertController.addAction(deleteAction)
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+    }        
 }
 
 extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        // セルの選択を解除
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        performSegue(withIdentifier: "show", sender: todolist[indexPath.row])
                 
     }
     

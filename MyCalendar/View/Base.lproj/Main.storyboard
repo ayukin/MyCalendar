@@ -71,7 +71,7 @@
                             <barButtonItem title="Item" image="plus" catalog="system" id="D5H-FX-uBb">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <segue destination="eZH-Xd-dZh" kind="show" id="Ag9-6N-zzJ"/>
+                                    <segue destination="eZH-Xd-dZh" kind="show" identifier="" id="Ag9-6N-zzJ"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="週表示" id="hyp-ZN-fv6">
@@ -88,11 +88,30 @@
                         <outlet property="changeButton" destination="hyp-ZN-fv6" id="nbX-ga-ZLd"/>
                         <outlet property="dateLabel" destination="Khi-rb-c0e" id="clb-is-3Of"/>
                         <outlet property="tableView" destination="gdu-NW-jm1" id="AmB-He-wTh"/>
+                        <segue destination="ps9-nJ-vUR" kind="show" identifier="show" id="Rmi-9g-Xuj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="944.92753623188412" y="51.5625"/>
+        </scene>
+        <!--Show View Controller-->
+        <scene sceneID="N6j-GH-D96">
+            <objects>
+                <viewController id="ps9-nJ-vUR" customClass="ShowViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="e1t-kL-xGu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="qH0-C7-6uV"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="lqA-rC-aTQ">
+                        <barButtonItem key="rightBarButtonItem" title="編集" id="CSC-Xb-YYg"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E9m-eB-Ska" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="945" y="774"/>
         </scene>
         <!--Create View Controller-->
         <scene sceneID="TYG-MH-1FG">

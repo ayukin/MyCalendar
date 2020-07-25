@@ -18,7 +18,6 @@ class ListCustomCell: UITableViewCell {
     
     @IBOutlet weak var mainTaskLabel: UILabel!
     @IBOutlet weak var mainDateLabel: UILabel!
-    @IBOutlet weak var mainAlertLabel: UILabel!
     
     @IBOutlet weak var mainDateImage: UIImageView!
     @IBOutlet weak var mainAlertImage: UIImageView!
