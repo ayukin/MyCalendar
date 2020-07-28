@@ -27,11 +27,23 @@ class MainViewController: UIViewController {
     var checkWithStatus: Set<Bool> = [true]
     
     var tapCalendarDate: String!
+    var selectedStatusIndex: IndexPath?
     var selectedIndex: IndexPath?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // ナビゲーションバーのカスタマイズ
+        self.navigationController?.navigationBar.barTintColor = .systemTeal
+        self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+
+        dateLabel.backgroundColor = .systemTeal
+        dateLabel.textColor = .white
         
         // 曜日部分を日本語表記に変更
         calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
@@ -106,13 +118,14 @@ class MainViewController: UIViewController {
         
     }
     
-//    // ShowViewControllerに値を渡す
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "show" {
-//            let showVC = segue.destination as! ShowViewController
-//
-//        }
-//    }
+    // ShowViewControllerに値を渡す
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showVC" {
+            let showVC = segue.destination as! ShowViewController
+            showVC.tapCalendarDate = self.tapCalendarDate
+            showVC.selectedIndex = self.selectedIndex
+        }
+    }
     
 }
 
@@ -336,6 +349,8 @@ extension MainViewController: UITableViewDataSource {
         } else {
             
             cell.mainTaskLabel.text = todolist[indexPath.row].task
+//            let atr =  NSMutableAttributedString(string: cell.mainTaskLabel.text!)
+//            atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, atr.length))
             
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm"
@@ -345,13 +360,15 @@ extension MainViewController: UITableViewDataSource {
             if todolist[indexPath.row].status {
                 let statusImage = UIImage(named: "complete")
                 cell.mainStatusButton.setImage(statusImage, for: .normal)
+//                cell.mainTaskLabel.attributedText = atr
+//                cell.mainTaskLabel.alpha = 0.3
             } else {
                 let statusImage = UIImage(named: "Incomplete")
                 cell.mainStatusButton.setImage(statusImage, for: .normal)
             }
             
             cell.statusChange = { [weak self] in
-                self?.selectedIndex = indexPath
+                self?.selectedStatusIndex = indexPath
             }
             
             let dateImage = UIImage(named: "date")
@@ -364,7 +381,7 @@ extension MainViewController: UITableViewDataSource {
                 let alertImage = UIImage(named: "Inalert")
                 cell.mainAlertImage.image = alertImage
             }
-
+            
             // Cellのdelegateにselfを渡す
             cell.delegate = self
             return cell
@@ -389,7 +406,6 @@ extension MainViewController: UITableViewDataSource {
                 do {
                     // Realmオブジェクトの生成
                     let realm = try Realm()
-
                     // 削除
                     let todos = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'")
                     try realm.write {
@@ -421,8 +437,10 @@ extension MainViewController: UITableViewDelegate {
         // セルの選択を解除
         tableView.deselectRow(at: indexPath, animated: true)
         
-        performSegue(withIdentifier: "show", sender: todolist[indexPath.row])
-                
+        self.selectedIndex = indexPath
+        
+        self.performSegue(withIdentifier: "showVC", sender: todolist[indexPath.row])
+        
     }
     
 }
@@ -441,21 +459,19 @@ extension MainViewController: ListCustomCellDelegate {
 
         let editTodo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
         try! realm.write {
-            if !editTodo[selectedIndex!.row as Int].status {
-                editTodo[selectedIndex!.row as Int].status = true
-                todolist[selectedIndex!.row as Int].status = true
+            if !editTodo[selectedStatusIndex!.row as Int].status {
+                editTodo[selectedStatusIndex!.row as Int].status = true
+                todolist[selectedStatusIndex!.row as Int].status = true
             } else {
-                editTodo[selectedIndex!.row as Int].status = false
-                todolist[selectedIndex!.row as Int].status = false
+                editTodo[selectedStatusIndex!.row as Int].status = false
+                todolist[selectedStatusIndex!.row as Int].status = false
             }
 
         }
-        
         // tableViewを更新
         tableView.reloadData()
         // calendarを更新
         calendar.reloadData()
-
     }
     
 }
