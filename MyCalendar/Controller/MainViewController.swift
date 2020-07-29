@@ -199,6 +199,14 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         let tmpCalendar = Calendar(identifier: .gregorian)
         return tmpCalendar.component(.weekday, from: date)
     }
+    
+    func getToday(_ date: Date) -> Int {
+        let tmpCalendar = Calendar(identifier: .gregorian)
+        return tmpCalendar.component(.day, from: date)
+    }
+
+    
+    
         
     // 土日や祝日の日の文字色を変える
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
@@ -206,7 +214,6 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         if self.judeHoliday(date) {
             return .red
         }
-        
         // 土日の判定を行う（土曜は青色、日曜は赤色で表示する）
         let weekday = self.getWeekIdx(date)
         if weekday == 1 {
@@ -215,6 +222,10 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
             return .blue
         }
         
+        let today = self.getToday(date)
+        if today == 1 {
+            return .white
+        }
         return nil
     }
     
@@ -298,7 +309,7 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         let calendarDay = formatter.string(from: date)
         
         let perfect = UIImage(named: "perfect")
-        let Resize:CGSize = CGSize.init(width: 20, height: 20)
+        let Resize:CGSize = CGSize.init(width: 18, height: 30) // サイズ指定
         let perfectResize = perfect?.resize(size: Resize)
         
         do {
@@ -346,11 +357,7 @@ extension MainViewController: UITableViewDataSource {
         }
         
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 60
-//    }
-    
+        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListCustomCell", for: indexPath) as? ListCustomCell else {
             return UITableViewCell()
@@ -361,9 +368,7 @@ extension MainViewController: UITableViewDataSource {
         } else {
             
             cell.mainTaskLabel.text = todolist[indexPath.row].task
-//            let atr =  NSMutableAttributedString(string: cell.mainTaskLabel.text!)
-//            atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, atr.length))
-            
+                        
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm"
             let dateTime = formatter.string(from: todolist[indexPath.row].date)
@@ -372,11 +377,19 @@ extension MainViewController: UITableViewDataSource {
             if todolist[indexPath.row].status {
                 let statusImage = UIImage(named: "complete")
                 cell.mainStatusButton.setImage(statusImage, for: .normal)
-//                cell.mainTaskLabel.attributedText = atr
-//                cell.mainTaskLabel.alpha = 0.3
+                let atr =  NSMutableAttributedString(string: cell.mainTaskLabel.text!)
+                
+                atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, atr.length))
+                cell.mainTaskLabel.attributedText = atr
+                cell.mainTaskLabel.alpha = 0.3
             } else {
                 let statusImage = UIImage(named: "Incomplete")
                 cell.mainStatusButton.setImage(statusImage, for: .normal)
+                let atr =  NSMutableAttributedString(string: cell.mainTaskLabel.text!)
+                
+                atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 0, range: NSMakeRange(0, atr.length))
+                cell.mainTaskLabel.attributedText = atr
+                cell.mainTaskLabel.alpha = 1
             }
             
             cell.statusChange = { [weak self] in
