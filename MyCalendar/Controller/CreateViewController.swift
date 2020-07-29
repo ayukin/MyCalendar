@@ -8,10 +8,12 @@
 
 import UIKit
 import RealmSwift
+import UserNotifications
 
 class CreateViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
     
     // Sectionで使用する配列を定義
     let sections: Array = ["タスク","ステータス","日時","場所","メモ"]
@@ -31,8 +33,10 @@ class CreateViewController: UIViewController {
     var tapCalendarDate: String!
     var selectedIndex: IndexPath?
     
+    // MainViewControllerから渡された値を格納
+    var tapCalendarTime: Date? = Date()
+
     var showTodolist = Todo()
-    
     var IsShowTransition: Bool = true
 
     
@@ -61,8 +65,12 @@ class CreateViewController: UIViewController {
         let count = (self.navigationController?.viewControllers.count)! - 2
         if (self.navigationController?.viewControllers[count] as? MainViewController) != nil {
             IsShowTransition = false
+            self.deleteButton.isEnabled = false
+            self.deleteButton.tintColor = .clear
         } else {
             IsShowTransition = true
+            self.deleteButton.isEnabled = true
+            self.deleteButton.tintColor = .white
         }
         
         // ShowViewControllerから渡された値をshowTodolistに格納
@@ -72,21 +80,21 @@ class CreateViewController: UIViewController {
                 // Realmオブジェクトの生成
                 let realm = try Realm()
                 // 参照（タップした日付のデータを取得）
-                let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
+                let todo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
                 
-                showTodolist.task = todos[selectedIndex!.row as Int].task
-                IsStatusDone = todos[selectedIndex!.row as Int].status
-                showTodolist.date = todos[selectedIndex!.row as Int].date
-                IsAlertDone = todos[selectedIndex!.row as Int].alert
+                showTodolist.task = todo[selectedIndex!.row as Int].task
+                IsStatusDone = todo[selectedIndex!.row as Int].status
+                showTodolist.date = todo[selectedIndex!.row as Int].date
+                IsAlertDone = todo[selectedIndex!.row as Int].alert
                 
-                if todos[selectedIndex!.row as Int].alertDate == nil {
+                if todo[selectedIndex!.row as Int].alertDate == nil {
                     
                 } else {
-                    showTodolist.alertDate = todos[selectedIndex!.row as Int].alertDate!
+                    showTodolist.alertDate = todo[selectedIndex!.row as Int].alertDate!
                 }
                 
-                showTodolist.place = todos[selectedIndex!.row as Int].place
-                showTodolist.memo = todos[selectedIndex!.row as Int].memo
+                showTodolist.place = todo[selectedIndex!.row as Int].place
+                showTodolist.memo = todo[selectedIndex!.row as Int].memo
                 
             } catch {
                 print(error)
@@ -151,55 +159,85 @@ class CreateViewController: UIViewController {
             // Realmオブジェクトの生成
             let realm = try Realm()
             
-            // RealmスタジオのURL
-            print("-----------------------")
-            print(Realm.Configuration.defaultConfiguration.fileURL!)
-            print("-----------------------")
+//            // RealmスタジオのURL
+//            print("-----------------------")
+//            print(Realm.Configuration.defaultConfiguration.fileURL!)
+//            print("-----------------------")
             
             if task == "" {
-                // 警告アラート
-                failAlert(title: "登録失敗", message: "タスクを記入してください！")
+                let alertController = UIAlertController(title: "登録失敗", message: "タスクを記入してください！", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
             } else {
                 if !IsShowTransition {
                     // 新規登録
-                    let todos = Todo()
-                    todos.task = task!
-                    todos.status = IsStatusDone
-                    todos.date = date!
-                    todos.dateString = dateString
-                    todos.alert = IsAlertDone
+                    let todo = Todo()
+                    todo.task = task!
+                    todo.status = IsStatusDone
+                    todo.date = date!
+                    todo.dateString = dateString
+                    todo.alert = IsAlertDone
                                                     
                     if IsAlertDone {
-                        todos.alertDate = time!
+                        todo.alertDate = time!
                     } else {
-                        todos.alertDate = nil
+                        todo.alertDate = nil
                     }
                                     
-                    todos.place = place!
-                    todos.memo = memo!
+                    todo.place = place!
+                    todo.memo = memo!
 
                     try realm.write {
-                        realm.add(todos)
+                        realm.add(todo)
                     }
 
                 } else {
                     // 登録更新
-                    let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
+                    let todo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
                     try realm.write {
-                        todos[selectedIndex!.row as Int].task = task!
-                        todos[selectedIndex!.row as Int].status = IsStatusDone
-                        todos[selectedIndex!.row as Int].date = date!
-                        todos[selectedIndex!.row as Int].dateString = dateString
-                        todos[selectedIndex!.row as Int].alert = IsAlertDone
+                        todo[selectedIndex!.row as Int].task = task!
+                        todo[selectedIndex!.row as Int].status = IsStatusDone
+                        todo[selectedIndex!.row as Int].date = date!
+                        todo[selectedIndex!.row as Int].dateString = dateString
+                        todo[selectedIndex!.row as Int].alert = IsAlertDone
                         
                         if IsAlertDone {
-                            todos[selectedIndex!.row as Int].alertDate = time!
+                            todo[selectedIndex!.row as Int].alertDate = time!
                         } else {
-                            todos[selectedIndex!.row as Int].alertDate = nil
+                            todo[selectedIndex!.row as Int].alertDate = nil
                         }
                         
-                        todos[selectedIndex!.row as Int].place = place!
-                        todos[selectedIndex!.row as Int].memo = memo!
+                        todo[selectedIndex!.row as Int].place = place!
+                        todo[selectedIndex!.row as Int].memo = memo!
+                    }
+                    
+                }
+                
+                if IsAlertDone {
+                    // ローカル通知の内容
+                    let content = UNMutableNotificationContent()
+                    content.sound = UNNotificationSound.default
+                    content.title = "ローカル通知テスト" // task
+                    content.subtitle = "日時指定"
+                    content.body = "日時指定によるタイマー通知です"
+                    
+                    // ローカル通知実行日時をセット
+                    let date = Date()
+                    let newDate = Date(timeInterval: 5*60, since: date)
+                    let component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: newDate)
+                    
+                    // ローカル通知リクエストを作成
+                    let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
+                    
+                    // ユニークなIDを作る
+                    let identifier = NSUUID().uuidString
+                    let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+                    
+                    // ローカル通知リクエストを登録
+                    UNUserNotificationCenter.current().add(request){ (error : Error?) in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
                     }
                 }
                 
@@ -220,16 +258,33 @@ class CreateViewController: UIViewController {
         
     }
     
-    // 「タスク」未記入時に警告アラートに関する処理
-    func failAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    // データ色々（最終は消去）
-    @IBAction func hogeButton(_ sender: Any) {
+    @IBAction func deleteButtonAction(_ sender: Any) {
         
+        let alertController = UIAlertController(title: showTodolist.task, message: "削除しますか？", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "はい", style: .default) { (alert) in
+            do {
+                // Realmオブジェクトの生成
+                let realm = try Realm()
+                // 削除（タップした日付のデータを取得）
+                let todo = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'")
+                try realm.write {
+                    realm.delete(todo[self.selectedIndex!.row as Int])
+                }
+            } catch {
+                print(error)
+            }
+
+            let layere_number = self.navigationController!.viewControllers.count
+            self.navigationController?.popToViewController(self.navigationController!.viewControllers[layere_number-3], animated: true)
+
+        }
+
+        let noAction = UIAlertAction(title: "いいえ", style: .cancel)
+
+        alertController.addAction(okAction)
+        alertController.addAction(noAction)
+        self.present(alertController, animated: true, completion: nil)
+                
 //        // Realmファイルを完全にディスクから削除する
 //        autoreleasepool {
 //          // all Realm usage here
@@ -249,22 +304,6 @@ class CreateViewController: UIViewController {
 //            // handle error
 //          }
 //        }
-        
-        
-//        // Realmオブジェクトの生成
-//        let realm = try! Realm()
-//
-//        // 削除
-//        let lastTodo = realm.objects(Todo.self).last!
-//        try! realm.write {
-//            realm.delete(lastTodo)
-//        }
-        
-//        let storyboard: UIStoryboard = UIStoryboard(name: "Second", bundle: nil)
-//        let navigationController = storyboard.instantiateViewController(withIdentifier: "navigation") as! UINavigationController
-//        self.present(navigationController, animated: true, completion: nil)
-
-        
         
         
     }
@@ -348,11 +387,14 @@ extension CreateViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DateCustomCell", for: indexPath) as? DateCustomCell else {
                 return UITableViewCell()
             }
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy/MM/dd HH:mm"
             if IsShowTransition {
                 cell.datePicker.date = showTodolist.date
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy/MM/dd HH:mm"
                 cell.label.text = formatter.string(from: showTodolist.date)
+            }else if !IsShowTransition && tapCalendarTime != nil {
+                cell.datePicker.date = tapCalendarTime!
+                cell.label.text = formatter.string(from: tapCalendarTime!)
             }
             return cell
             case 1:
@@ -369,11 +411,14 @@ extension CreateViewController: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "DateCustomCell", for: indexPath) as? DateCustomCell else {
                     return UITableViewCell()
                 }
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy/MM/dd HH:mm"
                 if IsShowTransition && showTodolist.alertDate != nil {
                     cell.datePicker.date = showTodolist.alertDate!
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy/MM/dd HH:mm"
                     cell.label.text = formatter.string(from: showTodolist.alertDate!)
+                } else if !IsShowTransition && tapCalendarTime != nil {
+                    cell.datePicker.date = tapCalendarTime!
+                    cell.label.text = formatter.string(from: tapCalendarTime!)
                 }
                 return cell
             }
@@ -465,7 +510,6 @@ extension CreateViewController: TextCustomCellDelegate{
     
     func keyboardHideAction() {
         IstaskCellDone = false
-
     }
 
 }

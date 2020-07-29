@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YOh-Tq-gZi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YOh-Tq-gZi">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -70,7 +70,8 @@
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="plus" catalog="system" id="D5H-FX-uBb">
                                 <connections>
-                                    <segue destination="eZH-Xd-dZh" kind="show" identifier="" id="Ag9-6N-zzJ"/>
+                                    <action selector="createButtonAction:" destination="BYZ-38-t0r" id="ANg-ut-YYD"/>
+                                    <segue destination="eZH-Xd-dZh" kind="show" identifier="create" id="Ag9-6N-zzJ"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="週表示" id="hyp-ZN-fv6">
@@ -86,7 +87,7 @@
                         <outlet property="changeButton" destination="hyp-ZN-fv6" id="nbX-ga-ZLd"/>
                         <outlet property="dateLabel" destination="Khi-rb-c0e" id="clb-is-3Of"/>
                         <outlet property="tableView" destination="gdu-NW-jm1" id="AmB-He-wTh"/>
-                        <segue destination="ps9-nJ-vUR" kind="show" identifier="showVC" id="ABj-KB-LSx"/>
+                        <segue destination="ps9-nJ-vUR" kind="show" identifier="show" id="ABj-KB-LSx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -96,7 +97,7 @@
         <!--タスク詳細-->
         <scene sceneID="N6j-GH-D96">
             <objects>
-                <viewController storyboardIdentifier="showVC" id="ps9-nJ-vUR" customClass="ShowViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ps9-nJ-vUR" customClass="ShowViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e1t-kL-xGu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -270,7 +271,7 @@
                         <outlet property="showPlaceTextField" destination="Bry-m4-yEs" id="scx-g5-5NU"/>
                         <outlet property="showStatusLabel" destination="AnJ-l8-csd" id="kTD-Oh-np4"/>
                         <outlet property="showTaskLabel" destination="f08-f1-IB3" id="uuq-dv-rBX"/>
-                        <segue destination="eZH-Xd-dZh" kind="show" identifier="createVC" id="lEb-vv-7cX"/>
+                        <segue destination="eZH-Xd-dZh" kind="show" identifier="edit" id="lEb-vv-7cX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E9m-eB-Ska" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -280,7 +281,7 @@
         <!--タスク登録-->
         <scene sceneID="TYG-MH-1FG">
             <objects>
-                <viewController storyboardIdentifier="createVC" id="eZH-Xd-dZh" customClass="CreateViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="eZH-Xd-dZh" customClass="CreateViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ing-m5-TMe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -310,14 +311,15 @@
                                     <action selector="recordButton:" destination="eZH-Xd-dZh" id="N6J-k5-LDM"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="予備" id="Up5-7n-Dxz">
+                            <barButtonItem title="削除" id="Up5-7n-Dxz">
                                 <connections>
-                                    <action selector="hogeButton:" destination="eZH-Xd-dZh" id="hwP-gh-Flt"/>
+                                    <action selector="deleteButtonAction:" destination="eZH-Xd-dZh" id="0Go-Z7-7fA"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="deleteButton" destination="Up5-7n-Dxz" id="pxc-Ec-ALH"/>
                         <outlet property="tableView" destination="KWV-Tr-ur6" id="gKH-5w-mOg"/>
                     </connections>
                 </viewController>
@@ -345,7 +347,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lEb-vv-7cX"/>
+        <segue reference="Ag9-6N-zzJ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="alert" width="40" height="40"/>

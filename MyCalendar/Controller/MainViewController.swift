@@ -11,6 +11,7 @@ import FSCalendar
 import CalculateCalendarLogic
 import RealmSwift
 
+
 class MainViewController: UIViewController {
     
     @IBOutlet weak var calendar: FSCalendar!
@@ -27,6 +28,7 @@ class MainViewController: UIViewController {
     var checkWithStatus: Set<Bool> = [true]
     
     var tapCalendarDate: String!
+    var tapCalendarTime: Date? = Date()
     var selectedStatusIndex: IndexPath?
     var selectedIndex: IndexPath?
     
@@ -67,19 +69,19 @@ class MainViewController: UIViewController {
         // 画面立ち上げ時に今日のデータをRealmから取得し、TableViewに表示
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
-        
+
         if tapCalendarDate == nil {
            tapCalendarDate = formatter.string(from: Date())
         }
-        
+
         dateLabel.text = tapCalendarDate
-        
+
         // Realmオブジェクトの生成
         let realm = try! Realm()
 
         // 参照（タップした日付のデータを取得）
         let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
-        
+
         if todos.count > 0 {
             for i in 0..<todos.count {
                 if i == 0 {
@@ -91,7 +93,7 @@ class MainViewController: UIViewController {
         } else {
             todolist = []
         }
-        
+
         // tableViewを更新
         tableView.reloadData()
         // calendarを更新
@@ -99,12 +101,12 @@ class MainViewController: UIViewController {
         
     }
     
-    fileprivate let gregorian: Calendar = Calendar(identifier: .gregorian)
-    fileprivate lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
-    }()
+//    fileprivate let gregorian: Calendar = Calendar(identifier: .gregorian)
+//    fileprivate lazy var dateFormatter: DateFormatter = {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy-MM-dd"
+//        return formatter
+//    }()
     
     // calendarの表示形式変更
     @IBAction func changeButtonAction(_ sender: Any) {
@@ -118,17 +120,26 @@ class MainViewController: UIViewController {
         
     }
     
-    // ShowViewControllerに値を渡す
+    // CreateViewControllerへ画面遷移
+    @IBAction func createButtonAction(_ sender: Any) {
+        self.performSegue(withIdentifier: "create", sender: nil)
+    }
+    
+    // 画面遷移時に値を渡す
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showVC" {
+        if segue.identifier == "create" {
+            // CreateViewControllerに値を渡す
+            let createVC = segue.destination as! CreateViewController
+            createVC.tapCalendarTime = self.tapCalendarTime
+            
+        } else if segue.identifier == "show" {
+            // ShowViewControllerに値を渡す
             let showVC = segue.destination as! ShowViewController
             showVC.tapCalendarDate = self.tapCalendarDate
             showVC.selectedIndex = self.selectedIndex
         }
     }
-    
 }
-
 
 // UIImageのリサイズ
 extension UIImage {
@@ -214,6 +225,7 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         tapCalendarDate = formatter.string(from: date)
         
         dateLabel.text = tapCalendarDate
+        tapCalendarTime = date
         
         // Realmオブジェクトの生成
         let realm = try! Realm()
@@ -232,10 +244,8 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         } else {
             todolist = []
         }
-        
         // tableViewを更新
         tableView.reloadData()
-        
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -255,7 +265,7 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
             let realm = try Realm()
             // 参照（全データを取得）
             let todos = realm.objects(Todo.self)
-
+            
             if todos.count > 0 {
                 for i in 0..<todos.count {
                     if i == 0 {
@@ -264,6 +274,8 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
                         datesWithEvents.insert(todos[i].dateString)
                     }
                 }
+            } else {
+                datesWithEvents = []
             }
 
         } catch {
@@ -414,6 +426,8 @@ extension MainViewController: UITableViewDataSource {
                 } catch {
                     print(error)
                 }
+                // calendarを更新
+                self.calendar.reloadData()
             }
             
             let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
@@ -421,14 +435,11 @@ extension MainViewController: UITableViewDataSource {
             alertController.addAction(deleteAction)
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true, completion: nil)
-            
+                        
         }
         
-        // calendarを更新
-        calendar.reloadData()
-        
     }
-
+    
 }
 
 extension MainViewController: UITableViewDelegate {
@@ -439,11 +450,12 @@ extension MainViewController: UITableViewDelegate {
         
         self.selectedIndex = indexPath
         
-        self.performSegue(withIdentifier: "showVC", sender: todolist[indexPath.row])
+        self.performSegue(withIdentifier: "show", sender: todolist[indexPath.row])
         
     }
     
 }
+
 
 extension MainViewController: ListCustomCellDelegate {
     

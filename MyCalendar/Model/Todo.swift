@@ -18,6 +18,13 @@ class Todo: Object {
     @objc dynamic var alertDate: Date? = Date()
     @objc dynamic var place: String!
     @objc dynamic var memo: String!
+    @objc dynamic var id: String = NSUUID().uuidString
+    @objc dynamic var createAt = Date()
+    
+//    // IDをプライマリキーにする
+//    override static func primaryKey() -> String? {
+//        return "id"
+//    }
     
 }
 

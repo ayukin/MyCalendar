@@ -71,12 +71,12 @@ class ShowViewController: UIViewController {
     
     // 編集ボタンの処理
     @IBAction func editButtonAction(_ sender: Any) {
-        self.performSegue(withIdentifier: "createVC", sender: nil)
+        self.performSegue(withIdentifier: "edit", sender: nil)
     }
     
     // CreateViewControllerに値を渡す
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "createVC" {
+        if segue.identifier == "edit" {
             let createVC = segue.destination as! CreateViewController
             createVC.tapCalendarDate = self.tapCalendarDate
             createVC.selectedIndex = self.selectedIndex
