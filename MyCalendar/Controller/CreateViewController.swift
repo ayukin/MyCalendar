@@ -18,16 +18,11 @@ class CreateViewController: UIViewController {
     // Sectionで使用する配列を定義
     let sections: Array = ["タスク","ステータス","日時","場所","メモ"]
     
-    // 通知のdatePickerの表示に関する定義
-    var IsAlertDone: Bool = false
-    
     // ステータスの「未完了」「完了済」を表すフラグ
     var IsStatusDone: Bool = false
     
     // タスクのセルのTextFieldのタップイベントを検出するフラグ
     var IstaskCellDone: Bool = false
-    
-    var dateString: String!
     
     // ShowViewControllerから渡された値を格納
     var tapCalendarDate: String!
@@ -38,7 +33,12 @@ class CreateViewController: UIViewController {
 
     var showTodolist = Todo()
     var IsShowTransition: Bool = true
-
+    
+    var dateString: String!
+    var alertString: String!
+    var alertDate: Date? = Date()
+    var alertValueIndex = 0
+    var alertId: String!
     
     
     override func viewDidLoad() {
@@ -55,7 +55,7 @@ class CreateViewController: UIViewController {
         tableView.register(UINib(nibName: "TextCustomCell", bundle: nil), forCellReuseIdentifier: "TextCustomCell")
         tableView.register(UINib(nibName: "StatusCustomCell", bundle: nil), forCellReuseIdentifier: "StatusCustomCell")
         tableView.register(UINib(nibName: "DateCustomCell", bundle: nil), forCellReuseIdentifier: "DateCustomCell")
-        tableView.register(UINib(nibName: "NoticeCustomCell", bundle: nil), forCellReuseIdentifier: "NoticeCustomCell")
+        tableView.register(UINib(nibName: "AlertCustomCell", bundle: nil), forCellReuseIdentifier: "AlertCustomCell")
         tableView.register(UINib(nibName: "MemoCustomCell", bundle: nil), forCellReuseIdentifier: "MemoCustomCell")
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -85,7 +85,7 @@ class CreateViewController: UIViewController {
                 showTodolist.task = todo[selectedIndex!.row as Int].task
                 IsStatusDone = todo[selectedIndex!.row as Int].status
                 showTodolist.date = todo[selectedIndex!.row as Int].date
-                IsAlertDone = todo[selectedIndex!.row as Int].alert
+                showTodolist.alertValueIndex = todo[selectedIndex!.row as Int].alertValueIndex
                 
                 if todo[selectedIndex!.row as Int].alertDate == nil {
                     
@@ -133,7 +133,7 @@ class CreateViewController: UIViewController {
         let taskIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
         let taskCell = taskIndex?.contentView.viewWithTag(1) as? UITextField
         let task = taskCell?.text
-        // 日時の取得
+        // 時間の取得
         let dateIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 2))
         let dateCell = dateIndex?.contentView.viewWithTag(2) as? UIDatePicker
         let date = dateCell?.date
@@ -141,11 +141,60 @@ class CreateViewController: UIViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
         dateString = formatter.string(from: date!)
-
-        // 通知の取得（任意）
-        let timeIndex = tableView.cellForRow(at: IndexPath(row: 2, section: 2))
-        let timeCell = timeIndex?.contentView.viewWithTag(2) as? UIDatePicker
-        let time = timeCell?.date
+        
+        // 通知の取得
+        let alertIndex = tableView.cellForRow(at: IndexPath(row: 1, section: 2))
+        let alertCell = alertIndex?.contentView.viewWithTag(4) as? UILabel
+        alertString = alertCell?.text
+        
+        // 通知の取得（時間）
+        switch alertString {
+        case "なし":
+            alertValueIndex = 0
+            alertDate = nil
+        case "予定時間":
+            alertValueIndex = 1
+            alertDate = date!
+        case "5分前":
+            alertValueIndex = 2
+            alertDate = Date(timeInterval: -5*60, since: date!)
+        case "10分前":
+            alertValueIndex = 3
+            alertDate = Date(timeInterval: -10*60, since: date!)
+        case "15分前":
+            alertValueIndex = 4
+            alertDate = Date(timeInterval: -15*60, since: date!)
+        case "20分前":
+            alertValueIndex = 5
+            alertDate = Date(timeInterval: -20*60, since: date!)
+        case "30分前":
+            alertValueIndex = 6
+            alertDate = Date(timeInterval: -30*60, since: date!)
+        case "1時間前":
+            alertValueIndex = 7
+            alertDate = Date(timeInterval: -1*60*60, since: date!)
+        case "2時間前":
+            alertValueIndex = 8
+            alertDate = Date(timeInterval: -2*60*60, since: date!)
+        case "3時間前":
+            alertValueIndex = 9
+            alertDate = Date(timeInterval: -3*60*60, since: date!)
+        case "1日前":
+            alertValueIndex = 10
+            alertDate = Date(timeInterval: -1*60*60*24, since: date!)
+        case "2日前":
+            alertValueIndex = 11
+            alertDate = Date(timeInterval: -2*60*60*24, since: date!)
+        default:
+            alertValueIndex = 12
+            alertDate = Date(timeInterval: -3*60*60*24, since: date!)
+        }
+        
+        // 通知IDの取得（ユニークなIDを作る）
+        if !IsShowTransition {
+            alertId = NSUUID().uuidString
+        }
+        
         // 場所の取得（任意）
         let placeIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 3))
         let placeCell = placeIndex?.contentView.viewWithTag(1) as? UITextField
@@ -176,14 +225,9 @@ class CreateViewController: UIViewController {
                     todo.status = IsStatusDone
                     todo.date = date!
                     todo.dateString = dateString
-                    todo.alert = IsAlertDone
-                                                    
-                    if IsAlertDone {
-                        todo.alertDate = time!
-                    } else {
-                        todo.alertDate = nil
-                    }
-                                    
+                    todo.alertDate = alertDate
+                    todo.alertValueIndex = alertValueIndex
+                    todo.alertId = alertId
                     todo.place = place!
                     todo.memo = memo!
 
@@ -199,40 +243,31 @@ class CreateViewController: UIViewController {
                         todo[selectedIndex!.row as Int].status = IsStatusDone
                         todo[selectedIndex!.row as Int].date = date!
                         todo[selectedIndex!.row as Int].dateString = dateString
-                        todo[selectedIndex!.row as Int].alert = IsAlertDone
-                        
-                        if IsAlertDone {
-                            todo[selectedIndex!.row as Int].alertDate = time!
-                        } else {
-                            todo[selectedIndex!.row as Int].alertDate = nil
-                        }
-                        
+                        todo[selectedIndex!.row as Int].alertDate = alertDate
+                        todo[selectedIndex!.row as Int].alertValueIndex = alertValueIndex
                         todo[selectedIndex!.row as Int].place = place!
                         todo[selectedIndex!.row as Int].memo = memo!
                     }
                     
                 }
                 
-                if IsAlertDone {
+                if alertDate != nil {
                     // ローカル通知の内容
                     let content = UNMutableNotificationContent()
                     content.sound = UNNotificationSound.default
-                    content.title = "ローカル通知テスト" // task
-                    content.subtitle = "日時指定"
-                    content.body = "日時指定によるタイマー通知です"
-                    
+                    content.title = task!
+                    content.subtitle = "日時指定" // 未定
+                    content.body = "日時指定によるタイマー通知です" // 未定
+
                     // ローカル通知実行日時をセット
-                    let date = Date()
-                    let newDate = Date(timeInterval: 5*60, since: date)
-                    let component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: newDate)
-                    
+                    let component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate!)
+
                     // ローカル通知リクエストを作成
                     let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
-                    
-                    // ユニークなIDを作る
-                    let identifier = NSUUID().uuidString
-                    let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-                    
+
+                    // IDを定義
+                    let request = UNNotificationRequest(identifier: alertId, content: content, trigger: trigger)
+
                     // ローカル通知リクエストを登録
                     UNUserNotificationCenter.current().add(request){ (error : Error?) in
                         if let error = error {
@@ -259,6 +294,7 @@ class CreateViewController: UIViewController {
     }
     
     @IBAction func deleteButtonAction(_ sender: Any) {
+        
         
         let alertController = UIAlertController(title: showTodolist.task, message: "削除しますか？", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "はい", style: .default) { (alert) in
@@ -327,14 +363,8 @@ extension CreateViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         switch section {
-        case 1:
+        case 1, 2:
             return 2
-        case 2:
-            if !IsAlertDone {
-                return 2
-            } else {
-                return 3
-            }
         default:
             return 1
         }
@@ -384,41 +414,29 @@ extension CreateViewController: UITableViewDataSource {
         case 2:
             switch indexPath.row {
             case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "DateCustomCell", for: indexPath) as? DateCustomCell else {
-                return UITableViewCell()
-            }
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy/MM/dd HH:mm"
-            if IsShowTransition {
-                cell.datePicker.date = showTodolist.date
-                cell.label.text = formatter.string(from: showTodolist.date)
-            }else if !IsShowTransition && tapCalendarTime != nil {
-                cell.datePicker.date = tapCalendarTime!
-                cell.label.text = formatter.string(from: tapCalendarTime!)
-            }
-            return cell
-            case 1:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "NoticeCustomCell", for: indexPath) as? NoticeCustomCell else {
-                    return UITableViewCell()
-                }
-                if IsShowTransition && IsAlertDone {
-                    cell.changeSwitch.isOn = true
-                }
-                // Cellのdelegateにselfを渡す
-                cell.delegate = self
-                return cell
-            default:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "DateCustomCell", for: indexPath) as? DateCustomCell else {
-                    return UITableViewCell()
+                return UITableViewCell()
                 }
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy/MM/dd HH:mm"
-                if IsShowTransition && showTodolist.alertDate != nil {
-                    cell.datePicker.date = showTodolist.alertDate!
-                    cell.label.text = formatter.string(from: showTodolist.alertDate!)
-                } else if !IsShowTransition && tapCalendarTime != nil {
+                if IsShowTransition {
+                    cell.datePicker.date = showTodolist.date
+                    cell.label.text = formatter.string(from: showTodolist.date)
+                }else if !IsShowTransition && tapCalendarTime != nil {
                     cell.datePicker.date = tapCalendarTime!
                     cell.label.text = formatter.string(from: tapCalendarTime!)
+                }
+                return cell
+            default:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "AlertCustomCell", for: indexPath) as? AlertCustomCell else {
+                    return UITableViewCell()
+                }
+                if IsShowTransition {
+                    cell.alertPicker.selectRow(showTodolist.alertValueIndex, inComponent: 0, animated: false)
+                    cell.alertLabel.text = cell.alertValues[showTodolist.alertValueIndex] as? String
+                } else {
+                    cell.alertPicker.selectRow(0, inComponent: 0, animated: false)
+                    cell.alertLabel.text = cell.alertValues[0] as? String
                 }
                 return cell
             }
@@ -463,41 +481,23 @@ extension CreateViewController: UITableViewDelegate {
             tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .fade)
             tableView.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .fade)
         }
-        
-        // datePickerの表示に関しての処理
+                
+        // Pickerの表示に関しての処理
         if indexPath.section == 2 {
-            if indexPath.row == 0 || indexPath.row == 2 {
+            if indexPath.row == 0 {
+                // datePickerの表示
                 guard let cell = tableView.cellForRow(at: indexPath) as? DateCustomCell else { return }
                 cell.isPickerDisplay.toggle()
                 tableView.performBatchUpdates(nil, completion: nil)
+            } else {
+                // alertPickerの表示
+                guard let cell = tableView.cellForRow(at: indexPath) as? AlertCustomCell else { return }
+                cell.isPickerDisplay.toggle()
+                tableView.performBatchUpdates(nil, completion: nil)
             }
+            
         }
         
-    }
-    
-}
-
-// Cellのdelegateメソッドで削除処理を実装
-extension CreateViewController: NoticeCustomCellDelegate {
-    
-    func switchOnAction() {
-
-        guard !IsAlertDone else { return }
-        IsAlertDone = true
-        tableView.performBatchUpdates({
-            tableView.insertRows(at: [IndexPath(item: 2, section: 2)], with: .fade)
-        }, completion: nil)
-        
-    }
-    
-    func switchOffAction() {
-
-        guard IsAlertDone else { return }
-        IsAlertDone = false
-        tableView.performBatchUpdates({
-            tableView.deleteRows(at: [IndexPath(item: 2, section: 2)], with: .fade)
-        }, completion: nil)
-
     }
     
 }

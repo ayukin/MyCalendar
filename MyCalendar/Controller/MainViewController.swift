@@ -58,6 +58,7 @@ class MainViewController: UIViewController {
         
         tableView.register(UINib(nibName: "ListCustomCell", bundle: nil), forCellReuseIdentifier: "ListCustomCell")
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -398,8 +399,8 @@ extension MainViewController: UITableViewDataSource {
             
             let dateImage = UIImage(named: "date")
             cell.mainDateImage.image = dateImage
-            
-            if todolist[indexPath.row].alert {
+
+            if todolist[indexPath.row].alertValueIndex != 0 {
                 let alertImage = UIImage(named: "alert")
                 cell.mainAlertImage.image = alertImage
             } else {

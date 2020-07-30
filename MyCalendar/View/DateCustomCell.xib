@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -16,8 +16,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="204"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOS-TR-GNM">
-                        <rect key="frame" x="16" y="0.0" width="304" height="44"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="yyyy/MM/dd HH:mm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOS-TR-GNM">
+                        <rect key="frame" x="147.5" y="0.0" width="156.5" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="QzS-3E-4hg"/>
                         </constraints>
@@ -34,14 +34,24 @@
                             </datePicker>
                         </subviews>
                     </stackView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="時間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB9-mf-Uye">
+                        <rect key="frame" x="16" y="0.0" width="35" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="R8q-QG-lMm"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="arj-zb-jsp" secondAttribute="trailing" id="3SJ-zt-MQX"/>
-                    <constraint firstAttribute="trailing" secondItem="uOS-TR-GNM" secondAttribute="trailing" id="Ghy-2g-Jbs"/>
-                    <constraint firstItem="uOS-TR-GNM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Ma7-Ru-aUe"/>
+                    <constraint firstAttribute="trailing" secondItem="uOS-TR-GNM" secondAttribute="trailing" constant="16" id="Ghy-2g-Jbs"/>
                     <constraint firstAttribute="bottom" secondItem="arj-zb-jsp" secondAttribute="bottom" id="T6Y-MH-dFp"/>
                     <constraint firstItem="uOS-TR-GNM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="V1M-DZ-XJ3"/>
+                    <constraint firstItem="DB9-mf-Uye" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="YLK-IM-4qN"/>
                     <constraint firstItem="arj-zb-jsp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gCh-Va-mn3"/>
+                    <constraint firstItem="DB9-mf-Uye" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="m2C-FG-rL7"/>
                     <constraint firstItem="arj-zb-jsp" firstAttribute="top" secondItem="uOS-TR-GNM" secondAttribute="bottom" id="mC9-rw-NW4"/>
                 </constraints>
             </tableViewCellContentView>

@@ -17,8 +17,6 @@
 		844C4BCF24C1B17200CFB159 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C4BCE24C1B17200CFB159 /* Todo.swift */; };
 		845B90F624B9AD9E000A44C7 /* StatusCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B90F424B9AD9E000A44C7 /* StatusCustomCell.swift */; };
 		845B90F724B9AD9E000A44C7 /* StatusCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845B90F524B9AD9E000A44C7 /* StatusCustomCell.xib */; };
-		845B90FE24B9AEB8000A44C7 /* NoticeCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B90FC24B9AEB8000A44C7 /* NoticeCustomCell.swift */; };
-		845B90FF24B9AEB8000A44C7 /* NoticeCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845B90FD24B9AEB8000A44C7 /* NoticeCustomCell.xib */; };
 		845B910624B9E577000A44C7 /* MemoCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B910424B9E577000A44C7 /* MemoCustomCell.swift */; };
 		845B910724B9E577000A44C7 /* MemoCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845B910524B9E577000A44C7 /* MemoCustomCell.xib */; };
 		845BDEFC24BDF5C300EDB6E4 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */; };
@@ -30,6 +28,8 @@
 		846DC33424C463A500F951BE /* ListCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DC33224C463A500F951BE /* ListCustomCell.swift */; };
 		846DC33524C463A500F951BE /* ListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846DC33324C463A500F951BE /* ListCustomCell.xib */; };
 		84C13C8B24CB07A500193A40 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C13C8A24CB07A400193A40 /* DateUtils.swift */; };
+		84C922FA24D2CFCC00A7D42D /* AlertCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C922F824D2CFCC00A7D42D /* AlertCustomCell.swift */; };
+		84C922FB24D2CFCC00A7D42D /* AlertCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C922F924D2CFCC00A7D42D /* AlertCustomCell.xib */; };
 		FD98881647D3DE75B9C97D9C /* Pods_MyCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63891DC2A03C9E946DDD745B /* Pods_MyCalendar.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,8 +48,6 @@
 		844C4BCE24C1B17200CFB159 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		845B90F424B9AD9E000A44C7 /* StatusCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCustomCell.swift; sourceTree = "<group>"; };
 		845B90F524B9AD9E000A44C7 /* StatusCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusCustomCell.xib; sourceTree = "<group>"; };
-		845B90FC24B9AEB8000A44C7 /* NoticeCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeCustomCell.swift; sourceTree = "<group>"; };
-		845B90FD24B9AEB8000A44C7 /* NoticeCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoticeCustomCell.xib; sourceTree = "<group>"; };
 		845B910424B9E577000A44C7 /* MemoCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCustomCell.swift; sourceTree = "<group>"; };
 		845B910524B9E577000A44C7 /* MemoCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemoCustomCell.xib; sourceTree = "<group>"; };
 		845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
@@ -61,6 +59,8 @@
 		846DC33224C463A500F951BE /* ListCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCustomCell.swift; sourceTree = "<group>"; };
 		846DC33324C463A500F951BE /* ListCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCustomCell.xib; sourceTree = "<group>"; };
 		84C13C8A24CB07A400193A40 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
+		84C922F824D2CFCC00A7D42D /* AlertCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCustomCell.swift; sourceTree = "<group>"; };
+		84C922F924D2CFCC00A7D42D /* AlertCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertCustomCell.xib; sourceTree = "<group>"; };
 		D0AE01226C5E5F919FEB600E /* Pods-MyCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.release.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,8 +137,8 @@
 				845B90F524B9AD9E000A44C7 /* StatusCustomCell.xib */,
 				8463562524B88363002C3962 /* DateCustomCell.swift */,
 				8463562624B88363002C3962 /* DateCustomCell.xib */,
-				845B90FC24B9AEB8000A44C7 /* NoticeCustomCell.swift */,
-				845B90FD24B9AEB8000A44C7 /* NoticeCustomCell.xib */,
+				84C922F824D2CFCC00A7D42D /* AlertCustomCell.swift */,
+				84C922F924D2CFCC00A7D42D /* AlertCustomCell.xib */,
 				845B910424B9E577000A44C7 /* MemoCustomCell.swift */,
 				845B910524B9E577000A44C7 /* MemoCustomCell.xib */,
 				846DC33224C463A500F951BE /* ListCustomCell.swift */,
@@ -231,9 +231,9 @@
 				8463562424B87E26002C3962 /* TextCustomCell.xib in Resources */,
 				846DC33524C463A500F951BE /* ListCustomCell.xib in Resources */,
 				841FD05224A35C740039E4E0 /* Assets.xcassets in Resources */,
+				84C922FB24D2CFCC00A7D42D /* AlertCustomCell.xib in Resources */,
 				845B90F724B9AD9E000A44C7 /* StatusCustomCell.xib in Resources */,
 				845B910724B9E577000A44C7 /* MemoCustomCell.xib in Resources */,
-				845B90FF24B9AEB8000A44C7 /* NoticeCustomCell.xib in Resources */,
 				841FD05024A35C720039E4E0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +292,7 @@
 				845BDEFC24BDF5C300EDB6E4 /* CustomTextView.swift in Sources */,
 				8463562724B88363002C3962 /* DateCustomCell.swift in Sources */,
 				8463562324B87E26002C3962 /* TextCustomCell.swift in Sources */,
-				845B90FE24B9AEB8000A44C7 /* NoticeCustomCell.swift in Sources */,
+				84C922FA24D2CFCC00A7D42D /* AlertCustomCell.swift in Sources */,
 				8463562024B87A75002C3962 /* CreateViewController.swift in Sources */,
 				841FD04D24A35C720039E4E0 /* MainViewController.swift in Sources */,
 				841FD04924A35C720039E4E0 /* AppDelegate.swift in Sources */,
