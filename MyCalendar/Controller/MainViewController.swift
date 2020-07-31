@@ -32,6 +32,9 @@ class MainViewController: UIViewController {
     var selectedStatusIndex: IndexPath?
     var selectedIndex: IndexPath?
     
+    var alertId: String!
+    var alertDate: Date? = Date()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -433,12 +436,23 @@ extension MainViewController: UITableViewDataSource {
                     // Realmオブジェクトの生成
                     let realm = try Realm()
                     // 削除
-                    let todos = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'")
+                    let todo = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'")
+                    
+                    self.alertId = todo[indexPath.row].alertId
+                    if self.alertDate != nil {
+                        self.alertDate = todo[indexPath.row].alertDate
+                    }
+                    
                     try realm.write {
-                        realm.delete(todos[indexPath.row])
+                        realm.delete(todo[indexPath.row])
                     }
                 } catch {
                     print(error)
+                }
+                
+                // 通知の削除
+                if self.alertDate != nil {
+                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.alertId])
                 }
                 // calendarを更新
                 self.calendar.reloadData()

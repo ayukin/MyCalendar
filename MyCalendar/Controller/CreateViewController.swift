@@ -86,10 +86,9 @@ class CreateViewController: UIViewController {
                 IsStatusDone = todo[selectedIndex!.row as Int].status
                 showTodolist.date = todo[selectedIndex!.row as Int].date
                 showTodolist.alertValueIndex = todo[selectedIndex!.row as Int].alertValueIndex
+                showTodolist.alertId = todo[selectedIndex!.row as Int].alertId
                 
-                if todo[selectedIndex!.row as Int].alertDate == nil {
-                    
-                } else {
+                if todo[selectedIndex!.row as Int].alertDate != nil {
                     showTodolist.alertDate = todo[selectedIndex!.row as Int].alertDate!
                 }
                 
@@ -141,6 +140,13 @@ class CreateViewController: UIViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
         dateString = formatter.string(from: date!)
+        
+        let formatter2 = DateFormatter()
+        formatter2.dateFormat = "MM/dd HH:mm"
+        let contentString = formatter2.string(from: date!)
+        
+        
+        
         
         // 通知の取得
         let alertIndex = tableView.cellForRow(at: IndexPath(row: 1, section: 2))
@@ -251,13 +257,21 @@ class CreateViewController: UIViewController {
                     
                 }
                 
+                // 編集処理の際に登録済の通知を削除し、リセットする
+                if IsShowTransition {
+                    if alertDate != nil {
+                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.showTodolist.alertId])
+                    }
+                }
+                            
                 if alertDate != nil {
+                    
                     // ローカル通知の内容
                     let content = UNMutableNotificationContent()
                     content.sound = UNNotificationSound.default
                     content.title = task!
-                    content.subtitle = "日時指定" // 未定
-                    content.body = "日時指定によるタイマー通知です" // 未定
+                    content.subtitle = contentString
+//                    content.body = "日時指定によるタイマー通知です"
 
                     // ローカル通知実行日時をセット
                     let component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate!)
@@ -295,7 +309,6 @@ class CreateViewController: UIViewController {
     
     @IBAction func deleteButtonAction(_ sender: Any) {
         
-        
         let alertController = UIAlertController(title: showTodolist.task, message: "削除しますか？", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "はい", style: .default) { (alert) in
             do {
@@ -309,7 +322,12 @@ class CreateViewController: UIViewController {
             } catch {
                 print(error)
             }
-
+            
+            // 通知の削除
+            if self.alertDate != nil {
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.showTodolist.alertId])
+            }
+            
             let layere_number = self.navigationController!.viewControllers.count
             self.navigationController?.popToViewController(self.navigationController!.viewControllers[layere_number-3], animated: true)
 
