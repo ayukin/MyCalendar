@@ -29,8 +29,6 @@ class ListCustomCell: UITableViewCell {
     // delegateはメモリリークを回避するためweak参照する
     weak var delegate: ListCustomCellDelegate?
 
-
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

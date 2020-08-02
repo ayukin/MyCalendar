@@ -13,12 +13,16 @@ import RealmSwift
 
 
 class MainViewController: UIViewController {
-    
+        
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var calendarHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var changeButton: UIBarButtonItem!
+    
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyLabel: UILabel!
+    
         
     // ToDoを格納した配列
     var todolist = [Todo]()
@@ -60,7 +64,6 @@ class MainViewController: UIViewController {
         calendar.calendarWeekdayView.weekdayLabels[6].text = "土"
         
         tableView.register(UINib(nibName: "ListCustomCell", bundle: nil), forCellReuseIdentifier: "ListCustomCell")
-        
         
     }
     
@@ -105,13 +108,6 @@ class MainViewController: UIViewController {
         
     }
     
-//    fileprivate let gregorian: Calendar = Calendar(identifier: .gregorian)
-//    fileprivate lazy var dateFormatter: DateFormatter = {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "yyyy-MM-dd"
-//        return formatter
-//    }()
-    
     // calendarの表示形式変更
     @IBAction func changeButtonAction(_ sender: Any) {
         if calendar.scope == .month {
@@ -128,7 +124,7 @@ class MainViewController: UIViewController {
     @IBAction func createButtonAction(_ sender: Any) {
         self.performSegue(withIdentifier: "create", sender: nil)
     }
-    
+        
     // 画面遷移時に値を渡す
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "create" {
@@ -142,7 +138,16 @@ class MainViewController: UIViewController {
             showVC.tapCalendarDate = self.tapCalendarDate
             showVC.selectedIndex = self.selectedIndex
         }
+        
     }
+    
+    // InfoViewControllerへ画面遷移
+    @IBAction func infoButtonAction(_ sender: Any) {
+        let infoVC = self.storyboard?.instantiateViewController(withIdentifier: "infoVC") as! InfoViewController
+        let nav = UINavigationController(rootViewController: infoVC)
+        self.present(nav, animated: true, completion: nil)
+    }
+    
 }
 
 // UIImageのリサイズ
@@ -204,10 +209,10 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         return tmpCalendar.component(.weekday, from: date)
     }
     
-    func getToday(_ date: Date) -> Int {
-        let tmpCalendar = Calendar(identifier: .gregorian)
-        return tmpCalendar.component(.day, from: date)
-    }
+//    func getToday(_ date: Date) -> Int {
+//        let tmpCalendar = Calendar(identifier: .gregorian)
+//        return tmpCalendar.component(.day, from: date)
+//    }
 
     
     
@@ -226,10 +231,10 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
             return .blue
         }
         
-        let today = self.getToday(date)
-        if today == 1 {
-            return .white
-        }
+//        let today = self.getToday(date)
+//        if today == 1 {
+//            return .white
+//        }
         return nil
     }
     
@@ -353,10 +358,16 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
 extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+                
         if todolist.count == 0 {
+            tableView.isHidden = true
+            emptyView.isHidden = false
+            emptyLabel.isHidden = false
             return 0
         } else {
+            tableView.isHidden = false
+            emptyView.isHidden = true
+            emptyLabel.isHidden = true
             return todolist.count
         }
         

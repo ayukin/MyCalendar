@@ -14,13 +14,11 @@ class Todo: Object {
     @objc dynamic var status: Bool = false
     @objc dynamic var date = Date()
     @objc dynamic var dateString: String!
-//    @objc dynamic var alert: Bool = false
     @objc dynamic var alertDate: Date? = Date()
     @objc dynamic var alertValueIndex = 0
     @objc dynamic var alertId: String!
     @objc dynamic var place: String!
     @objc dynamic var memo: String!
-//    @objc dynamic var createAt = Date()
     
 }
 

@@ -20,6 +20,8 @@
 		845B910624B9E577000A44C7 /* MemoCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B910424B9E577000A44C7 /* MemoCustomCell.swift */; };
 		845B910724B9E577000A44C7 /* MemoCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845B910524B9E577000A44C7 /* MemoCustomCell.xib */; };
 		845BDEFC24BDF5C300EDB6E4 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */; };
+		845D51BC24D6608100916D59 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D51BB24D6608100916D59 /* InfoViewController.swift */; };
+		845D51BE24D67CC100916D59 /* ColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D51BD24D67CC100916D59 /* ColorViewController.swift */; };
 		8463562024B87A75002C3962 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463561F24B87A75002C3962 /* CreateViewController.swift */; };
 		8463562324B87E26002C3962 /* TextCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463562124B87E26002C3962 /* TextCustomCell.swift */; };
 		8463562424B87E26002C3962 /* TextCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8463562224B87E26002C3962 /* TextCustomCell.xib */; };
@@ -27,7 +29,6 @@
 		8463562824B88363002C3962 /* DateCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8463562624B88363002C3962 /* DateCustomCell.xib */; };
 		846DC33424C463A500F951BE /* ListCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DC33224C463A500F951BE /* ListCustomCell.swift */; };
 		846DC33524C463A500F951BE /* ListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846DC33324C463A500F951BE /* ListCustomCell.xib */; };
-		84C13C8B24CB07A500193A40 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C13C8A24CB07A400193A40 /* DateUtils.swift */; };
 		84C922FA24D2CFCC00A7D42D /* AlertCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C922F824D2CFCC00A7D42D /* AlertCustomCell.swift */; };
 		84C922FB24D2CFCC00A7D42D /* AlertCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C922F924D2CFCC00A7D42D /* AlertCustomCell.xib */; };
 		FD98881647D3DE75B9C97D9C /* Pods_MyCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63891DC2A03C9E946DDD745B /* Pods_MyCalendar.framework */; };
@@ -51,6 +52,8 @@
 		845B910424B9E577000A44C7 /* MemoCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCustomCell.swift; sourceTree = "<group>"; };
 		845B910524B9E577000A44C7 /* MemoCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemoCustomCell.xib; sourceTree = "<group>"; };
 		845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
+		845D51BB24D6608100916D59 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		845D51BD24D67CC100916D59 /* ColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewController.swift; sourceTree = "<group>"; };
 		8463561F24B87A75002C3962 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		8463562124B87E26002C3962 /* TextCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCustomCell.swift; sourceTree = "<group>"; };
 		8463562224B87E26002C3962 /* TextCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCustomCell.xib; sourceTree = "<group>"; };
@@ -58,7 +61,6 @@
 		8463562624B88363002C3962 /* DateCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateCustomCell.xib; sourceTree = "<group>"; };
 		846DC33224C463A500F951BE /* ListCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCustomCell.swift; sourceTree = "<group>"; };
 		846DC33324C463A500F951BE /* ListCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCustomCell.xib; sourceTree = "<group>"; };
-		84C13C8A24CB07A400193A40 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		84C922F824D2CFCC00A7D42D /* AlertCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCustomCell.swift; sourceTree = "<group>"; };
 		84C922F924D2CFCC00A7D42D /* AlertCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertCustomCell.xib; sourceTree = "<group>"; };
 		D0AE01226C5E5F919FEB600E /* Pods-MyCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.release.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.release.xcconfig"; sourceTree = "<group>"; };
@@ -122,6 +124,8 @@
 				841FD04C24A35C720039E4E0 /* MainViewController.swift */,
 				8463561F24B87A75002C3962 /* CreateViewController.swift */,
 				8446240024C9E95B00831064 /* ShowViewController.swift */,
+				845D51BB24D6608100916D59 /* InfoViewController.swift */,
+				845D51BD24D67CC100916D59 /* ColorViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -152,7 +156,6 @@
 			children = (
 				845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */,
 				844C4BCE24C1B17200CFB159 /* Todo.swift */,
-				84C13C8A24CB07A400193A40 /* DateUtils.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -296,10 +299,11 @@
 				8463562024B87A75002C3962 /* CreateViewController.swift in Sources */,
 				841FD04D24A35C720039E4E0 /* MainViewController.swift in Sources */,
 				841FD04924A35C720039E4E0 /* AppDelegate.swift in Sources */,
+				845D51BC24D6608100916D59 /* InfoViewController.swift in Sources */,
 				8446240124C9E95B00831064 /* ShowViewController.swift in Sources */,
 				845B910624B9E577000A44C7 /* MemoCustomCell.swift in Sources */,
-				84C13C8B24CB07A500193A40 /* DateUtils.swift in Sources */,
 				846DC33424C463A500F951BE /* ListCustomCell.swift in Sources */,
+				845D51BE24D67CC100916D59 /* ColorViewController.swift in Sources */,
 				841FD04B24A35C720039E4E0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

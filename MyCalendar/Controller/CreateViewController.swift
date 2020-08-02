@@ -145,9 +145,6 @@ class CreateViewController: UIViewController {
         formatter2.dateFormat = "MM/dd HH:mm"
         let contentString = formatter2.string(from: date!)
         
-        
-        
-        
         // 通知の取得
         let alertIndex = tableView.cellForRow(at: IndexPath(row: 1, section: 2))
         let alertCell = alertIndex?.contentView.viewWithTag(4) as? UILabel
@@ -379,14 +376,12 @@ extension CreateViewController: UITableViewDataSource {
     
     // テーブルに表示する配列の総数を返す
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         switch section {
         case 1, 2:
             return 2
         default:
             return 1
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
