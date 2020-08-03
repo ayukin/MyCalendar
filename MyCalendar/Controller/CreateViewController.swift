@@ -44,8 +44,14 @@ class CreateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // UserDefaultsのインスタンス
+        let userDefaults = UserDefaults.standard
+        // UserDefaultsから値を読み込む
+        let myColor = userDefaults.colorForKey(key: "myColor")
+
+        
         // ナビゲーションバーのカスタマイズ
-        self.navigationController?.navigationBar.barTintColor = .systemTeal
+        self.navigationController?.navigationBar.barTintColor = myColor
         self.view.backgroundColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.white

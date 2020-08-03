@@ -15,20 +15,22 @@ class ColorViewController: UIViewController {
     let selectColor: [UIColor] = [.systemTeal, .systemBlue, .systemIndigo, .systemYellow, .systemOrange, .systemRed, .systemPink, .systemGreen, .systemPurple, .systemGray, .black]
     let selectColorName: [String] = ["light blue", "blue", "indigo", "yellow", "orange", "red", "pink", "green", "purple", "gray", "black"]
     
-//    let selectColor: [UIColor] = [.black, .systemBlue, .systemTeal, .systemRed, .systemGray, .systemGreen, .systemYellow, .systemPurple, .systemPink, .systemOrange, .systemIndigo]
-//    let selectColorName: [String] = ["black", "blue", "light blue", "red", "gray", "green", "yellow", "purple", "pink", "orange", "indigo"]
-    
     var selectColorNumber = 0
-    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // UserDefaultsのインスタンス
+        let userDefaults = UserDefaults.standard
+        // UserDefaultsから値を読み込む
+        let myColor = userDefaults.colorForKey(key: "myColor")
+        selectColorNumber = UserDefaults.standard.integer(forKey: "myColorNumber")
+        
         self.navigationItem.title = "カラー設定"
         
         // ナビゲーションバーのカスタマイズ
-        self.navigationController?.navigationBar.barTintColor = .systemTeal
+        self.navigationController?.navigationBar.barTintColor = myColor
         self.view.backgroundColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.white
@@ -94,9 +96,20 @@ extension ColorViewController: UICollectionViewDataSource, UICollectionViewDeleg
 extension ColorViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         selectColorNumber = indexPath.row
-        print(selectColor)
+        
+        // UserDefaultsのインスタンス
+        let userDefaults = UserDefaults.standard
+        // Keyの値を削除
+        userDefaults.removeObject(forKey: "myColor")
+        userDefaults.removeObject(forKey: "myColorNumber")
+        // Keyを指定して保存
+        userDefaults.setColor(color: selectColor[selectColorNumber], forKey: "myColor")
+        UserDefaults.standard.set(selectColorNumber, forKey: "myColorNumber")
+        
         collectionView.reloadData()
+        print(userDefaults.colorForKey(key: "myColor") as Any)
     }
     
 }

@@ -29,6 +29,7 @@
 		8463562824B88363002C3962 /* DateCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8463562624B88363002C3962 /* DateCustomCell.xib */; };
 		846DC33424C463A500F951BE /* ListCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DC33224C463A500F951BE /* ListCustomCell.swift */; };
 		846DC33524C463A500F951BE /* ListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846DC33324C463A500F951BE /* ListCustomCell.xib */; };
+		84BAEA7424D8195E00A726B5 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAEA7324D8195E00A726B5 /* UserDefaults.swift */; };
 		84C922FA24D2CFCC00A7D42D /* AlertCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C922F824D2CFCC00A7D42D /* AlertCustomCell.swift */; };
 		84C922FB24D2CFCC00A7D42D /* AlertCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C922F924D2CFCC00A7D42D /* AlertCustomCell.xib */; };
 		FD98881647D3DE75B9C97D9C /* Pods_MyCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63891DC2A03C9E946DDD745B /* Pods_MyCalendar.framework */; };
@@ -61,6 +62,7 @@
 		8463562624B88363002C3962 /* DateCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateCustomCell.xib; sourceTree = "<group>"; };
 		846DC33224C463A500F951BE /* ListCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCustomCell.swift; sourceTree = "<group>"; };
 		846DC33324C463A500F951BE /* ListCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCustomCell.xib; sourceTree = "<group>"; };
+		84BAEA7324D8195E00A726B5 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		84C922F824D2CFCC00A7D42D /* AlertCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCustomCell.swift; sourceTree = "<group>"; };
 		84C922F924D2CFCC00A7D42D /* AlertCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertCustomCell.xib; sourceTree = "<group>"; };
 		D0AE01226C5E5F919FEB600E /* Pods-MyCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.release.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.release.xcconfig"; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			children = (
 				845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */,
 				844C4BCE24C1B17200CFB159 /* Todo.swift */,
+				84BAEA7324D8195E00A726B5 /* UserDefaults.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				845B90F624B9AD9E000A44C7 /* StatusCustomCell.swift in Sources */,
 				845BDEFC24BDF5C300EDB6E4 /* CustomTextView.swift in Sources */,
 				8463562724B88363002C3962 /* DateCustomCell.swift in Sources */,
+				84BAEA7424D8195E00A726B5 /* UserDefaults.swift in Sources */,
 				8463562324B87E26002C3962 /* TextCustomCell.swift in Sources */,
 				84C922FA24D2CFCC00A7D42D /* AlertCustomCell.swift in Sources */,
 				8463562024B87A75002C3962 /* CreateViewController.swift in Sources */,
