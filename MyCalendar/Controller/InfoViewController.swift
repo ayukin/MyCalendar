@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 
+
 class InfoViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -19,22 +20,6 @@ class InfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // UserDefaultsのインスタンス
-        let userDefaults = UserDefaults.standard
-        // UserDefaultsから値を読み込む
-        let myColor = userDefaults.colorForKey(key: "myColor")
-
-        
-        self.navigationItem.title = "情報"
-        
-        // ナビゲーションバーのカスタマイズ
-        self.navigationController?.navigationBar.barTintColor = myColor
-        self.view.backgroundColor = .white
-        self.navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.white
-        ]
-        self.navigationController?.navigationBar.tintColor = UIColor.white
         
         // 左上の閉じるボタン
         let closeBtn = UIBarButtonItem(
@@ -47,12 +32,40 @@ class InfoViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // UserDefaultsのインスタンス
+        let userDefaults = UserDefaults.standard
+        // UserDefaultsから値を読み込む
+        let myColor = userDefaults.colorForKey(key: "myColor")
+
+        self.navigationItem.title = "情報"
+        
+        // ナビゲーションバーのカスタマイズ
+        self.navigationController?.navigationBar.barTintColor = myColor
+        self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+
+    }
+    
+    // 画面遷移時に値を渡す
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let colorVC = ColorViewController()
+//        colorVC.delegate = MainViewController.Type
+//    }
+        
+    
     // モーダルを閉じる処理
     @objc func cancelProject(sender: UIBarButtonItem){
       self.dismiss(animated: true, completion: nil)
     }
     
 }
+
 
 extension InfoViewController: UITableViewDataSource {
     
@@ -116,9 +129,6 @@ extension InfoViewController: UITableViewDelegate {
         if indexPath.section == 0 {
             self.performSegue(withIdentifier: "color", sender: nil)
         }
-        
-        
-        
         
         // 登録データ全消去の処理
         if indexPath.section == 1 {

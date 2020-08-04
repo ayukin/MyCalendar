@@ -8,6 +8,12 @@
 
 import UIKit
 
+
+protocol ColorViewControllerDelegate: class {
+    func changeColorAction()
+}
+
+
 class ColorViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -16,6 +22,9 @@ class ColorViewController: UIViewController {
     let selectColorName: [String] = ["light blue", "blue", "indigo", "yellow", "orange", "red", "pink", "green", "purple", "gray", "black"]
     
     var selectColorNumber = 0
+    
+    weak var delegate: ColorViewControllerDelegate?
+    
     
     
     override func viewDidLoad() {
@@ -109,7 +118,12 @@ extension ColorViewController: UICollectionViewDelegate {
         UserDefaults.standard.set(selectColorNumber, forKey: "myColorNumber")
         
         collectionView.reloadData()
-        print(userDefaults.colorForKey(key: "myColor") as Any)
+        
+        loadView()
+        viewDidLoad()
+        
+        delegate?.changeColorAction()
+        
     }
     
 }

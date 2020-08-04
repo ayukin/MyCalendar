@@ -43,25 +43,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // UserDefaultsのインスタンス
-        let userDefaults = UserDefaults.standard
-        // UserDefaultsから値を読み込む
-        let myColor = userDefaults.colorForKey(key: "myColor")
-        
-        
-        // ナビゲーションバーのカスタマイズ
-        
-        self.navigationController?.navigationBar.barTintColor = myColor
-        self.view.backgroundColor = .white
-        self.navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.white
-        ]
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-
-        dateLabel.backgroundColor = myColor
-        dateLabel.textColor = .white
-        
-        
         // 曜日部分を日本語表記に変更
         calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
         calendar.calendarWeekdayView.weekdayLabels[1].text = "月"
@@ -80,6 +61,8 @@ class MainViewController: UIViewController {
         
         realmMigration()
 //        let realm = try! Realm()
+        
+        changeColorAction()
 
         // 画面立ち上げ時に今日のデータをRealmから取得し、TableViewに表示
         let formatter = DateFormatter()
@@ -125,7 +108,7 @@ class MainViewController: UIViewController {
             calendar.setScope(.month, animated: true)
             changeButton.title = "週表示"
         }
-        
+                
     }
     
     // CreateViewControllerへ画面遷移
@@ -175,6 +158,31 @@ extension UIImage {
         return resizedImage
     }
 }
+
+
+
+extension MainViewController: ColorViewControllerDelegate {
+    func changeColorAction() {
+        
+        // UserDefaultsのインスタンス
+        let userDefaults = UserDefaults.standard
+        // UserDefaultsから値を読み込む
+        let myColor = userDefaults.colorForKey(key: "myColor")
+
+        // ナビゲーションバーのカスタマイズ
+        self.navigationController?.navigationBar.barTintColor = myColor
+        self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+
+        dateLabel.backgroundColor = myColor
+        dateLabel.textColor = .white
+    }
+    
+}
+
 
 
 // ３つに分けなかった理由（FSCalendarDataSource、FSCalendarDelegateAppearanceに記載するコードがなかったため）

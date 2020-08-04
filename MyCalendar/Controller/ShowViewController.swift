@@ -108,10 +108,10 @@ class ShowViewController: UIViewController {
         let urlString: String!
         // googleマップが開けるかを確認し、それによってurlスキームを切り替える
         if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!) {
-            urlString = "comgooglemaps://?q=\(String(describing: showPlaceLabel.text))&center=37.759748,-122.427135".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+            urlString = "comgooglemaps://?q=\(String(describing: showPlaceLabel.text!))&center=37.759748,-122.427135".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
             }
         else {
-            urlString = "http://maps.apple.com/?q=\(String(describing: showPlaceLabel.text))&center=37.759748,-122.427135".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+            urlString = "http://maps.apple.com/?q=\(String(describing: showPlaceLabel.text!))&center=37.759748,-122.427135".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
             }
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
