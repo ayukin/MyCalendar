@@ -213,6 +213,8 @@ class CreateViewController: UIViewController {
         let memoCell = memoIndex?.contentView.viewWithTag(3) as? UITextView
         let memo = memoCell?.text
         
+        let now: Date? = Date()
+        
         do {
             // Realmオブジェクトの生成
             let realm = try Realm()
@@ -224,6 +226,10 @@ class CreateViewController: UIViewController {
             
             if task == "" {
                 let alertController = UIAlertController(title: "登録失敗", message: "タスクを記入してください！", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            } else if !(now! <= alertDate!) {
+                let alertController = UIAlertController(title: "登録失敗", message: "通知設定時間が過ぎています！", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alertController, animated: true, completion: nil)
             } else {
@@ -364,7 +370,7 @@ class CreateViewController: UIViewController {
         
         
     }
-        
+    
 }
 
 

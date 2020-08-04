@@ -54,6 +54,9 @@ class MainViewController: UIViewController {
         
         tableView.register(UINib(nibName: "ListCustomCell", bundle: nil), forCellReuseIdentifier: "ListCustomCell")
         
+        let colorVC = ColorViewController()
+        colorVC.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,12 +94,10 @@ class MainViewController: UIViewController {
         } else {
             todolist = []
         }
-
         // tableViewを更新
         tableView.reloadData()
         // calendarを更新
         calendar.reloadData()
-        
     }
     
     // calendarの表示形式変更
@@ -359,7 +360,6 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
             print(error)
         }
         
-        
         if datesWithStatus == checkWithStatus {
             return perfectResize
         }
@@ -390,6 +390,7 @@ extension MainViewController: UITableViewDataSource {
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListCustomCell", for: indexPath) as? ListCustomCell else {
             return UITableViewCell()
         }
@@ -513,16 +514,11 @@ extension MainViewController: UITableViewDelegate {
 
 
 extension MainViewController: ListCustomCellDelegate {
-    
     // Realmの「Status」の更新
     func statusChangeAction() {
 
         // Realmオブジェクトの生成
         let realm = try! Realm()
-        
-//        print("-----------------------")
-//        print(Realm.Configuration.defaultConfiguration.fileURL!)
-//        print("-----------------------")
 
         let editTodo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
         try! realm.write {
@@ -533,7 +529,6 @@ extension MainViewController: ListCustomCellDelegate {
                 editTodo[selectedStatusIndex!.row as Int].status = false
                 todolist[selectedStatusIndex!.row as Int].status = false
             }
-
         }
         // tableViewを更新
         tableView.reloadData()
