@@ -10,12 +10,20 @@ import UIKit
 import RealmSwift
 
 
+protocol InfoViewControllerDelegate: class {
+    func changeColorAction()
+}
+
+
 class InfoViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
     // Sectionで使用する配列を定義
     let sections: Array = ["カラー設定","登録データ","サポート"]
+    
+    weak var delegate: InfoViewControllerDelegate?
+    
     
 
     override func viewDidLoad() {
@@ -35,6 +43,42 @@ class InfoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        changeColorAction()
+        
+//        // UserDefaultsのインスタンス
+//        let userDefaults = UserDefaults.standard
+//        // UserDefaultsから値を読み込む
+//        let myColor = userDefaults.colorForKey(key: "myColor")
+//
+//        self.navigationItem.title = "情報"
+//
+//        // ナビゲーションバーのカスタマイズ
+//        self.navigationController?.navigationBar.barTintColor = myColor
+//        self.view.backgroundColor = .white
+//        self.navigationController?.navigationBar.titleTextAttributes = [
+//            .foregroundColor: UIColor.white
+//        ]
+//        self.navigationController?.navigationBar.tintColor = UIColor.white
+
+    }
+    
+    // 画面遷移時に値を渡す
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let colorVC = ColorViewController()
+        let mainVC = self.parent as? MainViewController
+        colorVC.delegate = mainVC
+    }
+        
+    
+    // モーダルを閉じる処理
+    @objc func cancelProject(sender: UIBarButtonItem){
+      self.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+extension InfoViewController: ColorViewControllerDelegate {
+    func changeColorAction() {
         // UserDefaultsのインスタンス
         let userDefaults = UserDefaults.standard
         // UserDefaultsから値を読み込む
@@ -49,20 +93,11 @@ class InfoViewController: UIViewController {
             .foregroundColor: UIColor.white
         ]
         self.navigationController?.navigationBar.tintColor = UIColor.white
+        
+        delegate?.changeColorAction()
 
     }
     
-    // 画面遷移時に値を渡す
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let colorVC = ColorViewController()
-//        colorVC.delegate = MainViewController.Type
-//    }
-        
-    
-    // モーダルを閉じる処理
-    @objc func cancelProject(sender: UIBarButtonItem){
-      self.dismiss(animated: true, completion: nil)
-    }
     
 }
 

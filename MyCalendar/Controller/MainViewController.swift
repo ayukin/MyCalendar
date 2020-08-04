@@ -53,14 +53,12 @@ class MainViewController: UIViewController {
         calendar.calendarWeekdayView.weekdayLabels[6].text = "土"
         
         tableView.register(UINib(nibName: "ListCustomCell", bundle: nil), forCellReuseIdentifier: "ListCustomCell")
-        
-        let colorVC = ColorViewController()
-        colorVC.delegate = self
-        
+                
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         
         realmMigration()
 //        let realm = try! Realm()
@@ -129,15 +127,21 @@ class MainViewController: UIViewController {
             let showVC = segue.destination as! ShowViewController
             showVC.tapCalendarDate = self.tapCalendarDate
             showVC.selectedIndex = self.selectedIndex
+            
+        } else if segue.identifier == "info" {
+            // InfoViewControllerに値を渡す
+            let infoVC = self.storyboard?.instantiateViewController(withIdentifier: "infoVC") as! InfoViewController
+            infoVC.delegate = self
+            let nav = UINavigationController(rootViewController: infoVC)
+            self.present(nav, animated: true, completion: nil)
+
         }
         
     }
     
     // InfoViewControllerへ画面遷移
     @IBAction func infoButtonAction(_ sender: Any) {
-        let infoVC = self.storyboard?.instantiateViewController(withIdentifier: "infoVC") as! InfoViewController
-        let nav = UINavigationController(rootViewController: infoVC)
-        self.present(nav, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "info", sender: self)
     }
     
 }
@@ -160,6 +164,10 @@ extension UIImage {
     }
 }
 
+
+extension MainViewController: InfoViewControllerDelegate {
+    
+}
 
 
 extension MainViewController: ColorViewControllerDelegate {
