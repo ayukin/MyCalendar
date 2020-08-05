@@ -18,10 +18,10 @@ class ColorViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let selectColor: [UIColor] = [.systemTeal, .systemBlue, .systemIndigo, .systemYellow, .systemOrange, .systemRed, .systemPink, .systemGreen, .systemPurple, .systemGray, .black]
-    let selectColorName: [String] = ["light blue", "blue", "indigo", "yellow", "orange", "red", "pink", "green", "purple", "gray", "black"]
+    let selectColor: [UIColor] = [.systemTeal, .systemBlue, .systemIndigo, .systemYellow, .systemOrange, .systemRed, .systemPink, .systemGreen, .systemPurple, .systemGray]
+    let selectColorName: [String] = ["light blue", "blue", "indigo", "yellow", "orange", "red", "pink", "green", "purple", "gray"]
     
-    var selectColorNumber = 0
+    var selectColorNumber: Int!
     
     weak var delegate: ColorViewControllerDelegate?
     

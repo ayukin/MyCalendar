@@ -43,6 +43,17 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // UserDefaultsのインスタンス
+        let userDefaults = UserDefaults.standard
+        // UserDefaultsから値を読み込む
+        let myColor = userDefaults.colorForKey(key: "myColor")
+        if myColor == nil {
+            // Keyを指定して保存
+            userDefaults.setColor(color: .systemTeal, forKey: "myColor")
+            UserDefaults.standard.set(0, forKey: "myColorNumber")
+        }
+        
+        
         // 曜日部分を日本語表記に変更
         calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
         calendar.calendarWeekdayView.weekdayLabels[1].text = "月"
@@ -59,43 +70,27 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
         realmMigration()
 //        let realm = try! Realm()
         
+        // テーマカラー変更の処理
         changeColorAction()
-
+        
         // 画面立ち上げ時に今日のデータをRealmから取得し、TableViewに表示
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
-
         if tapCalendarDate == nil {
-           tapCalendarDate = formatter.string(from: Date())
+            tapCalendarDate = formatter.string(from: Date())
         }
-
         dateLabel.text = tapCalendarDate
-
-        // Realmオブジェクトの生成
-        let realm = try! Realm()
-
-        // 参照（タップした日付のデータを取得）
-        let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
-
-        if todos.count > 0 {
-            for i in 0..<todos.count {
-                if i == 0 {
-                    todolist = [todos[i]]
-                } else {
-                    todolist.append(contentsOf: [todos[i]])
-                }
-            }
-        } else {
-            todolist = []
-        }
+        
+        // タップしたカレンダーの日付に紐付いたデータをRealmから取得
+        tapCalendarDateGetAction()
         // tableViewを更新
         tableView.reloadData()
         // calendarを更新
         calendar.reloadData()
+        
     }
     
     // calendarの表示形式変更
@@ -131,7 +126,6 @@ class MainViewController: UIViewController {
         } else if segue.identifier == "info" {
             // InfoViewControllerに値を渡す
             let infoVC = self.storyboard?.instantiateViewController(withIdentifier: "infoVC") as! InfoViewController
-            infoVC.delegate = self
             let nav = UINavigationController(rootViewController: infoVC)
             self.present(nav, animated: true, completion: nil)
 
@@ -142,6 +136,25 @@ class MainViewController: UIViewController {
     // InfoViewControllerへ画面遷移
     @IBAction func infoButtonAction(_ sender: Any) {
         self.performSegue(withIdentifier: "info", sender: self)
+    }
+    
+    // タップしたカレンダーの日付に紐付いたデータをRealmから取得
+    func tapCalendarDateGetAction() {
+        // Realmオブジェクトの生成
+        let realm = try! Realm()
+        // 参照（タップした日付のデータを取得）
+        let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
+        if todos.count > 0 {
+            for i in 0..<todos.count {
+                if i == 0 {
+                    todolist = [todos[i]]
+                } else {
+                    todolist.append(contentsOf: [todos[i]])
+                }
+            }
+        } else {
+            todolist = []
+        }
     }
     
 }
@@ -165,12 +178,8 @@ extension UIImage {
 }
 
 
-extension MainViewController: InfoViewControllerDelegate {
-    
-}
-
-
 extension MainViewController: ColorViewControllerDelegate {
+    // テーマカラー変更の処理
     func changeColorAction() {
         
         // UserDefaultsのインスタンス
@@ -191,7 +200,6 @@ extension MainViewController: ColorViewControllerDelegate {
     }
     
 }
-
 
 
 // ３つに分けなかった理由（FSCalendarDataSource、FSCalendarDelegateAppearanceに記載するコードがなかったため）
@@ -272,25 +280,11 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         dateLabel.text = tapCalendarDate
         tapCalendarTime = date
         
-        // Realmオブジェクトの生成
-        let realm = try! Realm()
-
-        // 参照（タップした日付のデータを取得）
-        let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
-        
-        if todos.count > 0 {
-            for i in 0..<todos.count {
-                if i == 0 {
-                    todolist = [todos[i]]
-                } else {
-                    todolist.append(contentsOf: [todos[i]])
-                }
-            }
-        } else {
-            todolist = []
-        }
+        // タップしたカレンダーの日付に紐付いたデータをRealmから取得
+        tapCalendarDateGetAction()
         // tableViewを更新
         tableView.reloadData()
+
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -351,7 +345,7 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
             let realm = try Realm()
             // 参照（全データを取得）
             let todos = realm.objects(Todo.self).filter("dateString == '\(calendarDay)'")
-
+            
             if todos.count > 0 {
                 for i in 0..<todos.count {
                     if i == 0 {
@@ -373,7 +367,6 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         }
         
         return nil
-        
     }
     
 }
@@ -472,7 +465,7 @@ extension MainViewController: UITableViewDataSource {
                     // Realmオブジェクトの生成
                     let realm = try Realm()
                     // 削除
-                    let todo = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'")
+                    let todo = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
                     
                     self.alertId = todo[indexPath.row].alertId
                     if self.alertDate != nil {
@@ -485,11 +478,14 @@ extension MainViewController: UITableViewDataSource {
                 } catch {
                     print(error)
                 }
-                
                 // 通知の削除
                 if self.alertDate != nil {
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.alertId])
                 }
+                // タップしたカレンダーの日付に紐付いたデータをRealmから取得
+                self.tapCalendarDateGetAction()
+                // TableViewを更新
+                self.tableView.reloadData()
                 // calendarを更新
                 self.calendar.reloadData()
             }
@@ -511,11 +507,10 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // セルの選択を解除
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        // タップしたcellのindexPathを格納
         self.selectedIndex = indexPath
         
         self.performSegue(withIdentifier: "show", sender: todolist[indexPath.row])
-        
     }
     
 }
@@ -524,11 +519,11 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: ListCustomCellDelegate {
     // Realmの「Status」の更新
     func statusChangeAction() {
-
+        
         // Realmオブジェクトの生成
         let realm = try! Realm()
 
-        let editTodo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
+        let editTodo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
         try! realm.write {
             if !editTodo[selectedStatusIndex!.row as Int].status {
                 editTodo[selectedStatusIndex!.row as Int].status = true

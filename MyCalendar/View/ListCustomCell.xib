@@ -17,10 +17,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BFU-Dp-nNQ">
-                        <rect key="frame" x="15" y="15" width="30" height="30"/>
+                        <rect key="frame" x="10" y="10" width="40" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="2la-zR-gg4"/>
-                            <constraint firstAttribute="width" constant="30" id="pbT-pc-R5o"/>
+                            <constraint firstAttribute="height" constant="40" id="2la-zR-gg4"/>
+                            <constraint firstAttribute="width" constant="40" id="pbT-pc-R5o"/>
                         </constraints>
                         <connections>
                             <action selector="mainStatusButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IgT-Xi-tfO"/>
@@ -61,20 +61,20 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="BFU-Dp-nNQ" secondAttribute="bottom" constant="15" id="4WV-AD-nGh"/>
+                    <constraint firstAttribute="bottom" secondItem="BFU-Dp-nNQ" secondAttribute="bottom" constant="10" id="4WV-AD-nGh"/>
                     <constraint firstAttribute="trailing" secondItem="ISS-DW-bv7" secondAttribute="trailing" id="7Ds-s0-ZB8"/>
                     <constraint firstItem="OSg-YK-LOD" firstAttribute="top" secondItem="ISS-DW-bv7" secondAttribute="bottom" constant="4" id="A8f-PZ-2J2"/>
                     <constraint firstItem="2QT-Gr-AfD" firstAttribute="leading" secondItem="LlB-rb-tUc" secondAttribute="trailing" constant="5" id="GN5-XX-2Wm"/>
                     <constraint firstAttribute="bottom" secondItem="OSg-YK-LOD" secondAttribute="bottom" constant="10" id="H7e-sg-Q9F"/>
-                    <constraint firstItem="BFU-Dp-nNQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="I3D-iq-Hqs"/>
+                    <constraint firstItem="BFU-Dp-nNQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="I3D-iq-Hqs"/>
                     <constraint firstAttribute="bottom" secondItem="2QT-Gr-AfD" secondAttribute="bottom" constant="10" id="I81-yb-vAb"/>
                     <constraint firstAttribute="bottom" secondItem="LlB-rb-tUc" secondAttribute="bottom" constant="10" id="LO5-9n-Nud"/>
                     <constraint firstItem="LlB-rb-tUc" firstAttribute="top" secondItem="ISS-DW-bv7" secondAttribute="bottom" constant="4" id="PzU-c6-CuC"/>
                     <constraint firstItem="ISS-DW-bv7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="a4u-uH-ddE"/>
-                    <constraint firstItem="ISS-DW-bv7" firstAttribute="leading" secondItem="BFU-Dp-nNQ" secondAttribute="trailing" constant="15" id="bdh-BW-GU4"/>
+                    <constraint firstItem="ISS-DW-bv7" firstAttribute="leading" secondItem="BFU-Dp-nNQ" secondAttribute="trailing" constant="10" id="bdh-BW-GU4"/>
                     <constraint firstItem="LlB-rb-tUc" firstAttribute="leading" secondItem="OSg-YK-LOD" secondAttribute="trailing" constant="5" id="fwo-zT-reU"/>
-                    <constraint firstItem="BFU-Dp-nNQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="hMA-wi-aQ9"/>
-                    <constraint firstItem="OSg-YK-LOD" firstAttribute="leading" secondItem="BFU-Dp-nNQ" secondAttribute="trailing" constant="15" id="kN9-2v-phT"/>
+                    <constraint firstItem="BFU-Dp-nNQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="hMA-wi-aQ9"/>
+                    <constraint firstItem="OSg-YK-LOD" firstAttribute="leading" secondItem="BFU-Dp-nNQ" secondAttribute="trailing" constant="10" id="kN9-2v-phT"/>
                     <constraint firstItem="2QT-Gr-AfD" firstAttribute="top" secondItem="ISS-DW-bv7" secondAttribute="bottom" constant="4" id="sdT-KB-4Wr"/>
                 </constraints>
             </tableViewCellContentView>

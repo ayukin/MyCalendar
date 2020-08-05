@@ -15,12 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        // UserDefaults のインスタンス
-//        let userDefaults = UserDefaults.standard
-//        // Keyを指定して保存
-//        userDefaults.setColor(color: .systemOrange, forKey: "myColor")
-
-        
         // 通知許可の取得
         UNUserNotificationCenter.current().requestAuthorization(
         options: [.alert, .sound, .badge]){

@@ -56,7 +56,7 @@ class ShowViewController: UIViewController {
             // Realmオブジェクトの生成
             let realm = try Realm()
             // 参照（タップした日付のデータを取得）
-            let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
+            let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
             
             showTaskLabel.text = todos[selectedIndex!.row as Int].task
             showTaskLabel.sizeToFit()

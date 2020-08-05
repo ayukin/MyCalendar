@@ -86,7 +86,7 @@ class CreateViewController: UIViewController {
                 // Realmオブジェクトの生成
                 let realm = try Realm()
                 // 参照（タップした日付のデータを取得）
-                let todo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
+                let todo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
                 
                 showTodolist.task = todo[selectedIndex!.row as Int].task
                 IsStatusDone = todo[selectedIndex!.row as Int].status
@@ -228,7 +228,7 @@ class CreateViewController: UIViewController {
                 let alertController = UIAlertController(title: "登録失敗", message: "タスクを記入してください！", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alertController, animated: true, completion: nil)
-            } else if !(now! <= alertDate!) {
+            } else if alertDate != nil && !(now! <= alertDate!) {
                 let alertController = UIAlertController(title: "登録失敗", message: "通知設定時間が過ぎています！", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alertController, animated: true, completion: nil)
@@ -252,7 +252,7 @@ class CreateViewController: UIViewController {
 
                 } else {
                     // 登録更新
-                    let todo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'")
+                    let todo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
                     try realm.write {
                         todo[selectedIndex!.row as Int].task = task!
                         todo[selectedIndex!.row as Int].status = IsStatusDone
@@ -289,7 +289,7 @@ class CreateViewController: UIViewController {
                     let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
 
                     // IDを定義
-                    let request = UNNotificationRequest(identifier: alertId, content: content, trigger: trigger)
+                    let request = UNNotificationRequest(identifier: self.showTodolist.alertId, content: content, trigger: trigger)
 
                     // ローカル通知リクエストを登録
                     UNUserNotificationCenter.current().add(request){ (error : Error?) in
@@ -324,7 +324,7 @@ class CreateViewController: UIViewController {
                 // Realmオブジェクトの生成
                 let realm = try Realm()
                 // 削除（タップした日付のデータを取得）
-                let todo = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'")
+                let todo = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
                 try realm.write {
                     realm.delete(todo[self.selectedIndex!.row as Int])
                 }
