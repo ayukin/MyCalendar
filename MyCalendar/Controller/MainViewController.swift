@@ -70,9 +70,6 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        realmMigration()
-//        let realm = try! Realm()
-        
         // テーマカラー変更の処理
         changeColorAction()
         

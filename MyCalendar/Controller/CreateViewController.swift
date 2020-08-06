@@ -147,9 +147,9 @@ class CreateViewController: UIViewController {
         formatter.dateFormat = "yyyy/MM/dd"
         dateString = formatter.string(from: date!)
         
-        let formatter2 = DateFormatter()
-        formatter2.dateFormat = "MM/dd HH:mm"
-        let contentString = formatter2.string(from: date!)
+//        let formatter2 = DateFormatter()
+//        formatter2.dateFormat = "MM/dd HH:mm"
+//        let contentString = formatter2.string(from: date!)
         
         // 通知の取得
         let alertIndex = tableView.cellForRow(at: IndexPath(row: 1, section: 2))
@@ -206,8 +206,11 @@ class CreateViewController: UIViewController {
         
         // 場所の取得（任意）
         let placeIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 3))
+        print(placeIndex!)
         let placeCell = placeIndex?.contentView.viewWithTag(1) as? UITextField
+        print(placeCell!)
         let place = placeCell?.text
+        print(place!)
         // メモの取得（任意）
         let memoIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 4))
         let memoCell = memoIndex?.contentView.viewWithTag(3) as? UITextView
@@ -278,25 +281,37 @@ class CreateViewController: UIViewController {
                     // ローカル通知の内容
                     let content = UNMutableNotificationContent()
                     content.sound = UNNotificationSound.default
-                    content.title = task!
-                    content.subtitle = contentString
-//                    content.body = "日時指定によるタイマー通知です"
+                    content.title = ""
+                    content.body = "「\(task!)」の\(String(describing: alertString!))です！"
+                    content.sound = UNNotificationSound.default
 
                     // ローカル通知実行日時をセット
                     let component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate!)
 
                     // ローカル通知リクエストを作成
                     let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
-
+                    
                     // IDを定義
-                    let request = UNNotificationRequest(identifier: self.showTodolist.alertId, content: content, trigger: trigger)
-
-                    // ローカル通知リクエストを登録
-                    UNUserNotificationCenter.current().add(request){ (error : Error?) in
-                        if let error = error {
-                            print(error.localizedDescription)
+                    if IsShowTransition {
+                        // 編集の場合
+                        let request = UNNotificationRequest(identifier: self.showTodolist.alertId, content: content, trigger: trigger)
+                        // ローカル通知リクエストを登録
+                        UNUserNotificationCenter.current().add(request){ (error : Error?) in
+                            if let error = error {
+                                print(error.localizedDescription)
+                            }
+                        }
+                    } else {
+                        // 新規の場合
+                        let request = UNNotificationRequest(identifier: self.alertId, content: content, trigger: trigger)
+                        // ローカル通知リクエストを登録
+                        UNUserNotificationCenter.current().add(request){ (error : Error?) in
+                            if let error = error {
+                                print(error.localizedDescription)
+                            }
                         }
                     }
+                    
                 }
                 
                 // 登録完了しMainViewControllerへ画面遷移
@@ -331,19 +346,15 @@ class CreateViewController: UIViewController {
             } catch {
                 print(error)
             }
-            
             // 通知の削除
             if self.alertDate != nil {
                 UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.showTodolist.alertId])
             }
-            
+            // MainViewControllerへ画面遷移
             let layere_number = self.navigationController!.viewControllers.count
             self.navigationController?.popToViewController(self.navigationController!.viewControllers[layere_number-3], animated: true)
-
         }
-
         let noAction = UIAlertAction(title: "いいえ", style: .cancel)
-
         alertController.addAction(okAction)
         alertController.addAction(noAction)
         self.present(alertController, animated: true, completion: nil)
@@ -368,9 +379,8 @@ class CreateViewController: UIViewController {
 //          }
 //        }
         
-        
     }
-    
+        
 }
 
 
