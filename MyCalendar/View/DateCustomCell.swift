@@ -23,9 +23,13 @@ class DateCustomCell: UITableViewCell {
         super.awakeFromNib()
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+//        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        formatter.timeStyle = .short
+        formatter.dateStyle = .short
+        formatter.locale = Locale(identifier: "ja_JP")
         label.text = formatter.string(from: Date())
         
+        datePicker.locale = Locale(identifier: "ja_JP")
         datePicker.addTarget(self, action: #selector(pickerValueChanged(picker:)), for: .valueChanged)
     }
 
@@ -35,7 +39,10 @@ class DateCustomCell: UITableViewCell {
     
     @objc private func pickerValueChanged(picker: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+//        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        formatter.timeStyle = .short
+        formatter.dateStyle = .short
+        formatter.locale = Locale(identifier: "ja_JP")
         label.text = formatter.string(from: picker.date)
     }
     

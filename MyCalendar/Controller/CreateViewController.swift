@@ -14,7 +14,7 @@ class CreateViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var deleteButton: UIBarButtonItem!
-    
+
     // Sectionで使用する配列を定義
     let sections: Array = ["タスク","ステータス","日時","場所","メモ"]
     
@@ -91,11 +91,12 @@ class CreateViewController: UIViewController {
                 showTodolist.task = todo[selectedIndex!.row as Int].task
                 IsStatusDone = todo[selectedIndex!.row as Int].status
                 showTodolist.date = todo[selectedIndex!.row as Int].date
+                showTodolist.dateString = todo[selectedIndex!.row as Int].dateString
                 showTodolist.alertValueIndex = todo[selectedIndex!.row as Int].alertValueIndex
                 showTodolist.alertId = todo[selectedIndex!.row as Int].alertId
                 
                 if todo[selectedIndex!.row as Int].alertDate != nil {
-                    showTodolist.alertDate = todo[selectedIndex!.row as Int].alertDate!
+                    showTodolist.alertDate = todo[selectedIndex!.row as Int].alertDate
                 }
                 
                 showTodolist.place = todo[selectedIndex!.row as Int].place
@@ -107,7 +108,7 @@ class CreateViewController: UIViewController {
         }
         
     }
-    
+        
     // キーボードが表示される際の処理（高さ調整）
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -142,14 +143,10 @@ class CreateViewController: UIViewController {
         let dateIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 2))
         let dateCell = dateIndex?.contentView.viewWithTag(2) as? UIDatePicker
         let date = dateCell?.date
-        
+                
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
         dateString = formatter.string(from: date!)
-        
-//        let formatter2 = DateFormatter()
-//        formatter2.dateFormat = "MM/dd HH:mm"
-//        let contentString = formatter2.string(from: date!)
         
         // 通知の取得
         let alertIndex = tableView.cellForRow(at: IndexPath(row: 1, section: 2))
@@ -255,16 +252,17 @@ class CreateViewController: UIViewController {
 
                 } else {
                     // 登録更新
-                    let todo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
+                    let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
+                    let todo = todos[selectedIndex!.row as Int]
                     try realm.write {
-                        todo[selectedIndex!.row as Int].task = task!
-                        todo[selectedIndex!.row as Int].status = IsStatusDone
-                        todo[selectedIndex!.row as Int].date = date!
-                        todo[selectedIndex!.row as Int].dateString = dateString
-                        todo[selectedIndex!.row as Int].alertDate = alertDate
-                        todo[selectedIndex!.row as Int].alertValueIndex = alertValueIndex
-                        todo[selectedIndex!.row as Int].place = place!
-                        todo[selectedIndex!.row as Int].memo = memo!
+                        todo.task = task!
+                        todo.status = IsStatusDone
+                        todo.date = date!
+                        todo.dateString = dateString
+                        todo.alertDate = alertDate
+                        todo.alertValueIndex = alertValueIndex
+                        todo.place = place!
+                        todo.memo = memo!
                     }
                     
                 }
@@ -333,15 +331,16 @@ class CreateViewController: UIViewController {
     
     @IBAction func deleteButtonAction(_ sender: Any) {
         
-        let alertController = UIAlertController(title: showTodolist.task, message: "削除しますか？", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "編集中のタスクを\r削除しますか？", message: "", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "はい", style: .default) { (alert) in
             do {
                 // Realmオブジェクトの生成
                 let realm = try Realm()
                 // 削除（タップした日付のデータを取得）
-                let todo = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
+                let todos = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
+                let todo = todos[self.selectedIndex!.row as Int]
                 try realm.write {
-                    realm.delete(todo[self.selectedIndex!.row as Int])
+                    realm.delete(todo)
                 }
             } catch {
                 print(error)
@@ -515,6 +514,7 @@ extension CreateViewController: UITableViewDelegate {
             // セルの状態を変更
             tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .fade)
             tableView.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .fade)
+            
         }
                 
         // Pickerの表示に関しての処理

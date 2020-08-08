@@ -12,6 +12,7 @@ import RealmSwift
 class ShowViewController: UIViewController {
     
     @IBOutlet weak var showTaskLabel: UILabel!
+    @IBOutlet weak var showStatusImage: UIImageView!
     @IBOutlet weak var showStatusLabel: UILabel!
     @IBOutlet weak var showDateLabel: UILabel!
     @IBOutlet weak var showAlertLabel: UILabel!
@@ -21,6 +22,7 @@ class ShowViewController: UIViewController {
     
     var tapCalendarDate: String!
     var selectedIndex: IndexPath?
+    var selectColorNumber: Int!
     
     
     override func viewDidLoad() {
@@ -30,8 +32,8 @@ class ShowViewController: UIViewController {
         let userDefaults = UserDefaults.standard
         // UserDefaultsから値を読み込む
         let myColor = userDefaults.colorForKey(key: "myColor")
+        selectColorNumber = userDefaults.integer(forKey: "myColorNumber")
 
-        
         // ナビゲーションバーのカスタマイズ
         self.navigationController?.navigationBar.barTintColor = myColor
         self.view.backgroundColor = .white
@@ -49,6 +51,8 @@ class ShowViewController: UIViewController {
         showMemoTextView.isEditable = false
         showMemoTextView.isSelectable = false
         
+        showStatusImage.image = UIImage(named: "complete\(String(describing: selectColorNumber!))")
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm"
         
@@ -57,36 +61,37 @@ class ShowViewController: UIViewController {
             let realm = try Realm()
             // 参照（タップした日付のデータを取得）
             let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
+            let todo = todos[selectedIndex!.row as Int]
             
-            showTaskLabel.text = todos[selectedIndex!.row as Int].task
+            showTaskLabel.text = todo.task
             showTaskLabel.sizeToFit()
             
-            if todos[selectedIndex!.row as Int].status {
+            if todo.status {
                 showStatusLabel.text = "完了済"
             } else {
                 showStatusLabel.text = "未完了"
             }
             
-            showDateLabel.text = formatter.string(from: todos[selectedIndex!.row as Int].date)
+            showDateLabel.text = formatter.string(from: todo.date)
             
-            if todos[selectedIndex!.row as Int].alertDate == nil {
+            if todo.alertDate == nil {
                 showAlertLabel.text = "通知なし"
             } else {
-                showAlertLabel.text = formatter.string(from: todos[selectedIndex!.row as Int].alertDate!)
+                showAlertLabel.text = formatter.string(from: todo.alertDate!)
             }
             
-            if todos[selectedIndex!.row as Int].place == "" {
+            if todo.place == "" {
                 showPlaceLabel.text = "記入なし"
                 showPlaceLabel.alpha = 0.3
             } else {
-                showPlaceLabel.text = todos[selectedIndex!.row as Int].place
+                showPlaceLabel.text = todo.place
             }
             
-            if todos[selectedIndex!.row as Int].memo == "" {
+            if todo.memo == "" {
                 showMemoTextView.text = "記入なし"
                 showMemoTextView.alpha = 0.3
             } else {
-                showMemoTextView.text = todos[selectedIndex!.row as Int].memo
+                showMemoTextView.text = todo.memo
             }
 
         } catch {

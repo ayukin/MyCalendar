@@ -38,6 +38,7 @@ class MainViewController: UIViewController {
     
     var alertId: String!
     var alertDate: Date? = Date()
+    var selectColorNumber: Int!
     
 
     override func viewDidLoad() {
@@ -183,6 +184,7 @@ extension MainViewController: ColorViewControllerDelegate {
         let userDefaults = UserDefaults.standard
         // UserDefaultsから値を読み込む
         let myColor = userDefaults.colorForKey(key: "myColor")
+        selectColorNumber = userDefaults.integer(forKey: "myColorNumber")
 
         // ナビゲーションバーのカスタマイズ
         self.navigationController?.navigationBar.barTintColor = myColor
@@ -405,13 +407,14 @@ extension MainViewController: UITableViewDataSource {
             cell.mainDateLabel.text = dateTime
             
             if todolist[indexPath.row].status {
-                let statusImage = UIImage(named: "complete")
+                let statusImage = UIImage(named: "complete\(String(describing: selectColorNumber!))")
                 cell.mainStatusButton.setImage(statusImage, for: .normal)
                 let atr =  NSMutableAttributedString(string: cell.mainTaskLabel.text!)
                 
                 atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, atr.length))
                 cell.mainTaskLabel.attributedText = atr
-                cell.mainTaskLabel.alpha = 0.3
+//                cell.mainTaskLabel.alpha = 0.3
+//                cell.mainDateLabel.alpha = 0.3
             } else {
                 let statusImage = UIImage(named: "Incomplete")
                 cell.mainStatusButton.setImage(statusImage, for: .normal)
@@ -419,7 +422,8 @@ extension MainViewController: UITableViewDataSource {
                 
                 atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 0, range: NSMakeRange(0, atr.length))
                 cell.mainTaskLabel.attributedText = atr
-                cell.mainTaskLabel.alpha = 1
+//                cell.mainTaskLabel.alpha = 1
+//                cell.mainDateLabel.alpha = 1
             }
             
             cell.statusChange = { [weak self] in
@@ -462,15 +466,14 @@ extension MainViewController: UITableViewDataSource {
                     // Realmオブジェクトの生成
                     let realm = try Realm()
                     // 削除
-                    let todo = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
+                    let todos = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
+                    let todo = todos[indexPath.row]
                     
-                    self.alertId = todo[indexPath.row].alertId
-                    if self.alertDate != nil {
-                        self.alertDate = todo[indexPath.row].alertDate
-                    }
+                    self.alertId = todo.alertId
+                    self.alertDate = todo.alertDate
                     
                     try realm.write {
-                        realm.delete(todo[indexPath.row])
+                        realm.delete(todo)
                     }
                 } catch {
                     print(error)
@@ -520,13 +523,14 @@ extension MainViewController: ListCustomCellDelegate {
         // Realmオブジェクトの生成
         let realm = try! Realm()
 
-        let editTodo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
+        let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
+        let todo = todos[selectedStatusIndex!.row as Int]
         try! realm.write {
-            if !editTodo[selectedStatusIndex!.row as Int].status {
-                editTodo[selectedStatusIndex!.row as Int].status = true
+            if !todo.status {
+                todo.status = true
                 todolist[selectedStatusIndex!.row as Int].status = true
             } else {
-                editTodo[selectedStatusIndex!.row as Int].status = false
+                todo.status = false
                 todolist[selectedStatusIndex!.row as Int].status = false
             }
         }
