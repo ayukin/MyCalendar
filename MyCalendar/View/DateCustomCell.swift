@@ -8,10 +8,18 @@
 
 import UIKit
 
+//delegateはweak参照したいため、classを継承する
+protocol  DateCustomCellDelegate: class {
+    func datePickerChangeAction()
+}
+
 class DateCustomCell: UITableViewCell {
     
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
+    
+    // delegateはメモリリークを回避するためweak参照する
+    weak var delegate: DateCustomCellDelegate?
     
     var isPickerDisplay: Bool = false {
         didSet {
@@ -44,6 +52,7 @@ class DateCustomCell: UITableViewCell {
         formatter.dateStyle = .short
         formatter.locale = Locale(identifier: "ja_JP")
         label.text = formatter.string(from: picker.date)
+        delegate?.datePickerChangeAction()
     }
     
 }

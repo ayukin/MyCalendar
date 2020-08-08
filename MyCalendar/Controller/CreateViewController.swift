@@ -45,6 +45,8 @@ class CreateViewController: UIViewController {
     var alertValueIndex: Int!
     var alertId: String!
     
+    var selectedTextCellIndex: IndexPath?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,23 +129,30 @@ class CreateViewController: UIViewController {
     // Realmに記入内容を登録する処理
     @IBAction func recordButton(_ sender: Any) {
         
-        // タスクの取得（必須）
-        let taskIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
-        let taskCell = taskIndex?.contentView.viewWithTag(1) as? UITextField
-        task = taskCell?.text
-        // 時間の取得
-        let dateIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 2))
-        let dateCell = dateIndex?.contentView.viewWithTag(2) as? UIDatePicker
-        date = dateCell?.date
-                
+//        // タスクの取得（必須）
+//        let taskIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+//        if taskIndex != nil {
+//            let taskCell = taskIndex?.contentView.viewWithTag(1) as? UITextField
+//            task = taskCell?.text
+//        }
+        
+//        // 時間の取得
+//        let dateIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 2))
+//        if dateIndex != nil {
+//            let dateCell = dateIndex?.contentView.viewWithTag(2) as? UIDatePicker
+//            date = dateCell?.date
+//        }
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
         dateString = formatter.string(from: date!)
         
-        // 通知の取得
-        let alertIndex = tableView.cellForRow(at: IndexPath(row: 1, section: 2))
-        let alertCell = alertIndex?.contentView.viewWithTag(4) as? UILabel
-        alertString = alertCell?.text
+//        // 通知の取得
+//        let alertIndex = tableView.cellForRow(at: IndexPath(row: 1, section: 2))
+//        if alertIndex != nil {
+//            let alertCell = alertIndex?.contentView.viewWithTag(4) as? UILabel
+//            alertString = alertCell?.text
+//        }
         
         // 通知の取得（時間）
         switch alertString {
@@ -194,13 +203,14 @@ class CreateViewController: UIViewController {
         }
         
         // 場所の取得（任意）
-        let placeIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 3))
-        let placeCell = placeIndex?.contentView.viewWithTag(1) as? UITextField
-        place = placeCell?.text
+        if place == nil {
+            place = ""
+        }
+        
         // メモの取得（任意）
-        let memoIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 4))
-        let memoCell = memoIndex?.contentView.viewWithTag(3) as? UITextView
-        memo = memoCell?.text
+        if memo == nil {
+            memo = ""
+        }
         
         let now: Date? = Date()
         
@@ -402,6 +412,10 @@ extension CreateViewController: UITableViewDataSource {
             }
             if IsShowTransition {
                 cell.textField.text = showTodolist.task
+                task = showTodolist.task
+            }
+            cell.TextCustomCellDone = { [weak self] in
+                self?.selectedTextCellIndex = indexPath
             }
             // Cellのdelegateにselfを渡す
             cell.delegate = self
@@ -444,11 +458,15 @@ extension CreateViewController: UITableViewDataSource {
                 formatter.dateFormat = "yyyy/MM/dd HH:mm"
                 if IsShowTransition {
                     cell.datePicker.date = showTodolist.date
+                    date = showTodolist.date
                     cell.label.text = formatter.string(from: showTodolist.date)
                 }else if !IsShowTransition && tapCalendarTime != nil {
                     cell.datePicker.date = tapCalendarTime!
+                    date = tapCalendarTime!
                     cell.label.text = formatter.string(from: tapCalendarTime!)
                 }
+                // Cellのdelegateにselfを渡す
+                cell.delegate = self
                 return cell
             default:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "AlertCustomCell", for: indexPath) as? AlertCustomCell else {
@@ -457,10 +475,14 @@ extension CreateViewController: UITableViewDataSource {
                 if IsShowTransition {
                     cell.alertPicker.selectRow(showTodolist.alertValueIndex, inComponent: 0, animated: false)
                     cell.alertLabel.text = cell.alertValues[showTodolist.alertValueIndex] as? String
+                    alertString = cell.alertValues[showTodolist.alertValueIndex] as? String
                 } else {
                     cell.alertPicker.selectRow(0, inComponent: 0, animated: false)
                     cell.alertLabel.text = cell.alertValues[0] as? String
+                    alertString = cell.alertValues[0] as? String
                 }
+                // Cellのdelegateにselfを渡す
+                cell.delegate = self
                 return cell
             }
         case 3:
@@ -469,7 +491,13 @@ extension CreateViewController: UITableViewDataSource {
             }
             if IsShowTransition {
                 cell.textField.text = showTodolist.place
+                place = showTodolist.place
             }
+            cell.TextCustomCellDone = { [weak self] in
+                self?.selectedTextCellIndex = indexPath
+            }
+            // Cellのdelegateにselfを渡す
+            cell.delegate = self
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MemoCustomCell", for: indexPath) as? MemoCustomCell else {
@@ -477,7 +505,10 @@ extension CreateViewController: UITableViewDataSource {
             }
             if IsShowTransition {
                 cell.textView.text = showTodolist.memo
+                memo = showTodolist.memo
             }
+            // Cellのdelegateにselfを渡す
+            cell.delegate = self
             return cell
         }
         
@@ -526,20 +557,53 @@ extension CreateViewController: UITableViewDelegate {
     
 }
 
-extension CreateViewController: TextCustomCellDelegate{
-    
+extension CreateViewController: TextCustomCellDelegate {
     func keyboardShowAction() {
-        IstaskCellDone = true
+        if selectedTextCellIndex?.section == 0 {
+            IstaskCellDone = true
+        }
     }
-    
     func keyboardHideAction() {
-        IstaskCellDone = false
+        if selectedTextCellIndex?.section == 0 {
+            // タスクの取得（必須）
+            let taskIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+            let taskCell = taskIndex?.contentView.viewWithTag(1) as? UITextField
+            task = taskCell?.text
+            IstaskCellDone = false
+        } else {
+            // 場所の取得（任意）
+            let placeIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 3))
+            let placeCell = placeIndex?.contentView.viewWithTag(1) as? UITextField
+            place = placeCell?.text
+        }
     }
-
 }
 
+extension CreateViewController: DateCustomCellDelegate {
+    func datePickerChangeAction() {
+        // 時間の取得
+        let dateIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 2))
+        let dateCell = dateIndex?.contentView.viewWithTag(2) as? UIDatePicker
+        date = dateCell?.date
+    }
+}
 
+extension CreateViewController: AlertCustomCellDelegate {
+    func alertPickerChangeAction() {
+        // 通知の取得
+        let alertIndex = tableView.cellForRow(at: IndexPath(row: 1, section: 2))
+        let alertCell = alertIndex?.contentView.viewWithTag(4) as? UILabel
+        alertString = alertCell?.text
+    }
+}
 
-
+extension CreateViewController: MemoCustomCellDelegate {
+    func textViewEditEndAction() {
+        // メモの取得
+        let memoIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 4))
+        let memoCell = memoIndex?.contentView.viewWithTag(3) as? UITextView
+        memo = memoCell?.text
+    }
+}
 
 

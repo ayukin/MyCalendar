@@ -409,7 +409,7 @@ extension MainViewController: UITableViewDataSource {
             if todolist[indexPath.row].status {
                 let statusImage = UIImage(named: "complete\(String(describing: selectColorNumber!))")
                 cell.mainStatusButton.setImage(statusImage, for: .normal)
-                let atr =  NSMutableAttributedString(string: cell.mainTaskLabel.text!)
+                let atr = NSMutableAttributedString(string: cell.mainTaskLabel.text!)
                 
                 atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, atr.length))
                 cell.mainTaskLabel.attributedText = atr
@@ -418,7 +418,7 @@ extension MainViewController: UITableViewDataSource {
             } else {
                 let statusImage = UIImage(named: "Incomplete")
                 cell.mainStatusButton.setImage(statusImage, for: .normal)
-                let atr =  NSMutableAttributedString(string: cell.mainTaskLabel.text!)
+                let atr = NSMutableAttributedString(string: cell.mainTaskLabel.text!)
                 
                 atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 0, range: NSMakeRange(0, atr.length))
                 cell.mainTaskLabel.attributedText = atr
@@ -440,11 +440,9 @@ extension MainViewController: UITableViewDataSource {
                 let alertImage = UIImage(named: "Inalert")
                 cell.mainAlertImage.image = alertImage
             }
-            
             // Cellのdelegateにselfを渡す
             cell.delegate = self
             return cell
-
         }
         
     }

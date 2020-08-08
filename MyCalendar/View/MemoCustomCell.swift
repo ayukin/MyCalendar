@@ -8,25 +8,35 @@
 
 import UIKit
 
-class MemoCustomCell: UITableViewCell, UITextViewDelegate {
+//delegateはweak参照したいため、classを継承する
+protocol  MemoCustomCellDelegate: class {
+    func textViewEditEndAction()
+}
+
+class MemoCustomCell: UITableViewCell {
     
     @IBOutlet weak var textView: CustomTextView!
     
+    // delegateはメモリリークを回避するためweak参照する
+    weak var delegate: MemoCustomCellDelegate?
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         textView.delegate = self
-        
         textView.textContainerInset = UIEdgeInsets.zero
         textView.textContainer.lineFragmentPadding = 0
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
-        
+}
+
+extension MemoCustomCell: UITextViewDelegate {
+    // 編集終了時の処理
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        delegate?.textViewEditEndAction()
+        return true
+    }
 }

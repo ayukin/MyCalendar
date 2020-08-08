@@ -14,19 +14,18 @@ protocol  TextCustomCellDelegate: class {
     func keyboardHideAction()
 }
 
-class TextCustomCell: UITableViewCell, UITextFieldDelegate {
+class TextCustomCell: UITableViewCell {
     
     @IBOutlet weak var textField: UITextField!
+    
+    var TextCustomCellDone: (()->Void)?
     
     // delegateはメモリリークを回避するためweak参照する
     weak var delegate: TextCustomCellDelegate?
 
-
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         textField.delegate = self
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -36,25 +35,25 @@ class TextCustomCell: UITableViewCell, UITextFieldDelegate {
     // 準備のための再利用処理
     override func prepareForReuse() {
         super.prepareForReuse()
-//        textField.text = ""
-        
+        textField.text = ""
     }
     
+}
+
+extension TextCustomCell: UITextFieldDelegate {
     // 入力開始時の処理
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        TextCustomCellDone?()
         delegate?.keyboardShowAction()
     }
-
     // リターンキーを押したときキーボードが閉じる
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         delegate?.keyboardHideAction()
         return true
     }
-    
     // 入力終了時の処理（フォーカスがはずれる）
     func textFieldDidEndEditing(_ textField: UITextField) {
         delegate?.keyboardHideAction()
     }
-    
 }

@@ -11,7 +11,6 @@ import UIKit
 // delegateはweak参照したいため、classを継承する
 protocol  ListCustomCellDelegate: class {
     func statusChangeAction()
-    
 }
 
 class ListCustomCell: UITableViewCell {

@@ -8,13 +8,21 @@
 
 import UIKit
 
-class AlertCustomCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSource {
+//delegateはweak参照したいため、classを継承する
+protocol  AlertCustomCellDelegate: class {
+    func alertPickerChangeAction()
+}
+
+class AlertCustomCell: UITableViewCell {
     
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var alertPicker: UIPickerView!
     
     let alertValues: NSArray = ["なし","予定時間","5分前","10分前","15分前","20分前","30分前","1時間前","2時間前","3時間前","1日前","2日前","3日前"]
     
+    // delegateはメモリリークを回避するためweak参照する
+    weak var delegate: AlertCustomCellDelegate?
+
     var isPickerDisplay: Bool = false {
         didSet {
             alertPicker.isHidden = !isPickerDisplay
@@ -23,16 +31,17 @@ class AlertCustomCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSo
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         alertPicker.delegate = self
         alertPicker.dataSource = self
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+        
+}
+
+extension AlertCustomCell: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -49,6 +58,7 @@ class AlertCustomCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSo
     // Pickerが選択された際に呼ばれるデリゲートメソッド
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         alertLabel.text = alertValues[row] as? String
+        delegate?.alertPickerChangeAction()
     }
-    
+
 }
