@@ -17,27 +17,32 @@ class CreateViewController: UIViewController {
 
     // Sectionで使用する配列を定義
     let sections: Array = ["タスク","ステータス","日時","場所","メモ"]
-    
-    // ステータスの「未完了」「完了済」を表すフラグ
-    var IsStatusDone: Bool = false
-    
+        
     // タスクのセルのTextFieldのタップイベントを検出するフラグ
     var IstaskCellDone: Bool = false
     
-    // ShowViewControllerから渡された値を格納
+    // ShowViewControllerから渡された値を格納する変数
     var tapCalendarDate: String!
     var selectedIndex: IndexPath?
     
-    // MainViewControllerから渡された値を格納
+    // MainViewControllerから渡された値を格納する変数
     var tapCalendarTime: Date? = Date()
+    
+    // 編集内容を格納する変数
+    var task: String!
+    var date: Date? = Date()
+    var alertString: String!
+    var place: String!
+    var memo: String!
+    
+    var IsStatusDone: Bool = false
+    var dateString: String!
 
     var showTodolist = Todo()
     var IsShowTransition: Bool = true
     
-    var dateString: String!
-    var alertString: String!
     var alertDate: Date? = Date()
-    var alertValueIndex = 0
+    var alertValueIndex: Int!
     var alertId: String!
     
     
@@ -86,22 +91,9 @@ class CreateViewController: UIViewController {
                 // Realmオブジェクトの生成
                 let realm = try Realm()
                 // 参照（タップした日付のデータを取得）
-                let todo = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
-                
-                showTodolist.task = todo[selectedIndex!.row as Int].task
-                IsStatusDone = todo[selectedIndex!.row as Int].status
-                showTodolist.date = todo[selectedIndex!.row as Int].date
-                showTodolist.dateString = todo[selectedIndex!.row as Int].dateString
-                showTodolist.alertValueIndex = todo[selectedIndex!.row as Int].alertValueIndex
-                showTodolist.alertId = todo[selectedIndex!.row as Int].alertId
-                
-                if todo[selectedIndex!.row as Int].alertDate != nil {
-                    showTodolist.alertDate = todo[selectedIndex!.row as Int].alertDate
-                }
-                
-                showTodolist.place = todo[selectedIndex!.row as Int].place
-                showTodolist.memo = todo[selectedIndex!.row as Int].memo
-                
+                let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
+                showTodolist = todos[selectedIndex!.row as Int]
+                IsStatusDone = todos[selectedIndex!.row as Int].status
             } catch {
                 print(error)
             }
@@ -138,11 +130,11 @@ class CreateViewController: UIViewController {
         // タスクの取得（必須）
         let taskIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
         let taskCell = taskIndex?.contentView.viewWithTag(1) as? UITextField
-        let task = taskCell?.text
+        task = taskCell?.text
         // 時間の取得
         let dateIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 2))
         let dateCell = dateIndex?.contentView.viewWithTag(2) as? UIDatePicker
-        let date = dateCell?.date
+        date = dateCell?.date
                 
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
@@ -203,15 +195,12 @@ class CreateViewController: UIViewController {
         
         // 場所の取得（任意）
         let placeIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 3))
-        print(placeIndex!)
         let placeCell = placeIndex?.contentView.viewWithTag(1) as? UITextField
-        print(placeCell!)
-        let place = placeCell?.text
-        print(place!)
+        place = placeCell?.text
         // メモの取得（任意）
         let memoIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 4))
         let memoCell = memoIndex?.contentView.viewWithTag(3) as? UITextView
-        let memo = memoCell?.text
+        memo = memoCell?.text
         
         let now: Date? = Date()
         

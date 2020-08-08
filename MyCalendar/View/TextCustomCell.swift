@@ -31,8 +31,13 @@ class TextCustomCell: UITableViewCell, UITextFieldDelegate {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    }
+    
+    // 準備のための再利用処理
+    override func prepareForReuse() {
+        super.prepareForReuse()
+//        textField.text = ""
+        
     }
     
     // 入力開始時の処理
