@@ -72,7 +72,7 @@ class ShowViewController: UIViewController {
                 showStatusLabel.text = "未完了"
             }
             
-            showDateLabel.text = formatter.string(from: todo.date)
+            showDateLabel.text = formatter.string(from: todo.date!)
             
             if todo.alertDate == nil {
                 showAlertLabel.text = "通知なし"

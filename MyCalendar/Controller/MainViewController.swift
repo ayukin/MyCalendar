@@ -403,7 +403,7 @@ extension MainViewController: UITableViewDataSource {
                         
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm"
-            let dateTime = formatter.string(from: todolist[indexPath.row].date)
+            let dateTime = formatter.string(from: todolist[indexPath.row].date!)
             cell.mainDateLabel.text = dateTime
             
             if todolist[indexPath.row].status {

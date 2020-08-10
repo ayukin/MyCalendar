@@ -12,7 +12,7 @@ import RealmSwift
 class Todo: Object {
     @objc dynamic var task: String!
     @objc dynamic var status: Bool = false
-    @objc dynamic var date = Date()
+    @objc dynamic var date: Date? = Date()
     @objc dynamic var dateString: String!
     @objc dynamic var alertDate: Date? = Date()
     @objc dynamic var alertValueIndex = 0
