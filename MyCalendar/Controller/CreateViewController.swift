@@ -49,6 +49,8 @@ class CreateViewController: UIViewController {
     var pendingNotification: Bool = false
     var deliveredNotification: Bool = false
     
+    var myColor: UIColor!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +58,7 @@ class CreateViewController: UIViewController {
         // UserDefaultsのインスタンス
         let userDefaults = UserDefaults.standard
         // UserDefaultsから値を読み込む
-        let myColor = userDefaults.colorForKey(key: "myColor")
+        myColor = userDefaults.colorForKey(key: "myColor")
 
         // ナビゲーションバーのカスタマイズ
         self.navigationController?.navigationBar.barTintColor = myColor
@@ -210,7 +212,6 @@ class CreateViewController: UIViewController {
                         todo.place = place
                         todo.memo = memo
                     }
-                    
                 }
                 
                 // 編集処理の際に通知の登録の有無を検出し、通知の登録が「有」の場合は通知を削除し、リセットする
@@ -438,6 +439,7 @@ extension CreateViewController: UITableViewDataSource {
                     // チェックなし
                     cell.accessoryType = StatusCustomCell.AccessoryType.none
                 }
+                cell.tintColor = myColor
                 return cell
             default:
                 cell.statusLabel.text = "完了済"
@@ -449,6 +451,7 @@ extension CreateViewController: UITableViewDataSource {
                     // チェックなし
                     cell.accessoryType = StatusCustomCell.AccessoryType.none
                 }
+                cell.tintColor = myColor
                 return cell
             }
         case 2:
@@ -559,6 +562,7 @@ extension CreateViewController: TextCustomCellDelegate {
             let taskIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
             let taskCell = taskIndex?.contentView.viewWithTag(1) as? UITextField
             task = taskCell?.text
+            print(task!)
             IstaskCellDone = false
         } else {
             // 場所の取得（任意）

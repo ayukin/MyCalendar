@@ -23,7 +23,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var emptyLabel: UILabel!
     
-        
     // ToDoを格納した配列
     var todolist = [Todo]()
     
@@ -52,10 +51,10 @@ class MainViewController: UIViewController {
             // Keyを指定して保存
             userDefaults.setColor(color: .systemTeal, forKey: "myColor")
             UserDefaults.standard.set(0, forKey: "myColorNumber")
+            
         }
         
-        
-        // 曜日部分を日本語表記に変更
+        // calendarの曜日部分を日本語表記に変更
         calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
         calendar.calendarWeekdayView.weekdayLabels[1].text = "月"
         calendar.calendarWeekdayView.weekdayLabels[2].text = "火"
@@ -63,6 +62,9 @@ class MainViewController: UIViewController {
         calendar.calendarWeekdayView.weekdayLabels[4].text = "木"
         calendar.calendarWeekdayView.weekdayLabels[5].text = "金"
         calendar.calendarWeekdayView.weekdayLabels[6].text = "土"
+        // calendarの曜日部分の色を変更
+        calendar.calendarWeekdayView.weekdayLabels[0].textColor = .red
+        calendar.calendarWeekdayView.weekdayLabels[6].textColor = .blue
         
         tableView.register(UINib(nibName: "ListCustomCell", bundle: nil), forCellReuseIdentifier: "ListCustomCell")
                 
@@ -179,7 +181,6 @@ extension UIImage {
 extension MainViewController: ColorViewControllerDelegate {
     // テーマカラー変更の処理
     func changeColorAction() {
-        
         // UserDefaultsのインスタンス
         let userDefaults = UserDefaults.standard
         // UserDefaultsから値を読み込む
@@ -196,6 +197,7 @@ extension MainViewController: ColorViewControllerDelegate {
 
         dateLabel.backgroundColor = myColor
         dateLabel.textColor = .white
+        
     }
     
 }
@@ -241,16 +243,27 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         return tmpCalendar.component(.weekday, from: date)
     }
     
-//    func getToday(_ date: Date) -> Int {
-//        let tmpCalendar = Calendar(identifier: .gregorian)
-//        return tmpCalendar.component(.day, from: date)
-//    }
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        calendar.reloadData()
+    }
 
-    
-    
-        
     // 土日や祝日の日の文字色を変える
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        
+        // 今日の判定を行う
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        let today = formatter.string(from: Date())
+        let getToday = formatter.string(from: date)
+        if today == getToday {
+            return .white
+        }
+        
+        //  現在表示されているページの月とセルの月が異なる場合には nil を戻す
+        if Calendar.current.compare(date, to: calendar.currentPage, toGranularity: .month) != .orderedSame {
+            return nil
+        }
+        
         // 祝日判定をする（祝日は赤色で表示する）
         if self.judeHoliday(date) {
             return .red
@@ -263,12 +276,10 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
             return .blue
         }
         
-//        let today = self.getToday(date)
-//        if today == 1 {
-//            return .white
-//        }
         return nil
     }
+    
+    
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
 
@@ -413,8 +424,6 @@ extension MainViewController: UITableViewDataSource {
                 
                 atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, atr.length))
                 cell.mainTaskLabel.attributedText = atr
-//                cell.mainTaskLabel.alpha = 0.3
-//                cell.mainDateLabel.alpha = 0.3
             } else {
                 let statusImage = UIImage(named: "Incomplete")
                 cell.mainStatusButton.setImage(statusImage, for: .normal)
@@ -422,8 +431,6 @@ extension MainViewController: UITableViewDataSource {
                 
                 atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 0, range: NSMakeRange(0, atr.length))
                 cell.mainTaskLabel.attributedText = atr
-//                cell.mainTaskLabel.alpha = 1
-//                cell.mainDateLabel.alpha = 1
             }
             
             cell.statusChange = { [weak self] in
