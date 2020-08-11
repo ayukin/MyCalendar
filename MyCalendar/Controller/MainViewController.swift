@@ -259,9 +259,11 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
             return .white
         }
         
-        //  現在表示されているページの月とセルの月が異なる場合には nil を戻す
-        if Calendar.current.compare(date, to: calendar.currentPage, toGranularity: .month) != .orderedSame {
-            return nil
+        if calendar.scope == .month {
+            //  現在表示されているページの月とセルの月が異なる場合には nil を戻す
+            if Calendar.current.compare(date, to: calendar.currentPage, toGranularity: .month) != .orderedSame {
+                return nil
+            }
         }
         
         // 祝日判定をする（祝日は赤色で表示する）
