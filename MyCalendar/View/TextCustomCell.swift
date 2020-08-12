@@ -63,6 +63,7 @@ extension TextCustomCell: UITextFieldDelegate {
     }
     // 入力終了時の処理（フォーカスがはずれる）
     func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
         delegate?.keyboardHideAction()
     }
 }

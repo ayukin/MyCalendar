@@ -240,9 +240,7 @@ class CreateViewController: UIViewController {
                     if let error = error {
                         print(error.localizedDescription)
                     }
-                    
                 }
-                
             }
             
             // 登録完了しMainViewControllerへ画面遷移
