@@ -31,15 +31,15 @@ class CreateViewController: UIViewController {
     var IsShowTransition: Bool = true
     
     // 編集内容を格納する変数
-    var task: String!
+    var task: String = ""
     var status: Bool = false
     var date: Date? = Date()
     var dateString: String!
     var alertDate: Date? = Date()
     var alertValueIndex = 0
     var alertId: String!
-    var place: String!
-    var memo: String!
+    var place: String = ""
+    var memo: String = ""
     var alertString: String!
     
     // TextCustomCellを「タスク」or「場所」を判別する変数
@@ -140,7 +140,7 @@ class CreateViewController: UIViewController {
     
     // Realmに記入内容を登録する処理
     @IBAction func recordButton(_ sender: Any) {
-                
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
         dateString = formatter.string(from: date!)
@@ -153,37 +153,23 @@ class CreateViewController: UIViewController {
             alertId = NSUUID().uuidString
         }
         
-        // 場所の取得（任意）
-        if place == nil {
-            place = ""
-        }
-
-        // メモの取得（任意）
-        if memo == nil {
-            memo = ""
-        }
-
+        // 現在の時間を取得
         let now: Date? = Date()
         
-        do {
-            // Realmオブジェクトの生成
-            let realm = try Realm()
-            
-//            // RealmスタジオのURL
-//            print("-----------------------")
-//            print(Realm.Configuration.defaultConfiguration.fileURL!)
-//            print("-----------------------")
-            
-            if task == "" || task == nil {
-                let alertController = UIAlertController(title: "登録失敗", message: "タスクを記入してください！", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alertController, animated: true, completion: nil)
-            } else if alertDate != nil && !(now! <= alertDate!) {
-                let alertController = UIAlertController(title: "登録失敗", message: "通知設定時間が過ぎています！", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alertController, animated: true, completion: nil)
-            } else {
-                if !IsShowTransition {
+        
+        if task == "" {
+            let alertController = UIAlertController(title: "登録失敗", message: "タスクを記入してください！", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        } else if alertDate != nil && !(now! <= alertDate!) {
+            let alertController = UIAlertController(title: "登録失敗", message: "通知設定時間が過ぎています！", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        } else {
+            if !IsShowTransition {
+                do {
+                    // Realmオブジェクトの生成
+                    let realm = try Realm()
                     // 新規登録
                     let todo = Todo()
                     todo.task = task
@@ -198,7 +184,13 @@ class CreateViewController: UIViewController {
                     try realm.write {
                         realm.add(todo)
                     }
-                } else {
+                } catch {
+                    print(error)
+                }
+            } else {
+                do {
+                    // Realmオブジェクトの生成
+                    let realm = try Realm()
                     // 登録更新
                     let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
                     let todo = todos[selectedIndex!.row as Int]
@@ -212,57 +204,56 @@ class CreateViewController: UIViewController {
                         todo.place = place
                         todo.memo = memo
                     }
+                } catch {
+                    print(error)
                 }
-                
-                // 編集処理の際に通知の登録の有無を検出し、通知の登録が「有」の場合は通知を削除し、リセットする
-                if IsShowTransition {
-                    // 通知の登録の有無を検出する処理
-                    alertReferenceAction()
-                    // 通知の登録が「有」の場合の処理
-                    if pendingNotification || deliveredNotification {
-                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.alertId])
-                    }
-                }
-                            
-                if alertDate != nil {
-                    // ローカル通知の内容
-                    let content = UNMutableNotificationContent()
-                    content.sound = UNNotificationSound.default
-                    content.title = ""
-                    content.body = "「\(task!)」の\(String(describing: alertString!))です！"
-                    content.sound = UNNotificationSound.default
-                    
-                    // ローカル通知実行日時をセット
-                    let component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate!)
-                    
-                    // ローカル通知リクエストを作成
-                    let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
-                    
-                    // IDを定義
-                    let request = UNNotificationRequest(identifier: self.alertId, content: content, trigger: trigger)
-                    // ローカル通知リクエストを登録
-                    UNUserNotificationCenter.current().add(request){ (error : Error?) in
-                        if let error = error {
-                            print(error.localizedDescription)
-                        }
-                        
-                    }
-                                        
-                }
-                
-                // 登録完了しMainViewControllerへ画面遷移
-                if !IsShowTransition {
-                    let layere_number = navigationController!.viewControllers.count
-                    self.navigationController?.popToViewController(navigationController!.viewControllers[layere_number-2], animated: true)
-                } else {
-                    let layere_number = navigationController!.viewControllers.count
-                    self.navigationController?.popToViewController(navigationController!.viewControllers[layere_number-3], animated: true)
-                }
-
             }
-
-        } catch {
-            print(error)
+            
+            // 編集処理の際に通知の登録の有無を検出し、通知の登録が「有」の場合は通知を削除し、リセットする
+            if IsShowTransition {
+                // 通知の登録の有無を検出する処理
+                alertReferenceAction()
+                // 通知の登録が「有」の場合の処理
+                if pendingNotification || deliveredNotification {
+                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.alertId])
+                }
+            }
+            
+            if alertDate != nil {
+                // ローカル通知の内容
+                let content = UNMutableNotificationContent()
+                content.sound = UNNotificationSound.default
+                content.title = ""
+                content.body = "「\(task)」の\(String(describing: alertString!))です！"
+                content.sound = UNNotificationSound.default
+                
+                // ローカル通知実行日時をセット
+                let component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate!)
+                
+                // ローカル通知リクエストを作成
+                let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
+                
+                // IDを定義
+                let request = UNNotificationRequest(identifier: self.alertId, content: content, trigger: trigger)
+                // ローカル通知リクエストを登録
+                UNUserNotificationCenter.current().add(request){ (error : Error?) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
+                    
+                }
+                
+            }
+            
+            // 登録完了しMainViewControllerへ画面遷移
+            if !IsShowTransition {
+                let layere_number = navigationController!.viewControllers.count
+                self.navigationController?.popToViewController(navigationController!.viewControllers[layere_number-2], animated: true)
+            } else {
+                let layere_number = navigationController!.viewControllers.count
+                self.navigationController?.popToViewController(navigationController!.viewControllers[layere_number-3], animated: true)
+            }
+            
         }
         
     }
@@ -415,10 +406,10 @@ extension CreateViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "TextCustomCell", for: indexPath) as? TextCustomCell else {
                 return UITableViewCell()
             }
-            if task != nil {
+            if task != "" {
                 cell.textField.text = task
             }
-            cell.TextCustomCellDone = { [weak self] in
+            cell.textCustomCellDone = { [weak self] in
                 self?.selectedTextCellIndex = indexPath
             }
             // Cellのdelegateにselfを渡す
@@ -484,10 +475,10 @@ extension CreateViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "TextCustomCell", for: indexPath) as? TextCustomCell else {
                 return UITableViewCell()
             }
-            if place != nil {
+            if place != "" {
                 cell.textField.text = place
             }
-            cell.TextCustomCellDone = { [weak self] in
+            cell.textCustomCellDone = { [weak self] in
                 self?.selectedTextCellIndex = indexPath
             }
             // Cellのdelegateにselfを渡す
@@ -497,7 +488,7 @@ extension CreateViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MemoCustomCell", for: indexPath) as? MemoCustomCell else {
                 return UITableViewCell()
             }
-            if memo != nil {
+            if memo != "" {
                 cell.textView.text = memo
             }
             // Cellのdelegateにselfを渡す
@@ -551,24 +542,28 @@ extension CreateViewController: UITableViewDelegate {
 }
 
 extension CreateViewController: TextCustomCellDelegate {
+    
+    func textFieldChangeAction() {
+        if selectedTextCellIndex?.section == 0 {
+            // タスクの取得（必須）
+            guard let cell = tableView.cellForRow(at: selectedTextCellIndex!) as? TextCustomCell else { return }
+            task = cell.textField.text!
+        } else {
+            // 場所の取得（任意）
+            guard let cell = tableView.cellForRow(at: selectedTextCellIndex!) as? TextCustomCell else { return }
+            place = cell.textField.text!
+        }
+    }
+    
     func keyboardShowAction() {
         if selectedTextCellIndex?.section == 0 {
             IstaskCellDone = true
         }
     }
+    
     func keyboardHideAction() {
         if selectedTextCellIndex?.section == 0 {
-            // タスクの取得（必須）
-            let taskIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
-            let taskCell = taskIndex?.contentView.viewWithTag(1) as? UITextField
-            task = taskCell?.text
-            print(task!)
             IstaskCellDone = false
-        } else {
-            // 場所の取得（任意）
-            let placeIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 3))
-            let placeCell = placeIndex?.contentView.viewWithTag(1) as? UITextField
-            place = placeCell?.text
         }
     }
 }
@@ -576,29 +571,26 @@ extension CreateViewController: TextCustomCellDelegate {
 extension CreateViewController: DateCustomCellDelegate {
     func datePickerChangeAction() {
         // 時間の取得
-        let dateIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 2))
-        let dateCell = dateIndex?.contentView.viewWithTag(2) as? UIDatePicker
-        date = dateCell?.date
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? DateCustomCell else { return }
+        date = cell.datePicker.date
     }
 }
 
 extension CreateViewController: AlertCustomCellDelegate {
     func alertPickerChangeAction() {
         // 通知の取得
-        let alertIndex = tableView.cellForRow(at: IndexPath(row: 1, section: 2))
-        let alertCell = alertIndex?.contentView.viewWithTag(4) as? UILabel
-        alertString = alertCell?.text
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as? AlertCustomCell else { return }
+        alertString = cell.alertLabel.text
         // 通知の取得（時間）
         alertGetAction()
     }
 }
 
 extension CreateViewController: MemoCustomCellDelegate {
-    func textViewEditEndAction() {
+    func textViewChangeAction() {
         // メモの取得
-        let memoIndex = tableView.cellForRow(at: IndexPath(row: 0, section: 4))
-        let memoCell = memoIndex?.contentView.viewWithTag(3) as? UITextView
-        memo = memoCell?.text
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 4)) as? MemoCustomCell else { return }
+        memo = cell.textView.text
     }
 }
 

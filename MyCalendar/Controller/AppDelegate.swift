@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import UserNotifications
+import StoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,7 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let realm = try! Realm()
         print(realm, "Realm")
         print(config,"Realm Version")
-        
         
         // 通知許可の取得
         UNUserNotificationCenter.current().requestAuthorization(

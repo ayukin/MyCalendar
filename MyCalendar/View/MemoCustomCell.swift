@@ -10,7 +10,7 @@ import UIKit
 
 //delegateはweak参照したいため、classを継承する
 protocol  MemoCustomCellDelegate: class {
-    func textViewEditEndAction()
+    func textViewChangeAction()
 }
 
 class MemoCustomCell: UITableViewCell {
@@ -34,9 +34,8 @@ class MemoCustomCell: UITableViewCell {
 }
 
 extension MemoCustomCell: UITextViewDelegate {
-    // 編集終了時の処理
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        delegate?.textViewEditEndAction()
-        return true
+    // textViewの内容をリアルタイムで反映させる
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        delegate?.textViewChangeAction()
     }
 }

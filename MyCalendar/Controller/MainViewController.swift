@@ -10,6 +10,7 @@ import UIKit
 import FSCalendar
 import CalculateCalendarLogic
 import RealmSwift
+import StoreKit
 
 
 class MainViewController: UIViewController {
@@ -67,7 +68,24 @@ class MainViewController: UIViewController {
         calendar.calendarWeekdayView.weekdayLabels[6].textColor = .blue
         
         tableView.register(UINib(nibName: "ListCustomCell", bundle: nil), forCellReuseIdentifier: "ListCustomCell")
-                
+        
+        // 評価レビュー依頼の実装
+        let key = "startUpCount"
+        // 起動回数の更新
+        UserDefaults.standard.set(UserDefaults.standard.integer(forKey: key) + 1, forKey: key)
+
+        if #available(iOS 10.3, *) {
+            //起動回数数が5回or15回or80回ごとなら
+            UserDefaults.standard.synchronize()
+            let key = "startUpCount"
+            //起動回数
+            let count = UserDefaults.standard.integer(forKey: key)
+            print(count)
+            if(count == 5 || count == 15 || count % 80 == 0) {
+                SKStoreReviewController.requestReview()
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

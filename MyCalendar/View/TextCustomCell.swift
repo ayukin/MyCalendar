@@ -12,13 +12,16 @@ import UIKit
 protocol  TextCustomCellDelegate: class {
     func keyboardShowAction()
     func keyboardHideAction()
+    func textFieldChangeAction()
 }
 
 class TextCustomCell: UITableViewCell {
     
     @IBOutlet weak var textField: UITextField!
     
-    var TextCustomCellDone: (()->Void)?
+    var textEditCfangeString: String!
+    
+    var textCustomCellDone: (()->Void)?
     
     // delegateはメモリリークを回避するためweak参照する
     weak var delegate: TextCustomCellDelegate?
@@ -36,6 +39,7 @@ class TextCustomCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         textField.text = ""
+        
     }
     
 }
@@ -43,8 +47,13 @@ class TextCustomCell: UITableViewCell {
 extension TextCustomCell: UITextFieldDelegate {
     // 入力開始時の処理
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        TextCustomCellDone?()
+        textCustomCellDone?()
         delegate?.keyboardShowAction()
+    }
+    // textFieldの内容をリアルタイムで反映させる
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        textCustomCellDone?()
+        delegate?.textFieldChangeAction()
     }
     // リターンキーを押したときキーボードが閉じる
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

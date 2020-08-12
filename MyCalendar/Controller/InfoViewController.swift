@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import SafariServices
 
 
 class InfoViewController: UIViewController {
@@ -93,10 +94,9 @@ extension InfoViewController: UITableViewDataSource {
     
     // テーブルに表示する配列の総数を返す
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 2:
-            return 4
-        default:
+        if section == 2 {
+            return 2
+        } else {
             return 1
         }
     }
@@ -112,18 +112,11 @@ extension InfoViewController: UITableViewDataSource {
             cell.textLabel?.text = "登録データ全消去"
             return cell
         default:
-            switch indexPath.row {
-            case 0:
-                cell.textLabel?.text = "このアプリを紹介する"
-                return cell
-            case 1:
-                cell.textLabel?.text = "評価する"
-                return cell
-            case 2:
+            if indexPath.row == 0 {
                 cell.textLabel?.text = "プライバシーポリシー"
                 return cell
-            default:
-                cell.textLabel?.text = "フリーアイコンのリンク"
+            } else {
+               cell.textLabel?.text = "フリーアイコンのリンク"
                 return cell
             }
         }
@@ -137,13 +130,12 @@ extension InfoViewController: UITableViewDelegate {
 
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // テーマカラー変更の処理
-        if indexPath.section == 0 {
+        switch indexPath.section {
+        case 0:
+            // テーマカラー変更の処理
             self.performSegue(withIdentifier: "color", sender: nil)
-        }
-        
-        // 登録データ全消去の処理
-        if indexPath.section == 1 {
+        case 1:
+            // 登録データ全消去の処理
             let alertController = UIAlertController(title: "登録データ全消去しますか？", message: "「はい」を押すと復元できません", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "はい", style: .default) { (alert) in
                 do {
@@ -166,9 +158,15 @@ extension InfoViewController: UITableViewDelegate {
             alertController.addAction(okAction)
             alertController.addAction(noAction)
             self.present(alertController, animated: true, completion: nil)
+        default:
+            if indexPath.row == 0 {
+                // プライバシーポリシーのページへとばす処理
+            } else {
+                guard let url = URL(string: "https://icons8.com") else { return }
+                let safariController = SFSafariViewController(url: url)
+                present(safariController, animated: true, completion: nil)
+            }
         }
-        
-        
     }
 }
 
