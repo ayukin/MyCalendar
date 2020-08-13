@@ -109,8 +109,8 @@ class CreateViewController: UIViewController {
             } catch {
                 print(error)
             }
-        } else if tapCalendarTime != nil {
-            date = tapCalendarTime
+        } else {
+            date = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: tapCalendarTime!)
         }
         
     }
@@ -211,12 +211,7 @@ class CreateViewController: UIViewController {
             
             // 編集処理の際に通知の登録の有無を検出し、通知の登録が「有」の場合は通知を削除し、リセットする
             if IsShowTransition {
-                // 通知の登録の有無を検出する処理
                 alertReferenceAction()
-                // 通知の登録が「有」の場合の処理
-                if pendingNotification || deliveredNotification {
-                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.alertId])
-                }
             }
             
             if alertDate != nil {
@@ -359,16 +354,26 @@ class CreateViewController: UIViewController {
         center.getPendingNotificationRequests { (requests: [UNNotificationRequest]) in
             for request in requests {
                 if request.identifier == self.alertId {
+                    print(request.identifier)
                     self.pendingNotification.toggle()
                 }
+            }
+            // 通知の削除
+            if self.pendingNotification {
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.alertId])
             }
         }
         // 実行済みの通知にalertIdの有無を判別
         center.getDeliveredNotifications { (notifications: [UNNotification]) in
             for notification in notifications {
                 if notification.request.identifier == self.alertId {
+                    print(notification.request.identifier)
                     self.deliveredNotification.toggle()
                 }
+            }
+            // 通知の削除
+            if self.deliveredNotification {
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.alertId])
             }
         }
     }
@@ -591,5 +596,4 @@ extension CreateViewController: MemoCustomCellDelegate {
         memo = cell.textView.text
     }
 }
-
 
