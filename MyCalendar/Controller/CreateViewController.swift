@@ -119,7 +119,7 @@ class CreateViewController: UIViewController {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
-                if IstaskCellDone {
+                if  selectedTextCellIndex?.section == 0 {
                     self.view.frame.origin.y -= 0
                 } else {
                     self.view.frame.origin.y -= keyboardSize.height
@@ -130,7 +130,6 @@ class CreateViewController: UIViewController {
             }
         }
     }
-    
     // キーボードと閉じる際の処理
     @objc func keyboardWillHide() {
         if self.view.frame.origin.y != 0 {
@@ -377,7 +376,7 @@ class CreateViewController: UIViewController {
             }
         }
     }
-        
+    
 }
 
 
@@ -545,7 +544,6 @@ extension CreateViewController: UITableViewDelegate {
 }
 
 extension CreateViewController: TextCustomCellDelegate {
-    
     func textFieldChangeAction() {
         if selectedTextCellIndex?.section == 0 {
             // タスクの取得（必須）
@@ -555,18 +553,6 @@ extension CreateViewController: TextCustomCellDelegate {
             // 場所の取得（任意）
             guard let cell = tableView.cellForRow(at: selectedTextCellIndex!) as? TextCustomCell else { return }
             place = cell.textField.text!
-        }
-    }
-    
-    func keyboardShowAction() {
-        if selectedTextCellIndex?.section == 0 {
-            IstaskCellDone = true
-        }
-    }
-    
-    func keyboardHideAction() {
-        if selectedTextCellIndex?.section == 0 {
-            IstaskCellDone = false
         }
     }
 }

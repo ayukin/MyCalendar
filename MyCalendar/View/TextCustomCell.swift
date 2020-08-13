@@ -10,8 +10,6 @@ import UIKit
 
 //delegateはweak参照したいため、classを継承する
 protocol  TextCustomCellDelegate: class {
-    func keyboardShowAction()
-    func keyboardHideAction()
     func textFieldChangeAction()
 }
 
@@ -48,7 +46,6 @@ extension TextCustomCell: UITextFieldDelegate {
     // 入力開始時の処理
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textCustomCellDone?()
-        delegate?.keyboardShowAction()
     }
     // textFieldの内容をリアルタイムで反映させる
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -58,12 +55,11 @@ extension TextCustomCell: UITextFieldDelegate {
     // リターンキーを押したときキーボードが閉じる
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        delegate?.keyboardHideAction()
         return true
     }
     // 入力終了時の処理（フォーカスがはずれる）
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
-        delegate?.keyboardHideAction()
     }
+    
 }
