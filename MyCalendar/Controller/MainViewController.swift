@@ -40,8 +40,8 @@ class MainViewController: UIViewController {
     var alertDate: Date? = Date()
     var selectColorNumber: Int!
     
-    var launchScreenImageView: UIImageView!
-    var launchScreenView: UIView!
+    var launchScreenIcon: UIImageView!
+    var launchScreenView: UIImageView!
     
 
     override func viewDidLoad() {
@@ -52,14 +52,16 @@ class MainViewController: UIViewController {
         let launchScreenWidth: CGFloat = self.view.bounds.width
         let launchScreenHeight: CGFloat = self.view.bounds.height
         
-        self.launchScreenView = UIView(frame: CGRect(x: 0, y: 0, width: launchScreenWidth, height: launchScreenHeight))
+        self.launchScreenView = UIImageView(frame: CGRect(x: 0, y: 0, width: launchScreenWidth, height: launchScreenHeight))
+        self.launchScreenView.center = self.view.center
+        self.launchScreenView.image = UIImage(named: "launchScreenView")
         self.launchScreenView.backgroundColor = UIColor.white
-        self.launchScreenImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        self.launchScreenImageView.center = self.view.center
-        self.launchScreenImageView.image = UIImage(named: "complete0")
+        self.launchScreenIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        self.launchScreenIcon.center = self.view.center
+        self.launchScreenIcon.image = UIImage(named: "launchScreenIcon")
         //viewに追加
         self.view.addSubview(self.launchScreenView)
-        self.view.addSubview(self.launchScreenImageView)
+        self.view.addSubview(self.launchScreenIcon)
         
         // UserDefaultsのインスタンス
         let userDefaults = UserDefaults.standard
@@ -112,7 +114,7 @@ class MainViewController: UIViewController {
                        delay: 1.0,
                        options: UIView.AnimationOptions.curveEaseOut,
                        animations: { () in
-                        self.launchScreenImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                        self.launchScreenIcon.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         }, completion: { (Bool) in
             
         })
@@ -121,11 +123,11 @@ class MainViewController: UIViewController {
                        delay: 1.3,
                        options: UIView.AnimationOptions.curveEaseOut,
                        animations: { () in
-                        self.launchScreenImageView.transform = CGAffineTransform(scaleX: 8.0, y: 8.0)
-                        self.launchScreenImageView.alpha = 0
+                        self.launchScreenIcon.transform = CGAffineTransform(scaleX: 8.0, y: 8.0)
+                        self.launchScreenIcon.alpha = 0
         }, completion: { (Bool) in
             //で、アニメーションが終わったらimageViewを消す
-            self.launchScreenImageView.removeFromSuperview()
+            self.launchScreenIcon.removeFromSuperview()
             self.launchScreenView.removeFromSuperview()
             self.navigationController?.setNavigationBarHidden(false, animated: false)
         })
