@@ -155,7 +155,6 @@ class CreateViewController: UIViewController {
         // 現在の時間を取得
         let now: Date? = Date()
         
-        
         if task == "" {
             let alertController = UIAlertController(title: "登録失敗", message: "タスクを記入してください！", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -220,13 +219,10 @@ class CreateViewController: UIViewController {
                 content.title = ""
                 content.body = "「\(task)」の\(String(describing: alertString!))です！"
                 content.sound = UNNotificationSound.default
-                
                 // ローカル通知実行日時をセット
                 let component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate!)
-                
                 // ローカル通知リクエストを作成
                 let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
-                
                 // IDを定義
                 let request = UNNotificationRequest(identifier: self.alertId, content: content, trigger: trigger)
                 // ローカル通知リクエストを登録
@@ -497,13 +493,11 @@ extension CreateViewController: UITableViewDataSource {
             cell.delegate = self
             return cell
         }
-        
     }
     
 }
 
 extension CreateViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         tableView.deselectRow(at: indexPath, animated: true)
@@ -520,7 +514,6 @@ extension CreateViewController: UITableViewDelegate {
             // セルの状態を変更
             tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .fade)
             tableView.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .fade)
-            
         }
                 
         // Pickerの表示に関しての処理
@@ -536,7 +529,6 @@ extension CreateViewController: UITableViewDelegate {
                 cell.isPickerDisplay.toggle()
                 tableView.performBatchUpdates(nil, completion: nil)
             }
-            
         }
         
     }

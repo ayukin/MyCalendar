@@ -125,7 +125,6 @@ extension InfoViewController: UITableViewDataSource {
 }
 
 extension InfoViewController: UITableViewDelegate {
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         tableView.deselectRow(at: indexPath, animated: true)
@@ -152,9 +151,7 @@ extension InfoViewController: UITableViewDelegate {
                 // 通知の削除
                 UNUserNotificationCenter.current().removeAllDeliveredNotifications()
             }
-
             let noAction = UIAlertAction(title: "いいえ", style: .cancel)
-
             alertController.addAction(okAction)
             alertController.addAction(noAction)
             self.present(alertController, animated: true, completion: nil)

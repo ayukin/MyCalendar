@@ -25,8 +25,6 @@ class ColorViewController: UIViewController {
     
     weak var delegate: ColorViewControllerDelegate?
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,7 +44,6 @@ class ColorViewController: UIViewController {
         ]
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
-        
         // レイアウトを調整
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
@@ -58,7 +55,6 @@ class ColorViewController: UIViewController {
 
 
 extension ColorViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return selectColor.count
     }
@@ -94,16 +90,12 @@ extension ColorViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let horizontalSpace: CGFloat = 15
         let cellSize: CGFloat = self.view.frame.width/3 - horizontalSpace
-        
         return CGSize(width: cellSize, height: cellSize + 23)
     }
 
-
 }
 
-
 extension ColorViewController: UICollectionViewDelegate {
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         selectColorNumber = indexPath.row

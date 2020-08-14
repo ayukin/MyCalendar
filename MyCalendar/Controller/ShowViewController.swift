@@ -42,7 +42,6 @@ class ShowViewController: UIViewController {
         ]
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
-
         mapButton.layer.masksToBounds = true
         mapButton.layer.cornerRadius = 5
         
@@ -124,7 +123,6 @@ class ShowViewController: UIViewController {
         
     }
     
-
     // 編集ボタンの処理
     @IBAction func editButtonAction(_ sender: Any) {
         self.performSegue(withIdentifier: "edit", sender: nil)
