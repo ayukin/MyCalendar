@@ -159,9 +159,13 @@ class MainViewController: UIViewController {
         if calendar.scope == .month {
             calendar.setScope(.week, animated: true)
             changeButton.title = "月表示"
+            // calendarを更新
+            calendar.reloadData()
         } else if calendar.scope == .week {
             calendar.setScope(.month, animated: true)
             changeButton.title = "週表示"
+            // calendarを更新
+            calendar.reloadData()
         }
                 
     }

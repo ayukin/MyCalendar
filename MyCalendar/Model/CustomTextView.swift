@@ -22,7 +22,8 @@ class CustomTextView: UITextView{
     
     private func commonInit(){
         let tools = UIToolbar()
-        tools.frame = CGRect(x: 0, y: 0, width: frame.width, height: 40)
+        tools.frame = CGRect(x: 0, y: 0, width: frame.width, height: 45)
+        tools.backgroundColor = .gray
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let closeButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeButtonTapped))
         tools.items = [spacer, closeButton]

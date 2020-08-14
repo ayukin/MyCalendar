@@ -75,7 +75,7 @@ class CreateViewController: UIViewController {
         tableView.register(UINib(nibName: "MemoCustomCell", bundle: nil), forCellReuseIdentifier: "MemoCustomCell")
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         // 画面遷移元の判別（ShowViewControllerからの場合、IsShowTransitionを「true」）
         let count = (self.navigationController?.viewControllers.count)! - 2
@@ -131,7 +131,7 @@ class CreateViewController: UIViewController {
         }
     }
     // キーボードと閉じる際の処理
-    @objc func keyboardWillHide() {
+    @objc func keyboardWillHide(notification: Notification) {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
