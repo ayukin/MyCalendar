@@ -18,21 +18,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let config = Realm.Configuration(
-            // 新しいスキーマバージョンを設定します。 これは以前に使用されたものよりも大きくなければなりません
-            // version（以前にスキーマバージョンを設定していない場合、バージョンは0です）。
-            schemaVersion: 2,
-            //スキーマのバージョンが上記のものよりも低い/を開くときに自動的に呼び出されるブロックを設定する
+            // 新しいスキーマバージョンを設定します。以前のバージョンより大きくなければなりません。
+            // （スキーマバージョンを設定したことがなければ、最初は0が設定されています）
+            schemaVersion: 1,
+            // マイグレーション処理を記述します。古いスキーマバージョンのRealmを開こうとすると
+            // 自動的にマイグレーションが実行されます。
             migrationBlock: { migration, oldSchemaVersion in
-        //まだ何も移行していないので、oldSchemaVersion == 0
-        if (oldSchemaVersion < 1) {
-            // Realmは新しいプロパティと削除されたプロパティを自動的に検出します
-            //そして自動的にディスク上のスキーマを更新する
-        }})
-        
-        // Tell Realm to use this new configuration object for the default Realm
+                //まだ何も移行していないので、oldSchemaVersion == 0
+                if (oldSchemaVersion < 1) {
+                    // Realmは自動的に新しく追加されたプロパティと、削除されたプロパティを認識します。
+                    // そしてディスク上のスキーマを自動的にアップデートします。
+                }
+        })
+        // デフォルトRealmに新しい設定を適用します
         Realm.Configuration.defaultConfiguration = config
-
-        //デフォルトのレルムに対してこの新しい設定オブジェクトを使用するようにRealmに指示します
+        // Realmファイルを開こうとしたときスキーマバージョンが異なれば、自動的にマイグレーションが実行されます
         let realm = try! Realm()
         print(realm, "Realm")
         print(config,"Realm Version")

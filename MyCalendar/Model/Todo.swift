@@ -19,6 +19,7 @@ class Todo: Object {
     @objc dynamic var alertId: String!
     @objc dynamic var place: String!
     @objc dynamic var memo: String!
+    @objc dynamic var hoge: String!
     
 }
 

@@ -116,7 +116,7 @@ class MainViewController: UIViewController {
                        animations: { () in
                         self.launchScreenIcon.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         }, completion: { (Bool) in
-            
+
         })
         //8倍まで拡大！
         UIView.animate(withDuration: 0.2,

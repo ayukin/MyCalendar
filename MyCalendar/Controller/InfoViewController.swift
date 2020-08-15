@@ -157,7 +157,9 @@ extension InfoViewController: UITableViewDelegate {
             self.present(alertController, animated: true, completion: nil)
         default:
             if indexPath.row == 0 {
-                // プライバシーポリシーのページへとばす処理
+                guard let url = URL(string: "https://twpf.jp/0xTJtrFMRTbrbho") else { return }
+                let safariController = SFSafariViewController(url: url)
+                present(safariController, animated: true, completion: nil)
             } else {
                 guard let url = URL(string: "https://icons8.com") else { return }
                 let safariController = SFSafariViewController(url: url)
