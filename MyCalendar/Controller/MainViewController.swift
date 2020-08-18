@@ -40,28 +40,9 @@ class MainViewController: UIViewController {
     var alertDate: Date? = Date()
     var selectColorNumber: Int!
     
-    var launchScreenIcon: UIImageView!
-    var launchScreenView: UIImageView!
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        let launchScreenWidth: CGFloat = self.view.bounds.width
-        let launchScreenHeight: CGFloat = self.view.bounds.height
-        
-        self.launchScreenView = UIImageView(frame: CGRect(x: 0, y: 0, width: launchScreenWidth, height: launchScreenHeight))
-        self.launchScreenView.center = self.view.center
-        self.launchScreenView.image = UIImage(named: "launchScreenView")
-        self.launchScreenView.backgroundColor = UIColor.white
-        self.launchScreenIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        self.launchScreenIcon.center = self.view.center
-        self.launchScreenIcon.image = UIImage(named: "launchScreenIcon")
-        //viewに追加
-        self.view.addSubview(self.launchScreenView)
-        self.view.addSubview(self.launchScreenIcon)
         
         // UserDefaultsのインスタンス
         let userDefaults = UserDefaults.standard
@@ -107,32 +88,6 @@ class MainViewController: UIViewController {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        //80%まで縮小させて・・・
-        UIView.animate(withDuration: 0.3,
-                       delay: 1.0,
-                       options: UIView.AnimationOptions.curveEaseOut,
-                       animations: { () in
-                        self.launchScreenIcon.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        }, completion: { (Bool) in
-
-        })
-        //8倍まで拡大！
-        UIView.animate(withDuration: 0.2,
-                       delay: 1.3,
-                       options: UIView.AnimationOptions.curveEaseOut,
-                       animations: { () in
-                        self.launchScreenIcon.transform = CGAffineTransform(scaleX: 8.0, y: 8.0)
-                        self.launchScreenIcon.alpha = 0
-        }, completion: { (Bool) in
-            //で、アニメーションが終わったらimageViewを消す
-            self.launchScreenIcon.removeFromSuperview()
-            self.launchScreenView.removeFromSuperview()
-            self.navigationController?.setNavigationBarHidden(false, animated: false)
-        })
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // テーマカラー変更の処理
@@ -154,6 +109,7 @@ class MainViewController: UIViewController {
         tableView.reloadData()
         // calendarを更新
         calendar.reloadData()
+        
     }
     
     // calendarの表示形式変更
@@ -296,21 +252,7 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
 
         return holiday.judgeJapaneseHoliday(year: year, month: month, day: day)
     }
-    
-//    // まとめ方確認（未）
-//    // date型 -> 年月日をIntで取得
-//    func getDay(_ date: Date) -> (Int, Int, Int) {
-//        // 判定用のカレンダークラスのインスタンス
-//        let tmpCalendar = Calendar(identifier: .gregorian)
-//        // 判定を行う日にちの年、月、日を取得
-//        let year = tmpCalendar.component(.year, from: date)
-//        let month = tmpCalendar.component(.month, from: date)
-//        let day = tmpCalendar.component(.day, from: date)
-//
-//        return (year, month, day)
-//
-//    }
-    
+        
     // 曜日判定（日曜:1 〜 土曜:7）
     func getWeekIdx(_ date: Date) -> Int {
         let tmpCalendar = Calendar(identifier: .gregorian)
