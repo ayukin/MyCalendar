@@ -386,7 +386,7 @@
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="4ls-eF-mbK"/>
-                                    <constraint firstAttribute="width" constant="70" id="GpN-6r-ThG"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="GpN-6r-ThG"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <state key="normal" title="Mapを表示">
@@ -407,6 +407,7 @@
                             <constraint firstItem="z7O-Zb-YjC" firstAttribute="leading" secondItem="qH0-C7-6uV" secondAttribute="leading" constant="30" id="8zA-wc-mKE"/>
                             <constraint firstItem="fT0-YF-VdI" firstAttribute="top" secondItem="qH0-C7-6uV" secondAttribute="top" constant="30" id="9iA-PM-GQo"/>
                             <constraint firstItem="Q2M-aA-FfI" firstAttribute="leading" secondItem="qH0-C7-6uV" secondAttribute="leading" constant="20" id="9mM-Bi-uMq"/>
+                            <constraint firstItem="qH0-C7-6uV" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rSI-AE-vuB" secondAttribute="trailing" id="KZC-Rg-stb"/>
                             <constraint firstItem="dRP-c3-HbK" firstAttribute="top" secondItem="rSI-AE-vuB" secondAttribute="bottom" constant="8" id="S7z-2V-ico"/>
                             <constraint firstItem="qH0-C7-6uV" firstAttribute="trailing" secondItem="dRP-c3-HbK" secondAttribute="trailing" constant="30" id="T4x-mE-5YN"/>
                             <constraint firstItem="Q2M-aA-FfI" firstAttribute="top" secondItem="fT0-YF-VdI" secondAttribute="bottom" constant="20" id="b7T-eC-3nZ"/>

@@ -135,7 +135,6 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         // テーマカラー変更の処理
         changeColorAction()
         
@@ -145,7 +144,9 @@ class MainViewController: UIViewController {
         if tapCalendarDate == nil {
             tapCalendarDate = formatter.string(from: Date())
         }
+        
         dateLabel.text = tapCalendarDate
+        calendar.today = Date()
         
         // タップしたカレンダーの日付に紐付いたデータをRealmから取得
         tapCalendarDateGetAction()
@@ -153,7 +154,6 @@ class MainViewController: UIViewController {
         tableView.reloadData()
         // calendarを更新
         calendar.reloadData()
-        
     }
     
     // calendarの表示形式変更
@@ -565,6 +565,7 @@ extension MainViewController: UITableViewDataSource {
             let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
             alertController.addAction(deleteAction)
             alertController.addAction(cancelAction)
+            alertController.popoverPresentationController?.sourceView = self.view
             self.present(alertController, animated: true, completion: nil)
         }
         
