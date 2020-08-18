@@ -27,7 +27,18 @@ class ColorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // ナビゲーションバーの変更の処理
+        changeNavigationAction()
         
+        // レイアウトを調整
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
+        collectionView.collectionViewLayout = layout
+        
+    }
+    
+    // ナビゲーションバーの変更の処理
+    func changeNavigationAction() {
         // UserDefaultsのインスタンス
         let userDefaults = UserDefaults.standard
         // UserDefaultsから値を読み込む
@@ -43,12 +54,6 @@ class ColorViewController: UIViewController {
             .foregroundColor: UIColor.white
         ]
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        
-        // レイアウトを調整
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
-        collectionView.collectionViewLayout = layout
-        
     }
     
 }
@@ -111,8 +116,8 @@ extension ColorViewController: UICollectionViewDelegate {
         
         collectionView.reloadData()
         
-        loadView()
-        viewDidLoad()
+        // ナビゲーションバーの変更の処理
+        changeNavigationAction()
         
         delegate?.changeColorAction()
         

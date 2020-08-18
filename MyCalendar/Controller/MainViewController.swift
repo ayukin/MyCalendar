@@ -185,10 +185,17 @@ class MainViewController: UIViewController {
             createVC.tapCalendarTime = self.tapCalendarTime
             
         } else if segue.identifier == "show" {
+            // Realmオブジェクトの生成
+            let realm = try! Realm()
+            // 参照（タップした日付のデータを取得）
+            let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
+            let showTodoList = todos[selectedIndex!.row]
+            
             // ShowViewControllerに値を渡す
             let showVC = segue.destination as! ShowViewController
             showVC.tapCalendarDate = self.tapCalendarDate
             showVC.selectedIndex = self.selectedIndex
+            showVC.showTodoList = showTodoList
             
         } else if segue.identifier == "info" {
             // InfoViewControllerに値を渡す
@@ -210,16 +217,17 @@ class MainViewController: UIViewController {
         let realm = try! Realm()
         // 参照（タップした日付のデータを取得）
         let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
-        if todos.count > 0 {
-            for i in 0..<todos.count {
-                if i == 0 {
-                    todolist = [todos[i]]
-                } else {
-                    todolist.append(contentsOf: [todos[i]])
-                }
-            }
+        // データをtodolistに格納
+        todolist = todos.map { $0 }
+        
+        if todolist.count == 0 {
+            tableView.isHidden = true
+            emptyView.isHidden = false
+            emptyLabel.isHidden = false
         } else {
-            todolist = []
+            tableView.isHidden = false
+            emptyView.isHidden = true
+            emptyLabel.isHidden = true
         }
     }
     
@@ -376,35 +384,25 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
         let calendarDay = formatter.string(from: date)
-
-        do {
-            // Realmオブジェクトの生成
-            let realm = try Realm()
-            // 参照（全データを取得）
-            let todos = realm.objects(Todo.self)
-            
-            if todos.count > 0 {
-                for i in 0..<todos.count {
-                    if i == 0 {
-                        datesWithEvents = [todos[i].dateString]
-                    } else {
-                        datesWithEvents.insert(todos[i].dateString)
-                    }
+        
+        // Realmオブジェクトの生成
+        let realm = try! Realm()
+        // 参照（全データを取得）
+        let todos = realm.objects(Todo.self)
+        
+        if todos.count > 0 {
+            for i in 0..<todos.count {
+                if i == 0 {
+                    datesWithEvents = [todos[i].dateString]
+                } else {
+                    datesWithEvents.insert(todos[i].dateString)
                 }
-            } else {
-                datesWithEvents = []
             }
-
-        } catch {
-            print(error)
+        } else {
+            datesWithEvents = []
         }
-
-        for datesWithEvent in datesWithEvents {
-            if datesWithEvent == calendarDay {
-                return 1
-            }
-        }
-        return 0
+        return datesWithEvents.contains(calendarDay) ? 1 : 0
+        
     }
     
     //画像をつける関数
@@ -418,33 +416,28 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         let Resize:CGSize = CGSize.init(width: 18, height: 30) // サイズ指定
         let perfectResize = perfect?.resize(size: Resize)
         
-        do {
-            // Realmオブジェクトの生成
-            let realm = try Realm()
-            // 参照（全データを取得）
-            let todos = realm.objects(Todo.self).filter("dateString == '\(calendarDay)'")
-            
-            if todos.count > 0 {
-                for i in 0..<todos.count {
-                    if i == 0 {
-                        datesWithStatus = [todos[i].status]
-                    } else {
-                        datesWithStatus.insert(todos[i].status)
-                    }
+        // Realmオブジェクトの生成
+        let realm = try! Realm()
+        // 参照（全データを取得）
+        let todos = realm.objects(Todo.self).filter("dateString == '\(calendarDay)'")
+        
+        if todos.count > 0 {
+            for i in 0..<todos.count {
+                if i == 0 {
+                    datesWithStatus = [todos[i].status]
+                } else {
+                    datesWithStatus.insert(todos[i].status)
                 }
-            } else {
-                datesWithStatus = []
             }
-            
-        } catch {
-            print(error)
+        } else {
+            datesWithStatus = []
         }
         
         if datesWithStatus == checkWithStatus {
             return perfectResize
         }
-        
         return nil
+        
     }
     
 }
@@ -455,14 +448,8 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
                 
         if todolist.count == 0 {
-            tableView.isHidden = true
-            emptyView.isHidden = false
-            emptyLabel.isHidden = false
             return 0
         } else {
-            tableView.isHidden = false
-            emptyView.isHidden = true
-            emptyLabel.isHidden = true
             return todolist.count
         }
         
@@ -474,51 +461,46 @@ extension MainViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        if todolist.count == 0 {
-            return cell
+        cell.mainTaskLabel.text = todolist[indexPath.row].task
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        let dateTime = formatter.string(from: todolist[indexPath.row].date!)
+        cell.mainDateLabel.text = dateTime
+        
+        if todolist[indexPath.row].status {
+            let statusImage = UIImage(named: "complete\(String(describing: selectColorNumber!))")
+            cell.mainStatusButton.setImage(statusImage, for: .normal)
+            let atr = NSMutableAttributedString(string: cell.mainTaskLabel.text!)
+            
+            atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, atr.length))
+            cell.mainTaskLabel.attributedText = atr
         } else {
+            let statusImage = UIImage(named: "Incomplete")
+            cell.mainStatusButton.setImage(statusImage, for: .normal)
+            let atr = NSMutableAttributedString(string: cell.mainTaskLabel.text!)
             
-            cell.mainTaskLabel.text = todolist[indexPath.row].task
-                        
-            let formatter = DateFormatter()
-            formatter.dateFormat = "HH:mm"
-            let dateTime = formatter.string(from: todolist[indexPath.row].date!)
-            cell.mainDateLabel.text = dateTime
-            
-            if todolist[indexPath.row].status {
-                let statusImage = UIImage(named: "complete\(String(describing: selectColorNumber!))")
-                cell.mainStatusButton.setImage(statusImage, for: .normal)
-                let atr = NSMutableAttributedString(string: cell.mainTaskLabel.text!)
-                
-                atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, atr.length))
-                cell.mainTaskLabel.attributedText = atr
-            } else {
-                let statusImage = UIImage(named: "Incomplete")
-                cell.mainStatusButton.setImage(statusImage, for: .normal)
-                let atr = NSMutableAttributedString(string: cell.mainTaskLabel.text!)
-                
-                atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 0, range: NSMakeRange(0, atr.length))
-                cell.mainTaskLabel.attributedText = atr
-            }
-            
-            cell.statusChange = { [weak self] in
-                self?.selectedStatusIndex = indexPath
-            }
-            
-            let dateImage = UIImage(named: "date")
-            cell.mainDateImage.image = dateImage
-
-            if todolist[indexPath.row].alertValueIndex != 0 {
-                let alertImage = UIImage(named: "alert")
-                cell.mainAlertImage.image = alertImage
-            } else {
-                let alertImage = UIImage(named: "Inalert")
-                cell.mainAlertImage.image = alertImage
-            }
-            // Cellのdelegateにselfを渡す
-            cell.delegate = self
-            return cell
+            atr.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 0, range: NSMakeRange(0, atr.length))
+            cell.mainTaskLabel.attributedText = atr
         }
+        
+        cell.statusChange = { [weak self] in
+            self?.selectedStatusIndex = indexPath
+        }
+        
+        let dateImage = UIImage(named: "date")
+        cell.mainDateImage.image = dateImage
+        
+        if todolist[indexPath.row].alertValueIndex != 0 {
+            let alertImage = UIImage(named: "alert")
+            cell.mainAlertImage.image = alertImage
+        } else {
+            let alertImage = UIImage(named: "Inalert")
+            cell.mainAlertImage.image = alertImage
+        }
+        // Cellのdelegateにselfを渡す
+        cell.delegate = self
+        return cell
         
     }
     

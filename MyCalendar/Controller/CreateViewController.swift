@@ -27,6 +27,7 @@ class CreateViewController: UIViewController {
     // ShowViewControllerから渡された値を格納する変数
     var tapCalendarDate: String!
     var selectedIndex: IndexPath?
+    var showTodoList = Todo()
     // ShowViewControllerからの画面遷移の有無を判別するフラグ
     var IsShowTransition: Bool = true
     
@@ -91,24 +92,15 @@ class CreateViewController: UIViewController {
         
         // ShowViewControllerから渡された値をtodoListに格納
         if IsShowTransition {
-            do {
-                // Realmオブジェクトの生成
-                let realm = try Realm()
-                // 参照（タップした日付のデータを取得）
-                let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
-                let showTodoList = todos[selectedIndex!.row as Int]
-                task = showTodoList.task
-                status = showTodoList.status
-                date = showTodoList.date
-                dateString = showTodoList.dateString
-                alertDate = showTodoList.alertDate
-                alertValueIndex = showTodoList.alertValueIndex
-                alertId = showTodoList.alertId
-                place = showTodoList.place
-                memo = showTodoList.memo
-            } catch {
-                print(error)
-            }
+            task = showTodoList.task
+            status = showTodoList.status
+            date = showTodoList.date
+            dateString = showTodoList.dateString
+            alertDate = showTodoList.alertDate
+            alertValueIndex = showTodoList.alertValueIndex
+            alertId = showTodoList.alertId
+            place = showTodoList.place
+            memo = showTodoList.memo
         } else {
             date = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: tapCalendarTime!)
         }
@@ -191,7 +183,7 @@ class CreateViewController: UIViewController {
                     let realm = try Realm()
                     // 登録更新
                     let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
-                    let todo = todos[selectedIndex!.row as Int]
+                    let todo = todos[selectedIndex!.row]
                     try realm.write {
                         todo.task = task
                         todo.status = status
@@ -251,10 +243,10 @@ class CreateViewController: UIViewController {
         let okAction = UIAlertAction(title: "はい", style: .default) { (alert) in
             do {
                 // Realmオブジェクトの生成
-                let realm = try Realm()
+                let realm = try! Realm()
                 // 削除（タップした日付のデータを取得）
                 let todos = realm.objects(Todo.self).filter("dateString == '\(self.tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
-                let todo = todos[self.selectedIndex!.row as Int]
+                let todo = todos[self.selectedIndex!.row]
                 try realm.write {
                     realm.delete(todo)
                 }
@@ -273,26 +265,6 @@ class CreateViewController: UIViewController {
         alertController.addAction(okAction)
         alertController.addAction(noAction)
         self.present(alertController, animated: true, completion: nil)
-                
-//        // Realmファイルを完全にディスクから削除する
-//        autoreleasepool {
-//          // all Realm usage here
-//        }
-//        let realmURL = Realm.Configuration.defaultConfiguration.fileURL!
-//          let realmURLs = [
-//          realmURL,
-//          realmURL.appendingPathExtension("lock"),
-//          realmURL.appendingPathExtension("note"),
-//          realmURL.appendingPathExtension("management")
-//        ]
-//        let manager = FileManager.default
-//        for URL in realmURLs {
-//          do {
-//            try FileManager.default.removeItem(at: URL)
-//          } catch {
-//            // handle error
-//          }
-//        }
         
     }
     

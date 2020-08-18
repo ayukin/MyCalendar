@@ -20,8 +20,11 @@ class ShowViewController: UIViewController {
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var showMemoTextView: UITextView!
     
+    // MainViewControllerから渡された値を格納する変数
     var tapCalendarDate: String!
     var selectedIndex: IndexPath?
+    var showTodoList = Todo()
+    
     var selectColorNumber: Int!
     
     
@@ -55,46 +58,35 @@ class ShowViewController: UIViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm"
         
-        do {
-            // Realmオブジェクトの生成
-            let realm = try Realm()
-            // 参照（タップした日付のデータを取得）
-            let todos = realm.objects(Todo.self).filter("dateString == '\(tapCalendarDate!)'").sorted(byKeyPath: "date", ascending: true)
-            let todo = todos[selectedIndex!.row as Int]
-            
-            showTaskLabel.text = todo.task
-            showTaskLabel.sizeToFit()
-            
-            if todo.status {
-                showStatusLabel.text = "完了済"
-            } else {
-                showStatusLabel.text = "未完了"
-            }
-            
-            showDateLabel.text = formatter.string(from: todo.date!)
-            
-            if todo.alertDate == nil {
-                showAlertLabel.text = "通知なし"
-            } else {
-                showAlertLabel.text = formatter.string(from: todo.alertDate!)
-            }
-            
-            if todo.place == "" {
-                showPlaceLabel.text = "記入なし"
-                showPlaceLabel.alpha = 0.3
-            } else {
-                showPlaceLabel.text = todo.place
-            }
-            
-            if todo.memo == "" {
-                showMemoTextView.text = "記入なし"
-                showMemoTextView.alpha = 0.3
-            } else {
-                showMemoTextView.text = todo.memo
-            }
-
-        } catch {
-            print(error)
+        showTaskLabel.text = showTodoList.task
+        showTaskLabel.sizeToFit()
+        
+        if showTodoList.status {
+            showStatusLabel.text = "完了済"
+        } else {
+            showStatusLabel.text = "未完了"
+        }
+        
+        showDateLabel.text = formatter.string(from: showTodoList.date!)
+        
+        if showTodoList.alertDate == nil {
+            showAlertLabel.text = "通知なし"
+        } else {
+            showAlertLabel.text = formatter.string(from: showTodoList.alertDate!)
+        }
+        
+        if showTodoList.place == "" {
+            showPlaceLabel.text = "記入なし"
+            showPlaceLabel.alpha = 0.3
+        } else {
+            showPlaceLabel.text = showTodoList.place
+        }
+        
+        if showTodoList.memo == "" {
+            showMemoTextView.text = "記入なし"
+            showMemoTextView.alpha = 0.3
+        } else {
+            showMemoTextView.text = showTodoList.memo
         }
         
         // 場所の登録がなければ「Map表示」ボタンを非表示
@@ -134,6 +126,7 @@ class ShowViewController: UIViewController {
             let createVC = segue.destination as! CreateViewController
             createVC.tapCalendarDate = self.tapCalendarDate
             createVC.selectedIndex = self.selectedIndex
+            createVC.showTodoList = self.showTodoList
         }
     }
     
