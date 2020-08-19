@@ -51,6 +51,7 @@ class CreateViewController: UIViewController {
     var deliveredNotification: Bool = false
     
     var myColor: UIColor!
+    var selectColorNumber: Int!
     
     
     override func viewDidLoad() {
@@ -60,7 +61,7 @@ class CreateViewController: UIViewController {
         let userDefaults = UserDefaults.standard
         // UserDefaultsから値を読み込む
         myColor = userDefaults.colorForKey(key: "myColor")
-        let selectColorNumber = UserDefaults.standard.integer(forKey: "myColorNumber")
+        selectColorNumber = UserDefaults.standard.integer(forKey: "myColorNumber")
         
         if selectColorNumber == 11 {
             self.overrideUserInterfaceStyle = .dark
@@ -406,7 +407,11 @@ extension CreateViewController: UITableViewDataSource {
                     // チェックなし
                     cell.accessoryType = StatusCustomCell.AccessoryType.none
                 }
-                cell.tintColor = myColor
+                if selectColorNumber == 11 {
+                    cell.tintColor = .white
+                } else {
+                    cell.tintColor = myColor
+                }
                 return cell
             default:
                 cell.statusLabel.text = "完了済"
@@ -418,7 +423,11 @@ extension CreateViewController: UITableViewDataSource {
                     // チェックなし
                     cell.accessoryType = StatusCustomCell.AccessoryType.none
                 }
-                cell.tintColor = myColor
+                if selectColorNumber == 11 {
+                    cell.tintColor = .white
+                } else {
+                    cell.tintColor = myColor
+                }
                 return cell
             }
         case 2:

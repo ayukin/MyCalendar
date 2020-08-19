@@ -64,7 +64,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="LQv-4S-GQj" firstAttribute="centerX" secondItem="8qW-m2-8Hs" secondAttribute="centerX" id="H18-MY-FRh"/>
                                     <constraint firstItem="LQv-4S-GQj" firstAttribute="centerY" secondItem="8qW-m2-8Hs" secondAttribute="centerY" id="HMI-Mo-yUy"/>

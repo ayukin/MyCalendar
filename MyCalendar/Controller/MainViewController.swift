@@ -253,7 +253,7 @@ extension MainViewController: ColorViewControllerDelegate {
         self.navigationController?.navigationBar.tintColor = UIColor.white
 
         dateLabel.backgroundColor = myColor
-        dateLabel.textColor = .white
+        dateLabel.textColor = UIColor.white
         
     }
     

@@ -51,7 +51,7 @@ class ShowViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
         mapButton.layer.masksToBounds = true
-        mapButton.layer.cornerRadius = 5
+        mapButton.layer.cornerRadius = 3
         
         showMemoTextView.textContainerInset = UIEdgeInsets.zero
         showMemoTextView.textContainer.lineFragmentPadding = 0
