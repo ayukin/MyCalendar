@@ -44,6 +44,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="arj-zb-jsp" secondAttribute="trailing" id="3SJ-zt-MQX"/>
                     <constraint firstAttribute="trailing" secondItem="uOS-TR-GNM" secondAttribute="trailing" constant="16" id="Ghy-2g-Jbs"/>

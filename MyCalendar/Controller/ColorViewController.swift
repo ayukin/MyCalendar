@@ -18,8 +18,8 @@ class ColorViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let selectColor: [UIColor] = [.systemTeal, .systemBlue, .systemIndigo, .systemYellow, .systemOrange, .systemRed, .systemPink, .systemGreen, .systemPurple, .systemGray, .darkGray]
-    let selectColorName: [String] = ["light blue", "blue", "indigo", "yellow", "orange", "red", "pink", "green", "purple", "gray", "dark gray"]
+    let selectColor: [UIColor] = [.systemTeal, .systemBlue, .systemIndigo, .systemYellow, .systemOrange, .systemRed, .systemPink, .systemGreen, .systemPurple, .systemGray, .darkGray, .black]
+    let selectColorName: [String] = ["light blue", "blue", "indigo", "yellow", "orange", "red", "pink", "green", "purple", "gray", "dark gray", "dark mode"]
     
     var selectColorNumber: Int!
     
@@ -45,11 +45,16 @@ class ColorViewController: UIViewController {
         let myColor = userDefaults.colorForKey(key: "myColor")
         selectColorNumber = UserDefaults.standard.integer(forKey: "myColorNumber")
         
+        if selectColorNumber == 11 {
+            self.overrideUserInterfaceStyle = .dark
+        } else {
+            self.overrideUserInterfaceStyle = .light
+        }
+        
         self.navigationItem.title = "カラー設定"
         
         // ナビゲーションバーのカスタマイズ
         self.navigationController?.navigationBar.barTintColor = myColor
-        self.view.backgroundColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.white
         ]
@@ -74,6 +79,7 @@ extension ColorViewController: UICollectionViewDataSource, UICollectionViewDeleg
         // Tag番号を使ってView（選択表示枠）のインスタンス生成
         let selectView = cell.contentView.viewWithTag(1)!
         selectView.layer.borderColor = UIColor.black.cgColor
+//        selectView.layer.borderColor = UIColor.white.cgColor
         selectView.layer.borderWidth = 1
         selectView.layer.masksToBounds = true
         selectView.layer.cornerRadius = 10

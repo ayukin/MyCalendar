@@ -43,6 +43,7 @@
                         </subviews>
                     </stackView>
                 </subviews>
+                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                 <constraints>
                     <constraint firstItem="vh0-GG-b0r" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ALx-DD-6rU"/>
                     <constraint firstAttribute="trailing" secondItem="vh0-GG-b0r" secondAttribute="trailing" constant="16" id="Alk-ue-a2i"/>

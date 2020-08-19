@@ -40,12 +40,18 @@ class InfoViewController: UIViewController {
         let userDefaults = UserDefaults.standard
         // UserDefaultsから値を読み込む
         let myColor = userDefaults.colorForKey(key: "myColor")
+        let selectColorNumber = UserDefaults.standard.integer(forKey: "myColorNumber")
+        
+        if selectColorNumber == 11 {
+            self.overrideUserInterfaceStyle = .dark
+        } else {
+            self.overrideUserInterfaceStyle = .light
+        }
 
         self.navigationItem.title = "情報"
 
         // ナビゲーションバーのカスタマイズ
         self.navigationController?.navigationBar.barTintColor = myColor
-        self.view.backgroundColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.white
         ]

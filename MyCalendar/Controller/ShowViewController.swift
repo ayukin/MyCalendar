@@ -36,10 +36,15 @@ class ShowViewController: UIViewController {
         // UserDefaultsから値を読み込む
         let myColor = userDefaults.colorForKey(key: "myColor")
         selectColorNumber = userDefaults.integer(forKey: "myColorNumber")
+        
+        if selectColorNumber == 11 {
+            self.overrideUserInterfaceStyle = .dark
+        } else {
+            self.overrideUserInterfaceStyle = .light
+        }
 
         // ナビゲーションバーのカスタマイズ
         self.navigationController?.navigationBar.barTintColor = myColor
-        self.view.backgroundColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.white
         ]

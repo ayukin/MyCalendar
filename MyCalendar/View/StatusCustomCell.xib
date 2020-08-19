@@ -26,13 +26,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                 <constraints>
                     <constraint firstItem="c34-KL-RHR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="MAA-mG-hBw"/>
                     <constraint firstAttribute="bottom" secondItem="c34-KL-RHR" secondAttribute="bottom" id="ciG-nf-gRW"/>
                     <constraint firstItem="c34-KL-RHR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="gI6-Lv-Pgv"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="tintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="statusLabel" destination="c34-KL-RHR" id="W5b-yb-Npw"/>

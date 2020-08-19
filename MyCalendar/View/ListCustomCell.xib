@@ -60,6 +60,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="BFU-Dp-nNQ" secondAttribute="bottom" constant="10" id="4WV-AD-nGh"/>
                     <constraint firstAttribute="trailing" secondItem="ISS-DW-bv7" secondAttribute="trailing" id="7Ds-s0-ZB8"/>

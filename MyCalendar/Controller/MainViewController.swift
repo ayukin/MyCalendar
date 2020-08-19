@@ -44,14 +44,36 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if (UITraitCollection.current.userInterfaceStyle == .dark) {
+            print("ダークモード")
+            /* ダークモード時の処理 */
+            print(type(of: overrideUserInterfaceStyle))
+        } else {
+            print("ライトモード")
+            /* ライトモード時の処理 */
+        }
+
+        
+        
+
+        
         // UserDefaultsのインスタンス
         let userDefaults = UserDefaults.standard
         // UserDefaultsから値を読み込む
         let myColor = userDefaults.colorForKey(key: "myColor")
         if myColor == nil {
-            // Keyを指定して保存
-            userDefaults.setColor(color: .systemTeal, forKey: "myColor")
-            UserDefaults.standard.set(0, forKey: "myColorNumber")
+            // ダークモードの判別
+            if (UITraitCollection.current.userInterfaceStyle == .dark) {
+                // Keyを指定して保存（ダークモード時）
+                userDefaults.setColor(color: .black, forKey: "myColor")
+                UserDefaults.standard.set(11, forKey: "myColorNumber")
+                self.overrideUserInterfaceStyle = .dark
+            } else {
+                // Keyを指定して保存（ライトモード時）
+                userDefaults.setColor(color: .systemTeal, forKey: "myColor")
+                UserDefaults.standard.set(0, forKey: "myColorNumber")
+                self.overrideUserInterfaceStyle = .light
+            }
             
         }
         
@@ -64,8 +86,8 @@ class MainViewController: UIViewController {
         calendar.calendarWeekdayView.weekdayLabels[5].text = "金"
         calendar.calendarWeekdayView.weekdayLabels[6].text = "土"
         // calendarの曜日部分の色を変更
-        calendar.calendarWeekdayView.weekdayLabels[0].textColor = .red
-        calendar.calendarWeekdayView.weekdayLabels[6].textColor = .blue
+        calendar.calendarWeekdayView.weekdayLabels[0].textColor = .systemRed
+        calendar.calendarWeekdayView.weekdayLabels[6].textColor = .systemBlue
         
         tableView.register(UINib(nibName: "ListCustomCell", bundle: nil), forCellReuseIdentifier: "ListCustomCell")
         
@@ -216,10 +238,15 @@ extension MainViewController: ColorViewControllerDelegate {
         // UserDefaultsから値を読み込む
         let myColor = userDefaults.colorForKey(key: "myColor")
         selectColorNumber = userDefaults.integer(forKey: "myColorNumber")
+        
+        if selectColorNumber == 11 {
+            self.overrideUserInterfaceStyle = .dark
+        } else {
+            self.overrideUserInterfaceStyle = .light
+        }
 
         // ナビゲーションバーのカスタマイズ
         self.navigationController?.navigationBar.barTintColor = myColor
-        self.view.backgroundColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.white
         ]
@@ -284,14 +311,14 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         
         // 祝日判定をする（祝日は赤色で表示する）
         if self.judeHoliday(date) {
-            return .red
+            return .systemRed
         }
         // 土日の判定を行う（土曜は青色、日曜は赤色で表示する）
         let weekday = self.getWeekIdx(date)
         if weekday == 1 {
-            return .red
+            return .systemRed
         } else if weekday == 7 {
-            return .blue
+            return .systemBlue
         }
         
         return nil
@@ -536,4 +563,5 @@ extension MainViewController: ListCustomCellDelegate {
     }
     
 }
+
 
