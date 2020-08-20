@@ -156,11 +156,11 @@ class CreateViewController: UIViewController {
         
         if task == "" {
             let alertController = UIAlertController(title: "登録失敗", message: "タスクを記入してください！", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            alertController.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         } else if alertDate != nil && !(now! <= alertDate!) {
             let alertController = UIAlertController(title: "登録失敗", message: "通知設定時間が過ぎています！", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            alertController.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         } else {
             if !IsShowTransition {

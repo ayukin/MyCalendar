@@ -141,7 +141,7 @@ extension InfoViewController: UITableViewDelegate {
             self.performSegue(withIdentifier: "color", sender: nil)
         case 1:
             // 登録データ全消去の処理
-            let alertController = UIAlertController(title: "登録データ全消去しますか？", message: "「はい」を押すと復元できません", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "登録データ全消去しますか？", message: "「はい」を押すと復元できません。", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "はい", style: .default) { (alert) in
                 do {
                     // Realmオブジェクトの生成

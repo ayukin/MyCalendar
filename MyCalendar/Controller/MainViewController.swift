@@ -44,19 +44,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (UITraitCollection.current.userInterfaceStyle == .dark) {
-            print("ダークモード")
-            /* ダークモード時の処理 */
-            print(type(of: overrideUserInterfaceStyle))
-        } else {
-            print("ライトモード")
-            /* ライトモード時の処理 */
-        }
-
-        
-        
-
-        
         // UserDefaultsのインスタンス
         let userDefaults = UserDefaults.standard
         // UserDefaultsから値を読み込む
@@ -262,23 +249,6 @@ extension MainViewController: ColorViewControllerDelegate {
 
 // ３つに分けなかった理由（FSCalendarDataSource、FSCalendarDelegateAppearanceに記載するコードがなかったため）
 extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
-    
-    // 祝日判定を行い結果を返すメソッド（True:祝日）
-    func judeHoliday(_ date: Date) -> Bool {
-        
-        // 祝日判定用のカレンダークラスのインスタンス
-        let tmpCalendar = Calendar(identifier: .gregorian)
-
-        // 祝日判定を行う日にちの年、月、日を取得
-        let year = tmpCalendar.component(.year, from: date)
-        let month = tmpCalendar.component(.month, from: date)
-        let day = tmpCalendar.component(.day, from: date)
-        
-        // CalcuLateCalendarLogic() 祝日判定のインスタンスを生成
-        let holiday = CalculateCalendarLogic()
-
-        return holiday.judgeJapaneseHoliday(year: year, month: month, day: day)
-    }
         
     // 曜日判定（日曜:1 〜 土曜:7）
     func getWeekIdx(_ date: Date) -> Int {
@@ -309,10 +279,6 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
             }
         }
         
-        // 祝日判定をする（祝日は赤色で表示する）
-        if self.judeHoliday(date) {
-            return .systemRed
-        }
         // 土日の判定を行う（土曜は青色、日曜は赤色で表示する）
         let weekday = self.getWeekIdx(date)
         if weekday == 1 {
@@ -562,6 +528,10 @@ extension MainViewController: ListCustomCellDelegate {
         calendar.reloadData()
     }
     
+    
 }
+
+
+
 
 

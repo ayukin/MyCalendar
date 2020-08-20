@@ -30,7 +30,7 @@ class ColorViewController: UIViewController {
         // ナビゲーションバーの変更の処理
         changeNavigationAction()
         
-        // レイアウトを調整
+        // レイアウトを調整q
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
         collectionView.collectionViewLayout = layout
