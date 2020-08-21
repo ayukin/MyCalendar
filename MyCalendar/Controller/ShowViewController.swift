@@ -67,35 +67,35 @@ class ShowViewController: UIViewController {
         showTaskLabel.sizeToFit()
         
         if showTodoList.status {
-            showStatusLabel.text = "完了済"
+            showStatusLabel.text = "complete".localized
         } else {
-            showStatusLabel.text = "未完了"
+            showStatusLabel.text = "inComplete".localized
         }
         
         showDateLabel.text = formatter.string(from: showTodoList.date!)
         
         if showTodoList.alertDate == nil {
-            showAlertLabel.text = "通知なし"
+            showAlertLabel.text = "noNotice".localized
         } else {
             showAlertLabel.text = formatter.string(from: showTodoList.alertDate!)
         }
         
         if showTodoList.place == "" {
-            showPlaceLabel.text = "記入なし"
+            showPlaceLabel.text = "noEntry".localized
             showPlaceLabel.alpha = 0.3
         } else {
             showPlaceLabel.text = showTodoList.place
         }
         
         if showTodoList.memo == "" {
-            showMemoTextView.text = "記入なし"
+            showMemoTextView.text = "noEntry".localized
             showMemoTextView.alpha = 0.3
         } else {
             showMemoTextView.text = showTodoList.memo
         }
         
         // 場所の登録がなければ「Map表示」ボタンを非表示
-        if showPlaceLabel.text == "記入なし" {
+        if showPlaceLabel.text == "noEntry".localized {
             mapButton.isHidden = true
         } else {
             mapButton.isHidden = false

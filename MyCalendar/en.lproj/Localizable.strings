@@ -1,0 +1,105 @@
+/* 
+  Localizable.strings
+  MyCalendar
+
+  Created by 西岡鮎季 on 2020/08/21.
+  Copyright © 2020 Ayuki Nishioka. All rights reserved.
+*/
+
+
+// 共通
+"yes" = "Yes";
+"no" = "No";
+"back" = "Back";
+"close" = "Close";
+"inComplete" = "To-do";
+"complete" = "Done";
+"delete" = "Delete";
+"cancel" = "Cancel";
+
+
+// MainViewController
+"week" = "Week";
+"month" = "Month";
+
+
+
+// CreateViewController
+"task" = "Task";
+"taskName" = "Please fill in";
+
+"status" = "Status";
+
+"dateAndTime" = "Date and time";
+"date" = "Date";
+
+"notice" = "Notice";
+"alertValues[0]" = "None";
+"alertValues[1]" = "Scheduled time";
+"alertValues[2]" = "5 minutes ago";
+"alertValues[3]" = "10 minutes ago";
+"alertValues[4]" = "15 minutes ago";
+"alertValues[5]" = "20 minutes ago";
+"alertValues[6]" = "30 minutes ago";
+"alertValues[7]" = "1 hour ago";
+"alertValues[8]" = "2 hours ago";
+"alertValues[9]" = "3 hours ago";
+"alertValues[10]" = "1 day ago";
+"alertValues[11]" = "2 days ago";
+"alertValues[12]" = "3 days ago";
+
+"place" = "Place";
+
+"memo" = "Memo";
+
+
+
+// ShowViewController
+"noNotice" = "No notification";
+"noEntry" = "No entry";
+
+
+
+// InfoViewController
+"information" = "Information";
+
+"colorSetting" = "Color settings";
+"changeThemeColor" = "Change theme color";
+
+"registrationData" = "Registration data";
+"deleteAllData" = "Delete all registered data";
+
+"support" = "Support";
+"privacyPolicy" = "Privacy policy";
+"iconLink" = "Free icon link";
+
+
+
+// ColorViewController
+"lightBlue" = "Light blue";
+"blue" = "Blue";
+"indigo" = "Indigo";
+"yellow" = "Yellow";
+"orange" = "Orange";
+"red" = "Red";
+"pink" = "Pink";
+"green" = "Green";
+"purple" = "Purple";
+"gray" = "Gray";
+"darkGray" = "Dark gray";
+"darkMode" = "Dark mode";
+
+
+
+// アラート関連
+"registrationFailure" = "Registration failure";
+"blankTask" = "Please fill in the task!";
+"passedNotice" = "Notification time has passed!";
+"deleteTask" = "Are you sure you want to delete the task you are editing?";
+
+"deleteAllDataAlert" = "Do you want to delete\r all registered data?";
+"deleteAllDataSubAlert" = "Press \"Yes\" to restore.";
+
+
+
+// 通知関連

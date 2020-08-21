@@ -125,12 +125,13 @@ class MainViewController: UIViewController {
     @IBAction func changeButtonAction(_ sender: Any) {
         if calendar.scope == .month {
             calendar.setScope(.week, animated: true)
-            changeButton.title = "月表示"
+            changeButton.title = "month".localized
+            print(changeButton.title!)
             // calendarを更新
             calendar.reloadData()
         } else if calendar.scope == .week {
             calendar.setScope(.month, animated: true)
-            changeButton.title = "週表示"
+            changeButton.title = "week".localized
             // calendarを更新
             calendar.reloadData()
         }
@@ -446,7 +447,7 @@ extension MainViewController: UITableViewDataSource {
         if editingStyle == UITableViewCell.EditingStyle.delete {
             
             let alertController = UIAlertController()
-            let deleteAction = UIAlertAction(title: "削除する", style: .default) { (alert) in
+            let deleteAction = UIAlertAction(title: "delete".localized, style: .default) { (alert) in
                 // todolistから削除
                 self.todolist.remove(at: indexPath.row)
                 // セルを削除
@@ -479,7 +480,7 @@ extension MainViewController: UITableViewDataSource {
                 // calendarを更新
                 self.calendar.reloadData()
             }
-            let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+            let cancelAction = UIAlertAction(title: "cancel".localized, style: .cancel)
             alertController.addAction(deleteAction)
             alertController.addAction(cancelAction)
             alertController.popoverPresentationController?.sourceView = self.view

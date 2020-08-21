@@ -32,6 +32,8 @@
 		84BAEA7424D8195E00A726B5 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAEA7324D8195E00A726B5 /* UserDefaults.swift */; };
 		84C922FA24D2CFCC00A7D42D /* AlertCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C922F824D2CFCC00A7D42D /* AlertCustomCell.swift */; };
 		84C922FB24D2CFCC00A7D42D /* AlertCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C922F924D2CFCC00A7D42D /* AlertCustomCell.xib */; };
+		84E5505824EF714C00C4BEB6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84E5505A24EF714C00C4BEB6 /* Localizable.strings */; };
+		84E5505F24EF768100C4BEB6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E5505E24EF768100C4BEB6 /* String.swift */; };
 		FD98881647D3DE75B9C97D9C /* Pods_MyCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63891DC2A03C9E946DDD745B /* Pods_MyCalendar.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +67,11 @@
 		84BAEA7324D8195E00A726B5 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		84C922F824D2CFCC00A7D42D /* AlertCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCustomCell.swift; sourceTree = "<group>"; };
 		84C922F924D2CFCC00A7D42D /* AlertCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertCustomCell.xib; sourceTree = "<group>"; };
+		84E5505524EF711200C4BEB6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		84E5505924EF714C00C4BEB6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84E5505B24EF716900C4BEB6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84E5505E24EF768100C4BEB6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		84E5506024EF878A00C4BEB6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D0AE01226C5E5F919FEB600E /* Pods-MyCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.release.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +121,7 @@
 				8463561B24B879F1002C3962 /* Controller */,
 				841FD05324A35C740039E4E0 /* LaunchScreen.storyboard */,
 				841FD05624A35C740039E4E0 /* Info.plist */,
+				84E5505A24EF714C00C4BEB6 /* Localizable.strings */,
 			);
 			path = MyCalendar;
 			sourceTree = "<group>";
@@ -159,6 +167,7 @@
 				845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */,
 				844C4BCE24C1B17200CFB159 /* Todo.swift */,
 				84BAEA7324D8195E00A726B5 /* UserDefaults.swift */,
+				84E5505E24EF768100C4BEB6 /* String.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -216,6 +225,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 841FD03C24A35C720039E4E0;
 			productRefGroup = 841FD04624A35C720039E4E0 /* Products */;
@@ -237,6 +247,7 @@
 				8463562424B87E26002C3962 /* TextCustomCell.xib in Resources */,
 				846DC33524C463A500F951BE /* ListCustomCell.xib in Resources */,
 				841FD05224A35C740039E4E0 /* Assets.xcassets in Resources */,
+				84E5505824EF714C00C4BEB6 /* Localizable.strings in Resources */,
 				84C922FB24D2CFCC00A7D42D /* AlertCustomCell.xib in Resources */,
 				845B90F724B9AD9E000A44C7 /* StatusCustomCell.xib in Resources */,
 				845B910724B9E577000A44C7 /* MemoCustomCell.xib in Resources */,
@@ -307,6 +318,7 @@
 				8446240124C9E95B00831064 /* ShowViewController.swift in Sources */,
 				845B910624B9E577000A44C7 /* MemoCustomCell.swift in Sources */,
 				846DC33424C463A500F951BE /* ListCustomCell.swift in Sources */,
+				84E5505F24EF768100C4BEB6 /* String.swift in Sources */,
 				845D51BE24D67CC100916D59 /* ColorViewController.swift in Sources */,
 				841FD04B24A35C720039E4E0 /* SceneDelegate.swift in Sources */,
 			);
@@ -319,6 +331,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				841FD04F24A35C720039E4E0 /* Base */,
+				84E5506024EF878A00C4BEB6 /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -327,8 +340,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				841FD05424A35C740039E4E0 /* Base */,
+				84E5505524EF711200C4BEB6 /* ja */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		84E5505A24EF714C00C4BEB6 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84E5505924EF714C00C4BEB6 /* ja */,
+				84E5505B24EF716900C4BEB6 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -338,6 +361,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -398,6 +422,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

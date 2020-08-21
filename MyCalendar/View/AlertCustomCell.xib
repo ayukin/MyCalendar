@@ -16,8 +16,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="204"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dS2-uL-pvs">
-                        <rect key="frame" x="16" y="0.0" width="35" height="44"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dS2-uL-pvs">
+                        <rect key="frame" x="16" y="0.0" width="42" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="B8b-vS-TdM"/>
                         </constraints>
@@ -57,8 +57,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="alertLabel" destination="vh0-GG-b0r" id="Mbr-8R-KKH"/>
+                <outlet property="alertLabel" destination="dS2-uL-pvs" id="Vgr-BA-lgf"/>
                 <outlet property="alertPicker" destination="h7u-SJ-he2" id="w1g-Sm-YjT"/>
+                <outlet property="alertPickerLabel" destination="vh0-GG-b0r" id="Uw6-mC-bcz"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="198.21428571428569"/>
         </tableViewCell>

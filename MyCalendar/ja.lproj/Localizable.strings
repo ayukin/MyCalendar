@@ -1,0 +1,105 @@
+/* 
+  Localizable.strings
+  MyCalendar
+
+  Created by 西岡鮎季 on 2020/08/21.
+  Copyright © 2020 Ayuki Nishioka. All rights reserved.
+*/
+
+
+// 共通
+"yes" = "はい";
+"no" = "いいえ";
+"back" = "戻る";
+"close" = "閉じる";
+"inComplete" = "未完了";
+"complete" = "完了済";
+"delete" = "削除する";
+"cancel" = "キャンセル";
+
+
+// MainViewController
+"week" = "週表示";
+"month" = "月表示";
+
+
+
+// CreateViewController
+"task" = "タスク";
+"taskName" = "入力してください";
+
+"status" = "ステータス";
+
+"dateAndTime" = "日時";
+"date" = "時間";
+
+"notice" = "通知";
+"alertValues[0]" = "なし";
+"alertValues[1]" = "予定時間";
+"alertValues[2]" = "5分前";
+"alertValues[3]" = "10分前";
+"alertValues[4]" = "15分前";
+"alertValues[5]" = "20分前";
+"alertValues[6]" = "30分前";
+"alertValues[7]" = "1時間前";
+"alertValues[8]" = "2時間前";
+"alertValues[9]" = "3時間前";
+"alertValues[10]" = "1日前";
+"alertValues[11]" = "2日前";
+"alertValues[12]" = "3日前";
+
+"place" = "場所";
+
+"memo" = "メモ";
+
+
+
+// ShowViewController
+"noNotice" = "通知なし";
+"noEntry" = "記入なし";
+
+
+
+// InfoViewController
+"information" = "情報";
+
+"colorSetting" = "カラー設定";
+"changeThemeColor" = "テーマカラー変更";
+
+"registrationData" = "登録データ";
+"deleteAllData" = "登録データ全消去";
+
+"support" = "サポート";
+"privacyPolicy" = "プライバシーポリシー";
+"iconLink" = "フリーアイコンのリンク";
+
+
+
+// ColorViewController
+"lightBlue" = "ライトブルー";
+"blue" = "ブルー";
+"indigo" = "インディゴ";
+"yellow" = "イエロー";
+"orange" = "オレンジ";
+"red" = "レッド";
+"pink" = "ピンク";
+"green" = "グリーン";
+"purple" = "パープル";
+"gray" = "グレー";
+"darkGray" = "ダークグレー";
+"darkMode" = "ダークモード";
+
+
+
+// アラート関連
+"registrationFailure" = "登録失敗";
+"blankTask" = "タスクを記入してください！";
+"passedNotice" = "通知設定時間が過ぎています！";
+"deleteTask" = "編集中のタスクを\r削除しますか？";
+
+"deleteAllDataAlert" = "登録データ全消去しますか？";
+"deleteAllDataSubAlert" = "「はい」を押すと復元できません。";
+
+
+
+// 通知関連

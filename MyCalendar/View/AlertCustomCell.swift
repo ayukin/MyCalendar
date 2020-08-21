@@ -16,9 +16,10 @@ protocol  AlertCustomCellDelegate: class {
 class AlertCustomCell: UITableViewCell {
     
     @IBOutlet weak var alertLabel: UILabel!
+    @IBOutlet weak var alertPickerLabel: UILabel!
     @IBOutlet weak var alertPicker: UIPickerView!
     
-    let alertValues: NSArray = ["なし","予定時間","5分前","10分前","15分前","20分前","30分前","1時間前","2時間前","3時間前","1日前","2日前","3日前"]
+    let alertValues: NSArray = ["alertValues[0]".localized, "alertValues[1]".localized, "alertValues[2]".localized, "alertValues[3]".localized, "alertValues[4]".localized, "alertValues[5]".localized, "alertValues[6]".localized, "alertValues[7]".localized, "alertValues[8]".localized, "alertValues[9]".localized, "alertValues[10]".localized, "alertValues[11]".localized, "alertValues[12]".localized]
     
     // delegateはメモリリークを回避するためweak参照する
     weak var delegate: AlertCustomCellDelegate?
@@ -31,6 +32,7 @@ class AlertCustomCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        alertLabel.text = "notice".localized
         alertPicker.delegate = self
         alertPicker.dataSource = self
     }
@@ -57,7 +59,7 @@ extension AlertCustomCell: UIPickerViewDelegate, UIPickerViewDataSource {
     
     // Pickerが選択された際に呼ばれるデリゲートメソッド
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        alertLabel.text = alertValues[row] as? String
+        alertPickerLabel.text = alertValues[row] as? String
         delegate?.alertPickerChangeAction()
     }
 

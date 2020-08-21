@@ -19,7 +19,7 @@ class ColorViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     let selectColor: [UIColor] = [.systemTeal, .systemBlue, .systemIndigo, .systemYellow, .systemOrange, .systemRed, .systemPink, .systemGreen, .systemPurple, .systemGray, .darkGray, .black]
-    let selectColorName: [String] = ["light blue", "blue", "indigo", "yellow", "orange", "red", "pink", "green", "purple", "gray", "dark gray", "dark mode"]
+    let selectColorName: [String] = ["lightBlue".localized, "blue".localized, "indigo".localized, "yellow".localized, "orange".localized, "red".localized, "pink".localized, "green".localized, "purple".localized, "gray".localized, "darkGray".localized, "darkMode".localized]
     
     var selectColorNumber: Int!
     
@@ -51,7 +51,7 @@ class ColorViewController: UIViewController {
             self.overrideUserInterfaceStyle = .light
         }
         
-        self.navigationItem.title = "カラー設定"
+        self.navigationItem.title = "colorSetting".localized
         
         // ナビゲーションバーのカスタマイズ
         self.navigationController?.navigationBar.barTintColor = myColor
@@ -79,7 +79,6 @@ extension ColorViewController: UICollectionViewDataSource, UICollectionViewDeleg
         // Tag番号を使ってView（選択表示枠）のインスタンス生成
         let selectView = cell.contentView.viewWithTag(1)!
         selectView.layer.borderColor = UIColor.black.cgColor
-//        selectView.layer.borderColor = UIColor.white.cgColor
         selectView.layer.borderWidth = 1
         selectView.layer.masksToBounds = true
         selectView.layer.cornerRadius = 10

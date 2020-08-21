@@ -16,7 +16,7 @@ class CreateViewController: UIViewController {
     @IBOutlet weak var deleteButton: UIBarButtonItem!
 
     // Sectionで使用する配列を定義
-    let sections: Array = ["タスク","ステータス","日時","場所","メモ"]
+    let sections: Array = ["task".localized, "status".localized, "dateAndTime".localized, "place".localized, "memo".localized]
         
     // タスクのセルのTextFieldのタップイベントを検出するフラグ
     var IstaskCellDone: Bool = false
@@ -153,14 +153,14 @@ class CreateViewController: UIViewController {
         
         // 現在の時間を取得
         let now: Date? = Date()
-        
+                
         if task == "" {
-            let alertController = UIAlertController(title: "登録失敗", message: "タスクを記入してください！", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
+            let alertController = UIAlertController(title: "registrationFailure".localized, message: "blankTask".localized, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "close".localized, style: .default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         } else if alertDate != nil && !(now! <= alertDate!) {
-            let alertController = UIAlertController(title: "登録失敗", message: "通知設定時間が過ぎています！", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
+            let alertController = UIAlertController(title: "registrationFailure".localized, message: "passedNotice".localized, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "close".localized, style: .default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         } else {
             if !IsShowTransition {
@@ -216,7 +216,21 @@ class CreateViewController: UIViewController {
                 let content = UNMutableNotificationContent()
                 content.sound = UNNotificationSound.default
                 content.title = ""
-                content.body = "「\(task)」の\(String(describing: alertString!))です！"
+                
+                //本体の言語設定と地域コードのセットをハイフンで分割した配列にする。
+                let preferredLanguages = Locale.preferredLanguages.first!.components(separatedBy: "-")
+                //その配列の1つ目を言語コードとし判定する。
+                if preferredLanguages[0] == "ja" {
+                    content.body = "「\(task)」の\(alertString!)です！"
+                } else {
+                    if alertValueIndex == 1 {
+                        content.body = "The scheduled time for the \"\(task)\"!"
+                    } else {
+                        let notificationAlertString = alertString.replacingOccurrences(of:"ago", with:"")
+                        content.body = "\(notificationAlertString)before the \"\(task)\"!"
+                    }
+                }
+                
                 content.sound = UNNotificationSound.default
                 // ローカル通知実行日時をセット
                 let component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate!)
@@ -230,6 +244,7 @@ class CreateViewController: UIViewController {
                         print(error.localizedDescription)
                     }
                 }
+                                
             }
             
             // 登録完了しMainViewControllerへ画面遷移
@@ -246,8 +261,8 @@ class CreateViewController: UIViewController {
     }
     
     @IBAction func deleteButtonAction(_ sender: Any) {
-        let alertController = UIAlertController(title: "編集中のタスクを\r削除しますか？", message: "", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "はい", style: .default) { (alert) in
+        let alertController = UIAlertController(title: "deleteTask".localized, message: "", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "yes".localized, style: .default) { (alert) in
             do {
                 // Realmオブジェクトの生成
                 let realm = try! Realm()
@@ -268,7 +283,7 @@ class CreateViewController: UIViewController {
             let layere_number = self.navigationController!.viewControllers.count
             self.navigationController?.popToViewController(self.navigationController!.viewControllers[layere_number-3], animated: true)
         }
-        let noAction = UIAlertAction(title: "いいえ", style: .cancel)
+        let noAction = UIAlertAction(title: "no".localized, style: .cancel)
         alertController.addAction(okAction)
         alertController.addAction(noAction)
         self.present(alertController, animated: true, completion: nil)
@@ -278,40 +293,40 @@ class CreateViewController: UIViewController {
     // 通知の取得（時間）
     func alertGetAction() {
         switch alertString {
-        case "なし":
+        case "alertValues[0]".localized:
             alertValueIndex = 0
             alertDate = nil
-        case "予定時間":
+        case "alertValues[1]".localized:
             alertValueIndex = 1
             alertDate = date!
-        case "5分前":
+        case "alertValues[2]".localized:
             alertValueIndex = 2
             alertDate = Date(timeInterval: -5*60, since: date!)
-        case "10分前":
+        case "alertValues[3]".localized:
             alertValueIndex = 3
             alertDate = Date(timeInterval: -10*60, since: date!)
-        case "15分前":
+        case "alertValues[4]".localized:
             alertValueIndex = 4
             alertDate = Date(timeInterval: -15*60, since: date!)
-        case "20分前":
+        case "alertValues[5]".localized:
             alertValueIndex = 5
             alertDate = Date(timeInterval: -20*60, since: date!)
-        case "30分前":
+        case "alertValues[6]".localized:
             alertValueIndex = 6
             alertDate = Date(timeInterval: -30*60, since: date!)
-        case "1時間前":
+        case "alertValues[7]".localized:
             alertValueIndex = 7
             alertDate = Date(timeInterval: -1*60*60, since: date!)
-        case "2時間前":
+        case "alertValues[8]".localized:
             alertValueIndex = 8
             alertDate = Date(timeInterval: -2*60*60, since: date!)
-        case "3時間前":
+        case "alertValues[9]".localized:
             alertValueIndex = 9
             alertDate = Date(timeInterval: -3*60*60, since: date!)
-        case "1日前":
+        case "alertValues[10]".localized:
             alertValueIndex = 10
             alertDate = Date(timeInterval: -1*60*60*24, since: date!)
-        case "2日前":
+        case "alertValues[11]".localized:
             alertValueIndex = 11
             alertDate = Date(timeInterval: -2*60*60*24, since: date!)
         default:
@@ -398,7 +413,7 @@ extension CreateViewController: UITableViewDataSource {
             }
             switch indexPath.row {
             case 0:
-                cell.statusLabel.text = "未完了"
+                cell.statusLabel.text = "inComplete".localized
                 // 「未完了」セルのチェックマーク状態をセット
                 if !status {
                     // チェックあり
@@ -414,7 +429,7 @@ extension CreateViewController: UITableViewDataSource {
                 }
                 return cell
             default:
-                cell.statusLabel.text = "完了済"
+                cell.statusLabel.text = "complete".localized
                 // 「完了済」セルのチェックマーク状態をセット
                 if status {
                     // チェックあり
@@ -440,7 +455,7 @@ extension CreateViewController: UITableViewDataSource {
                 formatter.dateFormat = "yyyy/MM/dd HH:mm"
                 if date != nil {
                     cell.datePicker.date = date!
-                    cell.label.text = formatter.string(from: date!)
+                    cell.datePickerLabel.text = formatter.string(from: date!)
                 }
                 // Cellのdelegateにselfを渡す
                 cell.delegate = self
@@ -450,7 +465,7 @@ extension CreateViewController: UITableViewDataSource {
                     return UITableViewCell()
                 }
                 cell.alertPicker.selectRow(alertValueIndex, inComponent: 0, animated: false)
-                cell.alertLabel.text = cell.alertValues[alertValueIndex] as? String
+                cell.alertPickerLabel.text = cell.alertValues[alertValueIndex] as? String
                 alertString = cell.alertValues[alertValueIndex] as? String
                 // Cellのdelegateにselfを渡す
                 cell.delegate = self
@@ -466,6 +481,7 @@ extension CreateViewController: UITableViewDataSource {
             cell.textCustomCellDone = { [weak self] in
                 self?.selectedTextCellIndex = indexPath
             }
+            cell.textField.placeholder = .none
             // Cellのdelegateにselfを渡す
             cell.delegate = self
             return cell
@@ -548,7 +564,7 @@ extension CreateViewController: AlertCustomCellDelegate {
     func alertPickerChangeAction() {
         // 通知の取得
         guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as? AlertCustomCell else { return }
-        alertString = cell.alertLabel.text
+        alertString = cell.alertPickerLabel.text
         // 通知の取得（時間）
         alertGetAction()
     }

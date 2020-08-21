@@ -16,7 +16,7 @@ class InfoViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     // Sectionで使用する配列を定義
-    let sections: Array = ["カラー設定","登録データ","サポート"]
+    let sections: Array = ["colorSetting".localized, "registrationData".localized, "support".localized]
     
 
     override func viewDidLoad() {
@@ -24,10 +24,10 @@ class InfoViewController: UIViewController {
         
         // 左上の閉じるボタン
         let closeBtn = UIBarButtonItem(
-          title: "閉じる",
-          style: .plain,
-          target: self,
-          action: #selector(self.cancelProject(sender:))
+            title: "close".localized,
+            style: .plain,
+            target: self,
+            action: #selector(self.cancelProject(sender:))
         )
         self.navigationItem.setLeftBarButton(closeBtn, animated: true)
         
@@ -48,7 +48,7 @@ class InfoViewController: UIViewController {
             self.overrideUserInterfaceStyle = .light
         }
 
-        self.navigationItem.title = "情報"
+        self.navigationItem.title = "information".localized
 
         // ナビゲーションバーのカスタマイズ
         self.navigationController?.navigationBar.barTintColor = myColor
@@ -112,17 +112,17 @@ extension InfoViewController: UITableViewDataSource {
         cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         switch indexPath.section {
         case 0:
-            cell.textLabel?.text = "テーマカラー変更"
+            cell.textLabel?.text = "changeThemeColor".localized
             return cell
         case 1:
-            cell.textLabel?.text = "登録データ全消去"
+            cell.textLabel?.text = "deleteAllData".localized
             return cell
         default:
             if indexPath.row == 0 {
-                cell.textLabel?.text = "プライバシーポリシー"
+                cell.textLabel?.text = "privacyPolicy".localized
                 return cell
             } else {
-               cell.textLabel?.text = "フリーアイコンのリンク"
+                cell.textLabel?.text = "iconLink".localized
                 return cell
             }
         }
@@ -141,8 +141,8 @@ extension InfoViewController: UITableViewDelegate {
             self.performSegue(withIdentifier: "color", sender: nil)
         case 1:
             // 登録データ全消去の処理
-            let alertController = UIAlertController(title: "登録データ全消去しますか？", message: "「はい」を押すと復元できません。", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "はい", style: .default) { (alert) in
+            let alertController = UIAlertController(title: "deleteAllDataAlert".localized, message:"deleteAllDataSubAlert".localized, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "yes".localized, style: .default) { (alert) in
                 do {
                     // Realmオブジェクトの生成
                     let realm = try Realm()
@@ -157,7 +157,7 @@ extension InfoViewController: UITableViewDelegate {
                 // 通知の削除
                 UNUserNotificationCenter.current().removeAllDeliveredNotifications()
             }
-            let noAction = UIAlertAction(title: "いいえ", style: .cancel)
+            let noAction = UIAlertAction(title: "no".localized, style: .cancel)
             alertController.addAction(okAction)
             alertController.addAction(noAction)
             self.present(alertController, animated: true, completion: nil)

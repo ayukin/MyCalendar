@@ -34,8 +34,8 @@
                             </datePicker>
                         </subviews>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="時間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB9-mf-Uye">
-                        <rect key="frame" x="16" y="0.0" width="35" height="44"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB9-mf-Uye">
+                        <rect key="frame" x="16" y="0.0" width="42" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="R8q-QG-lMm"/>
                         </constraints>
@@ -58,8 +58,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="dateLabel" destination="DB9-mf-Uye" id="bBx-7X-zX1"/>
                 <outlet property="datePicker" destination="VdF-xk-ltS" id="syu-Ha-aN2"/>
-                <outlet property="label" destination="uOS-TR-GNM" id="Dpm-3Z-W4M"/>
+                <outlet property="datePickerLabel" destination="uOS-TR-GNM" id="MVS-oO-QAm"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="206.91964285714286"/>
         </tableViewCell>

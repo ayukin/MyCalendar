@@ -15,7 +15,8 @@ protocol  DateCustomCellDelegate: class {
 
 class DateCustomCell: UITableViewCell {
     
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var datePickerLabel: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
     
     // delegateはメモリリークを回避するためweak参照する
@@ -30,12 +31,14 @@ class DateCustomCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        dateLabel.text = "date".localized
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm"
 //        formatter.timeStyle = .short
 //        formatter.dateStyle = .short
 //        formatter.locale = Locale(identifier: "ja_JP")
-        label.text = formatter.string(from: Date())
+        datePickerLabel.text = formatter.string(from: Date())
         
         datePicker.locale = Locale(identifier: "ja_JP")
         datePicker.addTarget(self, action: #selector(pickerValueChanged(picker:)), for: .valueChanged)
@@ -51,7 +54,7 @@ class DateCustomCell: UITableViewCell {
 //        formatter.timeStyle = .short
 //        formatter.dateStyle = .short
 //        formatter.locale = Locale(identifier: "ja_JP")
-        label.text = formatter.string(from: picker.date)
+        datePickerLabel.text = formatter.string(from: picker.date)
         delegate?.datePickerChangeAction()
     }
     

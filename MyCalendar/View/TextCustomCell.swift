@@ -18,7 +18,6 @@ class TextCustomCell: UITableViewCell {
     @IBOutlet weak var textField: UITextField!
     
     var textEditCfangeString: String!
-    
     var textCustomCellDone: (()->Void)?
     
     // delegateはメモリリークを回避するためweak参照する
@@ -27,6 +26,7 @@ class TextCustomCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         textField.delegate = self
+        textField.placeholder = "taskName".localized
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -37,7 +37,6 @@ class TextCustomCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         textField.text = ""
-        
     }
     
 }

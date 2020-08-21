@@ -112,7 +112,7 @@
                                     <segue destination="eZH-Xd-dZh" kind="show" identifier="create" id="Ag9-6N-zzJ"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Week" id="hyp-ZN-fv6">
+                            <barButtonItem title="週表示" id="hyp-ZN-fv6">
                                 <connections>
                                     <action selector="changeButtonAction:" destination="BYZ-38-t0r" id="sRg-zx-WKv"/>
                                 </connections>
@@ -263,7 +263,7 @@
             </objects>
             <point key="canvasLocation" x="2754" y="-307"/>
         </scene>
-        <!--Task details-->
+        <!--タスク詳細-->
         <scene sceneID="N6j-GH-D96">
             <objects>
                 <viewController id="ps9-nJ-vUR" customClass="ShowViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
@@ -393,7 +393,7 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="GpN-6r-ThG"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <state key="normal" title="Show map">
+                                <state key="normal" title="Mapを表示">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -427,8 +427,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qH0-C7-6uV"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Task details" id="lqA-rC-aTQ">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="zeM-01-p5f">
+                    <navigationItem key="navigationItem" title="タスク詳細" id="lqA-rC-aTQ">
+                        <barButtonItem key="rightBarButtonItem" title="編集" id="zeM-01-p5f">
                             <connections>
                                 <action selector="editButtonAction:" destination="ps9-nJ-vUR" id="tDj-oi-zML"/>
                             </connections>
@@ -450,7 +450,7 @@
             </objects>
             <point key="canvasLocation" x="945" y="806"/>
         </scene>
-        <!--Task registration-->
+        <!--タスク登録-->
         <scene sceneID="TYG-MH-1FG">
             <objects>
                 <viewController id="eZH-Xd-dZh" customClass="CreateViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
@@ -476,14 +476,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="soP-3f-AuJ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Task registration" id="7em-wh-b2U">
+                    <navigationItem key="navigationItem" title="タスク登録" id="7em-wh-b2U">
                         <rightBarButtonItems>
-                            <barButtonItem title="Save" id="KW8-vc-0Ky">
+                            <barButtonItem title="保存" id="KW8-vc-0Ky">
                                 <connections>
                                     <action selector="recordButton:" destination="eZH-Xd-dZh" id="N6J-k5-LDM"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Delete" id="Up5-7n-Dxz">
+                            <barButtonItem title="削除" id="Up5-7n-Dxz">
                                 <connections>
                                     <action selector="deleteButtonAction:" destination="eZH-Xd-dZh" id="0Go-Z7-7fA"/>
                                 </connections>
