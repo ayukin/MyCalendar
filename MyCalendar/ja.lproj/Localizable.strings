@@ -22,6 +22,14 @@
 "week" = "週表示";
 "month" = "月表示";
 
+"weekdayLabels[0]" = "日";
+"weekdayLabels[1]" = "月";
+"weekdayLabels[2]" = "火";
+"weekdayLabels[3]" = "水";
+"weekdayLabels[4]" = "木";
+"weekdayLabels[5]" = "金";
+"weekdayLabels[6]" = "土";
+
 
 
 // CreateViewController

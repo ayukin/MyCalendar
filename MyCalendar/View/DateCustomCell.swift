@@ -34,14 +34,17 @@ class DateCustomCell: UITableViewCell {
         dateLabel.text = "date".localized
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
-//        formatter.timeStyle = .short
-//        formatter.dateStyle = .short
-//        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale.current
         datePickerLabel.text = formatter.string(from: Date())
         
-        datePicker.locale = Locale(identifier: "ja_JP")
+        datePicker.datePickerMode = UIDatePicker.Mode.dateAndTime
+        datePicker.locale = Locale.current
         datePicker.addTarget(self, action: #selector(pickerValueChanged(picker:)), for: .valueChanged)
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -50,11 +53,13 @@ class DateCustomCell: UITableViewCell {
     
     @objc private func pickerValueChanged(picker: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
-//        formatter.timeStyle = .short
-//        formatter.dateStyle = .short
-//        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale.current
         datePickerLabel.text = formatter.string(from: picker.date)
+        
         delegate?.datePickerChangeAction()
     }
     

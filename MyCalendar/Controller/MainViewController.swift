@@ -31,6 +31,7 @@ class MainViewController: UIViewController {
     var datesWithStatus: Set<Bool> = []
     var checkWithStatus: Set<Bool> = [true]
     
+    var tapCalendarLabel: String!
     var tapCalendarDate: String!
     var tapCalendarTime: Date? = Date()
     var selectedStatusIndex: IndexPath?
@@ -65,13 +66,13 @@ class MainViewController: UIViewController {
         }
         
         // calendarの曜日部分を日本語表記に変更
-        calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
-        calendar.calendarWeekdayView.weekdayLabels[1].text = "月"
-        calendar.calendarWeekdayView.weekdayLabels[2].text = "火"
-        calendar.calendarWeekdayView.weekdayLabels[3].text = "水"
-        calendar.calendarWeekdayView.weekdayLabels[4].text = "木"
-        calendar.calendarWeekdayView.weekdayLabels[5].text = "金"
-        calendar.calendarWeekdayView.weekdayLabels[6].text = "土"
+        calendar.calendarWeekdayView.weekdayLabels[0].text = "weekdayLabels[0]".localized
+        calendar.calendarWeekdayView.weekdayLabels[1].text = "weekdayLabels[1]".localized
+        calendar.calendarWeekdayView.weekdayLabels[2].text = "weekdayLabels[2]".localized
+        calendar.calendarWeekdayView.weekdayLabels[3].text = "weekdayLabels[3]".localized
+        calendar.calendarWeekdayView.weekdayLabels[4].text = "weekdayLabels[4]".localized
+        calendar.calendarWeekdayView.weekdayLabels[5].text = "weekdayLabels[5]".localized
+        calendar.calendarWeekdayView.weekdayLabels[6].text = "weekdayLabels[6]".localized
         // calendarの曜日部分の色を変更
         calendar.calendarWeekdayView.weekdayLabels[0].textColor = .systemRed
         calendar.calendarWeekdayView.weekdayLabels[6].textColor = .systemBlue
@@ -105,11 +106,23 @@ class MainViewController: UIViewController {
         // 画面立ち上げ時に今日のデータをRealmから取得し、TableViewに表示
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale.current
+
+        let dateLabelFormatter = DateFormatter()
+        dateLabelFormatter.dateStyle = .medium
+        dateLabelFormatter.timeStyle = .none
+        dateLabelFormatter.calendar = Calendar(identifier: .gregorian)
+        dateLabelFormatter.timeZone = TimeZone.current
+        dateLabelFormatter.locale = Locale.current
+        
         if tapCalendarDate == nil {
             tapCalendarDate = formatter.string(from: Date())
+            tapCalendarLabel = dateLabelFormatter.string(from: Date())
         }
         
-        dateLabel.text = tapCalendarDate
+        dateLabel.text = tapCalendarLabel
         calendar.today = Date()
         
         // タップしたカレンダーの日付に紐付いたデータをRealmから取得
@@ -126,7 +139,6 @@ class MainViewController: UIViewController {
         if calendar.scope == .month {
             calendar.setScope(.week, animated: true)
             changeButton.title = "month".localized
-            print(changeButton.title!)
             // calendarを更新
             calendar.reloadData()
         } else if calendar.scope == .week {
@@ -264,9 +276,13 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     // 土日や祝日の日の文字色を変える
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         
-        // 今日の判定を行う
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale.current
+        // 今日の判定を行う
         let today = formatter.string(from: Date())
         let getToday = formatter.string(from: date)
         if today == getToday {
@@ -294,12 +310,23 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale.current
         tapCalendarDate = formatter.string(from: date)
         
-        dateLabel.text = tapCalendarDate
+        let dateLabelFormatter = DateFormatter()
+        dateLabelFormatter.dateStyle = .medium
+        dateLabelFormatter.timeStyle = .none
+        dateLabelFormatter.calendar = Calendar(identifier: .gregorian)
+        dateLabelFormatter.timeZone = TimeZone.current
+        dateLabelFormatter.locale = Locale.current
+        tapCalendarLabel = dateLabelFormatter.string(from: date)
+        
+        dateLabel.text = tapCalendarLabel
         tapCalendarTime = date
         
         // タップしたカレンダーの日付に紐付いたデータをRealmから取得
@@ -316,9 +343,12 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         
         
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int{
-
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale.current
         let calendarDay = formatter.string(from: date)
         
         // Realmオブジェクトの生成
@@ -346,6 +376,9 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale.current
         let calendarDay = formatter.string(from: date)
         
         let perfect = UIImage(named: "perfect")
@@ -400,7 +433,11 @@ extension MainViewController: UITableViewDataSource {
         cell.mainTaskLabel.text = todolist[indexPath.row].task
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale.current
         let dateTime = formatter.string(from: todolist[indexPath.row].date!)
         cell.mainDateLabel.text = dateTime
         

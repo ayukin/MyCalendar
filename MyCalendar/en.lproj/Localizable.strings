@@ -22,6 +22,14 @@
 "week" = "Week";
 "month" = "Month";
 
+"weekdayLabels[0]" = "Sun";
+"weekdayLabels[1]" = "Mon";
+"weekdayLabels[2]" = "Tue";
+"weekdayLabels[3]" = "Wed";
+"weekdayLabels[4]" = "Thu";
+"weekdayLabels[5]" = "Fri";
+"weekdayLabels[6]" = "Sat";
+
 
 
 // CreateViewController

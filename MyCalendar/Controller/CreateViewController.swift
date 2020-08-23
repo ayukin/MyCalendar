@@ -141,8 +141,11 @@ class CreateViewController: UIViewController {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale.current
         dateString = formatter.string(from: date!)
-                
+        
         // 通知の取得（時間）
         alertGetAction()
         
@@ -452,7 +455,11 @@ extension CreateViewController: UITableViewDataSource {
                 return UITableViewCell()
                 }
                 let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy/MM/dd HH:mm"
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .short
+                formatter.calendar = Calendar(identifier: .gregorian)
+                formatter.timeZone = TimeZone.current
+                formatter.locale = Locale.current
                 if date != nil {
                     cell.datePicker.date = date!
                     cell.datePickerLabel.text = formatter.string(from: date!)

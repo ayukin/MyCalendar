@@ -43,17 +43,17 @@
                         </constraints>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2QT-Gr-AfD">
-                        <rect key="frame" x="120" y="35" width="15" height="15"/>
+                        <rect key="frame" x="141" y="35" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="1jK-iJ-rmO"/>
                             <constraint firstAttribute="width" constant="15" id="2Wb-Ek-UCK"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LlB-rb-tUc">
-                        <rect key="frame" x="80" y="35" width="35" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LlB-rb-tUc">
+                        <rect key="frame" x="80" y="35" width="56" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="ZqL-DP-rJn"/>
-                            <constraint firstAttribute="width" constant="35" id="hSi-M8-DfY"/>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="56" id="hSi-M8-DfY"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>

@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  MyCalendar
+
+  Created by 西岡鮎季 on 2020/08/22.
+  Copyright © 2020 Ayuki Nishioka. All rights reserved.
+*/
+
+CFBundleDisplayName = "マイカレンダー";

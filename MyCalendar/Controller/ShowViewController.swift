@@ -60,9 +60,7 @@ class ShowViewController: UIViewController {
         
         showStatusImage.image = UIImage(named: "complete\(String(describing: selectColorNumber!))")
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
-        
+        // TodoListの詳細を反映する処理
         showTaskLabel.text = showTodoList.task
         showTaskLabel.sizeToFit()
         
@@ -71,6 +69,13 @@ class ShowViewController: UIViewController {
         } else {
             showStatusLabel.text = "inComplete".localized
         }
+        
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale.current
         
         showDateLabel.text = formatter.string(from: showTodoList.date!)
         

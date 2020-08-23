@@ -30,7 +30,6 @@
                         <subviews>
                             <datePicker hidden="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="VdF-xk-ltS">
                                 <rect key="frame" x="0.0" y="160" width="320" height="0.0"/>
-                                <locale key="locale" localeIdentifier="ja"/>
                             </datePicker>
                         </subviews>
                     </stackView>
@@ -62,7 +61,7 @@
                 <outlet property="datePicker" destination="VdF-xk-ltS" id="syu-Ha-aN2"/>
                 <outlet property="datePickerLabel" destination="uOS-TR-GNM" id="MVS-oO-QAm"/>
             </connections>
-            <point key="canvasLocation" x="137.68115942028987" y="206.91964285714286"/>
+            <point key="canvasLocation" x="32" y="85"/>
         </tableViewCell>
     </objects>
 </document>

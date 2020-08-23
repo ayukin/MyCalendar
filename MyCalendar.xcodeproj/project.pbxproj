@@ -34,6 +34,7 @@
 		84C922FB24D2CFCC00A7D42D /* AlertCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C922F924D2CFCC00A7D42D /* AlertCustomCell.xib */; };
 		84E5505824EF714C00C4BEB6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84E5505A24EF714C00C4BEB6 /* Localizable.strings */; };
 		84E5505F24EF768100C4BEB6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E5505E24EF768100C4BEB6 /* String.swift */; };
+		84E5506324F02DFA00C4BEB6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84E5506524F02DFA00C4BEB6 /* InfoPlist.strings */; };
 		FD98881647D3DE75B9C97D9C /* Pods_MyCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63891DC2A03C9E946DDD745B /* Pods_MyCalendar.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		84E5505B24EF716900C4BEB6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84E5505E24EF768100C4BEB6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		84E5506024EF878A00C4BEB6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Main.storyboard; sourceTree = "<group>"; };
+		84E5506424F02DFA00C4BEB6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D0AE01226C5E5F919FEB600E /* Pods-MyCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.release.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,6 +123,7 @@
 				8463561B24B879F1002C3962 /* Controller */,
 				841FD05324A35C740039E4E0 /* LaunchScreen.storyboard */,
 				841FD05624A35C740039E4E0 /* Info.plist */,
+				84E5506524F02DFA00C4BEB6 /* InfoPlist.strings */,
 				84E5505A24EF714C00C4BEB6 /* Localizable.strings */,
 			);
 			path = MyCalendar;
@@ -251,6 +254,7 @@
 				84C922FB24D2CFCC00A7D42D /* AlertCustomCell.xib in Resources */,
 				845B90F724B9AD9E000A44C7 /* StatusCustomCell.xib in Resources */,
 				845B910724B9E577000A44C7 /* MemoCustomCell.xib in Resources */,
+				84E5506324F02DFA00C4BEB6 /* InfoPlist.strings in Resources */,
 				841FD05024A35C720039E4E0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,6 +356,14 @@
 				84E5505B24EF716900C4BEB6 /* en */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		84E5506524F02DFA00C4BEB6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84E5506424F02DFA00C4BEB6 /* ja */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
