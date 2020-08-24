@@ -108,6 +108,8 @@ class CreateViewController: UIViewController {
             alertId = showTodoList.alertId
             place = showTodoList.place
             memo = showTodoList.memo
+            // 通知の登録の有無を検出する処理
+            alertReferenceAction()
         } else {
             date = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: tapCalendarTime!)
         }
@@ -208,12 +210,7 @@ class CreateViewController: UIViewController {
                     print(error)
                 }
             }
-            
-            // 編集処理の際に通知の登録の有無を検出し、通知の登録が「有」の場合は通知を削除し、リセットする
-            if IsShowTransition {
-                alertReferenceAction()
-            }
-            
+            // ローカル通知の設定が有れば登録処理
             if alertDate != nil {
                 // ローカル通知の内容
                 let content = UNMutableNotificationContent()
@@ -247,7 +244,10 @@ class CreateViewController: UIViewController {
                         print(error.localizedDescription)
                     }
                 }
-                                
+                
+            } else if pendingNotification || deliveredNotification {
+                // 編集の際に「通知有り」→「通知無し」に設定した場合、登録済みのローカル通知を削除する処理
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.alertId])
             }
             
             // 登録完了しMainViewControllerへ画面遷移
@@ -340,7 +340,6 @@ class CreateViewController: UIViewController {
     
     // 通知の登録の有無を検出する処理
     func alertReferenceAction() {
-        
         let center = UNUserNotificationCenter.current()
         // 実行待ちの通知にalertIdの有無を判別
         center.getPendingNotificationRequests { (requests: [UNNotificationRequest]) in
@@ -349,10 +348,6 @@ class CreateViewController: UIViewController {
                     print(request.identifier)
                     self.pendingNotification.toggle()
                 }
-            }
-            // 通知の削除
-            if self.pendingNotification {
-                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.alertId])
             }
         }
         // 実行済みの通知にalertIdの有無を判別
@@ -363,13 +358,9 @@ class CreateViewController: UIViewController {
                     self.deliveredNotification.toggle()
                 }
             }
-            // 通知の削除
-            if self.deliveredNotification {
-                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.alertId])
-            }
         }
     }
-    
+
 }
 
 

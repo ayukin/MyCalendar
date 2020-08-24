@@ -1,0 +1,51 @@
+
+/* Class = "UINavigationItem"; title = "Task registration"; ObjectID = "7em-wh-b2U"; */
+"7em-wh-b2U.title" = "Task registration";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "D5H-FX-uBb"; */
+"D5H-FX-uBb.title" = "Item";
+
+/* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "KW8-vc-0Ky"; */
+"KW8-vc-0Ky.title" = "Save";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Khi-rb-c0e"; */
+"Khi-rb-c0e.text" = "Label";
+
+/* Class = "UILabel"; text = "No task registered"; ObjectID = "LQv-4S-GQj"; */
+"LQv-4S-GQj.text" = "No task registered";
+
+/* Class = "UIBarButtonItem"; title = "Delete"; ObjectID = "Up5-7n-Dxz"; */
+"Up5-7n-Dxz.title" = "Delete";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "X2e-85-GME"; */
+"X2e-85-GME.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "dRP-c3-HbK"; */
+"dRP-c3-HbK.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fT0-YF-VdI"; */
+"fT0-YF-VdI.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Week"; ObjectID = "hyp-ZN-fv6"; */
+"hyp-ZN-fv6.title" = "Week";
+
+/* Class = "UILabel"; text = "0000/00/00 00:00"; ObjectID = "la5-pb-lwT"; */
+"la5-pb-lwT.text" = "0000/00/00 00:00";
+
+/* Class = "UINavigationItem"; title = "Task details"; ObjectID = "lqA-rC-aTQ"; */
+"lqA-rC-aTQ.title" = "Task details";
+
+/* Class = "UILabel"; text = "0000/00/00 00:00"; ObjectID = "o7Q-dy-91K"; */
+"o7Q-dy-91K.text" = "0000/00/00 00:00";
+
+/* Class = "UIButton"; normalTitle = "Show map"; ObjectID = "rSI-AE-vuB"; */
+"rSI-AE-vuB.normalTitle" = "Show map";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "uXv-8P-K8y"; */
+"uXv-8P-K8y.text" = "Label";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "z7O-Zb-YjC"; */
+"z7O-Zb-YjC.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UIBarButtonItem"; title = "Edit"; ObjectID = "zeM-01-p5f"; */
+"zeM-01-p5f.title" = "Edit";
