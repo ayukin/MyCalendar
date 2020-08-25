@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icons8-チェック-80 (12).png",
+      "filename" : "アセット 13@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "アセット 13@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "アセット 13@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

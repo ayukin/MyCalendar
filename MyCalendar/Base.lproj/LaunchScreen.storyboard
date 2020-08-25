@@ -44,7 +44,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="launchScreenIcon" width="4267" height="4267"/>
-        <image name="launchScreenView" width="4267" height="4267"/>
+        <image name="launchScreenIcon" width="2133.5" height="2133.5"/>
+        <image name="launchScreenView" width="2133.5" height="2133.5"/>
     </resources>
 </document>
