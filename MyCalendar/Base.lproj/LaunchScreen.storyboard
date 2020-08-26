@@ -18,22 +18,22 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchScreenView" translatesAutoresizingMaskIntoConstraints="NO" id="Nee-AJ-jHG">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchScreenIcon" translatesAutoresizingMaskIntoConstraints="NO" id="aot-fg-u9h">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchScreenIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Ztm-00-LuC">
                                 <rect key="frame" x="157" y="398" width="100" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="5SK-8e-GVx"/>
-                                    <constraint firstAttribute="height" constant="100" id="BZO-o1-F4A"/>
+                                    <constraint firstAttribute="height" constant="100" id="Ncv-zA-1fb"/>
+                                    <constraint firstAttribute="width" constant="100" id="ioK-d7-2dM"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="aot-fg-u9h" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="6eM-75-XMY"/>
                             <constraint firstAttribute="bottom" secondItem="Nee-AJ-jHG" secondAttribute="bottom" id="C0q-pM-cYC"/>
                             <constraint firstItem="Nee-AJ-jHG" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="GX0-Gp-ZiR"/>
                             <constraint firstItem="Nee-AJ-jHG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QKR-MK-qzc"/>
-                            <constraint firstItem="aot-fg-u9h" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="aFk-81-E3D"/>
+                            <constraint firstItem="Ztm-00-LuC" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hbu-MI-xzx"/>
                             <constraint firstItem="Nee-AJ-jHG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="jo4-0i-5UK"/>
+                            <constraint firstItem="Ztm-00-LuC" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="qTh-Sw-Hi7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -44,7 +44,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="launchScreenIcon" width="2133.5" height="2133.5"/>
-        <image name="launchScreenView" width="2133.5" height="2133.5"/>
+        <image name="launchScreenIcon" width="512.5" height="512.5"/>
+        <image name="launchScreenView" width="1422" height="1422"/>
     </resources>
 </document>

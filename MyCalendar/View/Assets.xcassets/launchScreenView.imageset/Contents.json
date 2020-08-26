@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "MyCalendarBack-1.png",
+      "filename" : "MyCalendarBack.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "MyCalendarBack.png",
+      "filename" : "MyCalendarBack 2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "MyCalendarBack-2.png",
+      "filename" : "MyCalendarBack 2 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
