@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "アセット 8@1x.png",
+      "filename" : "complete9@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "アセット 8@2x.png",
+      "filename" : "complete9@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "アセット 8@3x.png",
+      "filename" : "complete9@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
