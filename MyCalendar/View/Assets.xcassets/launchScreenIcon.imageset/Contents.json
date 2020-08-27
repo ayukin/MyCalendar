@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "MyCalendarIcon.png",
+      "filename" : "launchScreenIcon@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "launchScreenIcon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "launchScreenIcon@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

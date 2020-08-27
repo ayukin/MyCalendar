@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "MyCalendarBack.png",
+      "filename" : "launchScreenView@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "MyCalendarBack 2.png",
+      "filename" : "launchScreenView@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "MyCalendarBack 2 2.png",
+      "filename" : "launchScreenView@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
