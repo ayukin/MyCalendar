@@ -10,6 +10,7 @@ import UIKit
 
 //delegateはweak参照したいため、classを継承する
 protocol  TextCustomCellDelegate: class {
+    func textFieldDidBeginAction()
     func textFieldChangeAction()
 }
 
@@ -44,6 +45,7 @@ class TextCustomCell: UITableViewCell {
 extension TextCustomCell: UITextFieldDelegate {
     // 入力開始時の処理
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        delegate?.textFieldDidBeginAction()
         textCustomCellDone?()
     }
     // textFieldの内容をリアルタイムで反映させる

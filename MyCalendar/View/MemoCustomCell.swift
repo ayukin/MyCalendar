@@ -10,12 +10,15 @@ import UIKit
 
 //delegateはweak参照したいため、classを継承する
 protocol  MemoCustomCellDelegate: class {
+    func textViewShouldBeginAction()
     func textViewChangeAction()
 }
 
 class MemoCustomCell: UITableViewCell {
     
     @IBOutlet weak var textView: CustomTextView!
+    
+    var memoCustomCellDone: (()->Void)?
     
     // delegateはメモリリークを回避するためweak参照する
     weak var delegate: MemoCustomCellDelegate?
@@ -34,6 +37,13 @@ class MemoCustomCell: UITableViewCell {
 }
 
 extension MemoCustomCell: UITextViewDelegate {
+    // 編集を開始しようとするときに呼び出される処理
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        delegate?.textViewShouldBeginAction()
+        memoCustomCellDone?()
+        return true
+    }
+    
     // textViewの内容をリアルタイムで反映させる
     func textViewDidChangeSelection(_ textView: UITextView) {
         delegate?.textViewChangeAction()

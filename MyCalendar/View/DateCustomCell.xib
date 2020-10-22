@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="yyyy/MM/dd HH:mm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOS-TR-GNM">
-                        <rect key="frame" x="147.5" y="0.0" width="156.5" height="44"/>
+                        <rect key="frame" x="149" y="0.0" width="155" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="QzS-3E-4hg"/>
                         </constraints>
@@ -28,13 +29,13 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="arj-zb-jsp">
                         <rect key="frame" x="0.0" y="44" width="320" height="160"/>
                         <subviews>
-                            <datePicker hidden="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="VdF-xk-ltS">
+                            <datePicker hidden="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="VdF-xk-ltS">
                                 <rect key="frame" x="0.0" y="160" width="320" height="0.0"/>
                             </datePicker>
                         </subviews>
                     </stackView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB9-mf-Uye">
-                        <rect key="frame" x="16" y="0.0" width="42" height="44"/>
+                        <rect key="frame" x="16" y="0.0" width="41.5" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="R8q-QG-lMm"/>
                         </constraints>
@@ -43,7 +44,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="arj-zb-jsp" secondAttribute="trailing" id="3SJ-zt-MQX"/>
                     <constraint firstAttribute="trailing" secondItem="uOS-TR-GNM" secondAttribute="trailing" constant="16" id="Ghy-2g-Jbs"/>
@@ -64,4 +65,9 @@
             <point key="canvasLocation" x="32" y="85"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="tableCellGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

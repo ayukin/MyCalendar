@@ -17,9 +17,6 @@ class CreateViewController: UIViewController {
 
     // Sectionで使用する配列を定義
     let sections: Array = ["task".localized, "status".localized, "dateAndTime".localized, "place".localized, "memo".localized]
-        
-    // タスクのセルのTextFieldのタップイベントを検出するフラグ
-    var IstaskCellDone: Bool = false
     
     // MainViewControllerから渡された値を格納する変数
     var tapCalendarTime: Date? = Date()
@@ -43,12 +40,21 @@ class CreateViewController: UIViewController {
     var memo: String = ""
     var alertString: String!
     
-    // TextCustomCellを「タスク」or「場所」を判別する変数
-    var selectedTextCellIndex: IndexPath?
+    var selectedCustomCellIndex: IndexPath?
+    private let tableViewContentInset: UIEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
+    private var safeAreaBottom: CGFloat {
+        self.view.safeAreaInsets.bottom
+    }
+    
+    // MemoCustomCellを判別する変数
+    var selectedMemoCellIndex: IndexPath?
     
     // 通知登録の有無を変別する際に使用する変数
     var pendingNotification: Bool = false
     var deliveredNotification: Bool = false
+    
+    // キーボードの表示の有無を判別するフラグ
+    var isShowKeyboard: Bool = false
     
     var myColor: UIColor!
     var selectColorNumber: Int!
@@ -76,6 +82,11 @@ class CreateViewController: UIViewController {
         ]
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
+        // 上下にスワイプでキーボードを閉じる
+        tableView.keyboardDismissMode = .onDrag
+        // tableViewの表示位置の調整
+        tableView.contentInset = tableViewContentInset
+        
         tableView.register(UINib(nibName: "TextCustomCell", bundle: nil), forCellReuseIdentifier: "TextCustomCell")
         tableView.register(UINib(nibName: "StatusCustomCell", bundle: nil), forCellReuseIdentifier: "StatusCustomCell")
         tableView.register(UINib(nibName: "DateCustomCell", bundle: nil), forCellReuseIdentifier: "DateCustomCell")
@@ -84,6 +95,14 @@ class CreateViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        // タップ認識するためのインスタンスを生成
+        let tapGesture:UITapGestureRecognizer = UITapGestureRecognizer(
+                    target: self,
+                    action: #selector(CreateViewController.tapped(_:)))
+        tapGesture.delegate = self
+        // Viewに追加
+        self.view.addGestureRecognizer(tapGesture)
         
         // 画面遷移元の判別（ShowViewControllerからの場合、IsShowTransitionを「true」）
         let count = (self.navigationController?.viewControllers.count)! - 2
@@ -115,27 +134,43 @@ class CreateViewController: UIViewController {
         }
         
     }
-        
+    
     // キーボードが表示される際の処理（高さ調整）
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                if  selectedTextCellIndex?.section == 0 {
-                    self.view.frame.origin.y -= 0
-                } else {
-                    self.view.frame.origin.y -= keyboardSize.height
-                }
-            } else {
-                let suggestionHeight = self.view.frame.origin.y + keyboardSize.height
-                self.view.frame.origin.y -= suggestionHeight
+        
+        isShowKeyboard = true
+        
+        if selectedCustomCellIndex?.section == 3 {
+            guard let userInfo = notification.userInfo as? [String: Any] else { return }
+            guard let keyboardInfo = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+            guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+            
+            let keyboardSize = keyboardInfo.cgRectValue.size
+            let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            UIView.animate(withDuration: duration, animations: {
+                self.tableView.contentInset = contentInsets
+                self.view.layoutIfNeeded()
+            })
+                        
+        } else if selectedCustomCellIndex?.section == 4 {
+            if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                // キーボードが表示さていない場合は処理を実行しない
+                if keyboardSize.height <= 0 { return }
+                let bottom = keyboardSize.height - safeAreaBottom
+                let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottom, right: 0)
+                // スクロール位置を変更
+                tableView.contentInset = contentInset
+                let moveY = tableView.contentSize.height - tableView.frame.size.height + keyboardSize.height
+                tableView.contentOffset = CGPoint(x: 0, y: moveY)
             }
         }
+        
     }
+        
     // キーボードと閉じる際の処理
     @objc func keyboardWillHide(notification: Notification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
+        isShowKeyboard = false
+        tableView.contentInset = tableViewContentInset
     }
     
     // Realmに記入内容を登録する処理
@@ -396,7 +431,7 @@ extension CreateViewController: UITableViewDataSource {
                 cell.textField.text = task
             }
             cell.textCustomCellDone = { [weak self] in
-                self?.selectedTextCellIndex = indexPath
+                self?.selectedCustomCellIndex = indexPath
             }
             // Cellのdelegateにselfを渡す
             cell.delegate = self
@@ -443,7 +478,7 @@ extension CreateViewController: UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "DateCustomCell", for: indexPath) as? DateCustomCell else {
-                return UITableViewCell()
+                    return UITableViewCell()
                 }
                 let formatter = DateFormatter()
                 formatter.dateStyle = .medium
@@ -477,7 +512,7 @@ extension CreateViewController: UITableViewDataSource {
                 cell.textField.text = place
             }
             cell.textCustomCellDone = { [weak self] in
-                self?.selectedTextCellIndex = indexPath
+                self?.selectedCustomCellIndex = indexPath
             }
             cell.textField.placeholder = .none
             // Cellのdelegateにselfを渡す
@@ -487,6 +522,9 @@ extension CreateViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MemoCustomCell", for: indexPath) as? MemoCustomCell else {
                 return UITableViewCell()
             }
+            cell.memoCustomCellDone = { [weak self] in
+                self?.selectedCustomCellIndex = indexPath
+            }
             if memo != "" {
                 cell.textView.text = memo
             }
@@ -495,7 +533,6 @@ extension CreateViewController: UITableViewDataSource {
             return cell
         }
     }
-    
 }
 
 extension CreateViewController: UITableViewDelegate {
@@ -537,16 +574,25 @@ extension CreateViewController: UITableViewDelegate {
 }
 
 extension CreateViewController: TextCustomCellDelegate {
+    func textFieldDidBeginAction() {
+        if selectedCustomCellIndex?.section == 3 {
+
+        }
+    }
+    
+        
     func textFieldChangeAction() {
-        if selectedTextCellIndex?.section == 0 {
+        
+        if selectedCustomCellIndex?.section == 0 {
             // タスクの取得（必須）
-            guard let cell = tableView.cellForRow(at: selectedTextCellIndex!) as? TextCustomCell else { return }
+            guard let cell = tableView.cellForRow(at: selectedCustomCellIndex!) as? TextCustomCell else { return }
             task = cell.textField.text!
-        } else {
+        } else if selectedCustomCellIndex?.section == 3 {
             // 場所の取得（任意）
-            guard let cell = tableView.cellForRow(at: selectedTextCellIndex!) as? TextCustomCell else { return }
+            guard let cell = tableView.cellForRow(at: selectedCustomCellIndex!) as? TextCustomCell else { return }
             place = cell.textField.text!
         }
+        
     }
 }
 
@@ -569,6 +615,10 @@ extension CreateViewController: AlertCustomCellDelegate {
 }
 
 extension CreateViewController: MemoCustomCellDelegate {
+    func textViewShouldBeginAction() {
+        
+    }
+    
     func textViewChangeAction() {
         // メモの取得
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 4)) as? MemoCustomCell else { return }
@@ -576,3 +626,20 @@ extension CreateViewController: MemoCustomCellDelegate {
     }
 }
 
+extension CreateViewController: UIGestureRecognizerDelegate {
+    // タップ認識を受け取るかどうかの判別
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if isShowKeyboard {
+            return true
+        } else {
+            return false
+        }
+    }
+    // タップされた時の処理
+    @objc func tapped(_ sender: UITapGestureRecognizer){
+        isShowKeyboard = false
+        // キーボードを閉じる
+        view.endEditing(true)
+    }
+
+}
