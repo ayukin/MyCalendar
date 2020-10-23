@@ -60,7 +60,7 @@ I chose Realm Swift for the above reasons.
 ## Conscious part / 意識した点
 1. Although it was for learning, it will be posted on the App Store, so I referred to the evaluation reviews of various Todo apps to find out what kind of issues users have and what kind of functions they want. And I was conscious of incorporating as much as possible.
 
- 学習のためではありましたがApp Storeに掲載されるため、色々なTodoアプリの評価レビューを参考にユーザーがどのような課題を持ち、どのような機能を望んでいるのか調べました。そして可能な限り取り入れることを意識しました。  
+  学習のためではありましたがApp Storeに掲載されるため、色々なTodoアプリの評価レビューを参考にユーザーがどのような課題を持ち、どのような機能を望んでいるのか調べました。そして可能な限り取り入れることを意識しました。  
 
 > * I want a notification function because I forget that I filled it out  
 >   記入をしたことを忘れてしまうので通知機能が欲しい  
