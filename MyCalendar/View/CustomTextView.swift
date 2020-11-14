@@ -9,17 +9,17 @@
 import UIKit
 
 class CustomTextView: UITextView{
-    
+
     init(frame:CGRect) {
         super.init(frame: frame, textContainer: nil)
         commonInit()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
-    
+
     private func commonInit(){
         let tools = UIToolbar()
         tools.frame = CGRect(x: 0, y: 0, width: frame.width, height: 45)
@@ -29,9 +29,10 @@ class CustomTextView: UITextView{
         tools.items = [spacer, closeButton]
         self.inputAccessoryView = tools
     }
-    
+
     @objc func closeButtonTapped(){
         self.endEditing(true)
         self.resignFirstResponder()
     }
 }
+

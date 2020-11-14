@@ -119,8 +119,14 @@
 			isa = PBXGroup;
 			children = (
 				8463561E24B87A0F002C3962 /* Model */,
+				84262F0E2560477100CB0D5B /* Extension */,
+				84262F0C2560466C00CB0D5B /* Xib */,
 				8463561D24B87A08002C3962 /* View */,
 				8463561B24B879F1002C3962 /* Controller */,
+				841FD04E24A35C720039E4E0 /* Main.storyboard */,
+				841FD04824A35C720039E4E0 /* AppDelegate.swift */,
+				841FD04A24A35C720039E4E0 /* SceneDelegate.swift */,
+				841FD05124A35C740039E4E0 /* Assets.xcassets */,
 				841FD05324A35C740039E4E0 /* LaunchScreen.storyboard */,
 				841FD05624A35C740039E4E0 /* Info.plist */,
 				84E5506524F02DFA00C4BEB6 /* InfoPlist.strings */,
@@ -129,11 +135,31 @@
 			path = MyCalendar;
 			sourceTree = "<group>";
 		};
+		84262F0C2560466C00CB0D5B /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				8463562224B87E26002C3962 /* TextCustomCell.xib */,
+				845B90F524B9AD9E000A44C7 /* StatusCustomCell.xib */,
+				8463562624B88363002C3962 /* DateCustomCell.xib */,
+				84C922F924D2CFCC00A7D42D /* AlertCustomCell.xib */,
+				845B910524B9E577000A44C7 /* MemoCustomCell.xib */,
+				846DC33324C463A500F951BE /* ListCustomCell.xib */,
+			);
+			path = Xib;
+			sourceTree = "<group>";
+		};
+		84262F0E2560477100CB0D5B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				84BAEA7324D8195E00A726B5 /* UserDefaults.swift */,
+				84E5505E24EF768100C4BEB6 /* String.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		8463561B24B879F1002C3962 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				841FD04824A35C720039E4E0 /* AppDelegate.swift */,
-				841FD04A24A35C720039E4E0 /* SceneDelegate.swift */,
 				841FD04C24A35C720039E4E0 /* MainViewController.swift */,
 				8463561F24B87A75002C3962 /* CreateViewController.swift */,
 				8446240024C9E95B00831064 /* ShowViewController.swift */,
@@ -146,20 +172,13 @@
 		8463561D24B87A08002C3962 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				841FD04E24A35C720039E4E0 /* Main.storyboard */,
-				841FD05124A35C740039E4E0 /* Assets.xcassets */,
 				8463562124B87E26002C3962 /* TextCustomCell.swift */,
-				8463562224B87E26002C3962 /* TextCustomCell.xib */,
 				845B90F424B9AD9E000A44C7 /* StatusCustomCell.swift */,
-				845B90F524B9AD9E000A44C7 /* StatusCustomCell.xib */,
 				8463562524B88363002C3962 /* DateCustomCell.swift */,
-				8463562624B88363002C3962 /* DateCustomCell.xib */,
 				84C922F824D2CFCC00A7D42D /* AlertCustomCell.swift */,
-				84C922F924D2CFCC00A7D42D /* AlertCustomCell.xib */,
 				845B910424B9E577000A44C7 /* MemoCustomCell.swift */,
-				845B910524B9E577000A44C7 /* MemoCustomCell.xib */,
 				846DC33224C463A500F951BE /* ListCustomCell.swift */,
-				846DC33324C463A500F951BE /* ListCustomCell.xib */,
+				845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -167,10 +186,7 @@
 		8463561E24B87A0F002C3962 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				845BDEFB24BDF5C300EDB6E4 /* CustomTextView.swift */,
 				844C4BCE24C1B17200CFB159 /* Todo.swift */,
-				84BAEA7324D8195E00A726B5 /* UserDefaults.swift */,
-				84E5505E24EF768100C4BEB6 /* String.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -501,7 +517,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.uf1ohdpwgm.MyCalendarApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "MyCalendarApp Provisioning Profiles";
@@ -524,7 +540,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.uf1ohdpwgm.MyCalendarApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "MyCalendarApp Provisioning Profiles";
